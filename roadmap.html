@@ -1,0 +1,2364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hint Health — Product roadmap</title>
+<meta name="description" content="What Hint is shipping, what's in flight, and what's planned. Updated each quarter.">
+
+<!--
+  =====================================================================
+  HINT ROADMAP — EDIT THESE PLACEHOLDERS BEFORE PUBLISHING
+  =====================================================================
+  Find/replace each {{TOKEN}} with the live URL or value:
+
+    {{CANNY_URL}}                  → Canny board for feature requests
+    {{COMMUNITY_URL}}              → Hint community URL (where the private customer roadmap lives)
+    {{SALES_URL}}                  → "Talk to sales" contact form
+    {{LAST_UPDATED}}               → e.g. "April 30, 2026"
+    {{Q1_MORE_COUNT}}              → e.g. "12" — # of additional Q1 features on the private customer roadmap
+    {{Q2_MORE_COUNT}}              → e.g. "10" — # of additional Q2 features on the private customer roadmap
+    {{WHATS_NEW_VERSION}}          → e.g. "2026-04-30" — bump each quarter so dismissed users re-see it
+    {{WHATS_NEW_TEXT}}             → e.g. "AI Analyze shipped · 3 new betas opened · 5 more Marketplace partners"
+
+  Note: if {{WHATS_NEW_*}} are not replaced, the ribbon hides itself. If
+  {{Q*_MORE_COUNT}} are not replaced, the teaser line falls back to
+  "More features in this quarter on our private customer roadmap".
+
+    Demo videos (Q1 launches that have a recorded walkthrough):
+    {{DEMO_PACKAGES}}
+    {{DEMO_UNIFIED_NAV_CHART}}
+    {{DEMO_APP_STORE}}
+    {{DEMO_TAP_TO_PAY}}
+    {{DEMO_MESSAGING}}
+    {{DEMO_SCHEDULED_PRICE_CHANGE}}
+    {{DEMO_PATIENT_PORTAL_REFRESH}}
+    {{DEMO_AI_ANALYZE}}
+
+  Upcoming events: edit the EVENTS array inline in the <script> at
+  the bottom of this file. Each entry: { name, month, day, location, url }.
+
+  HUBSPOT EMBED INSTRUCTIONS
+  --------------------------
+  Create a HubSpot custom HTML module on the /roadmap page and paste
+  this entire file into the module's HTML source. No external assets
+  required apart from Google Fonts.
+  =====================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* Brand colors from Hint design system */
+  --color-action-primary:        #0E68E2;
+  --color-action-primary-hover:  #0A56BE;
+  --color-text-primary:          #0B1730;
+  --color-text-secondary:        #3F506E;  /* WCAG AA on white: 8.0:1 */
+  --color-text-tertiary:         #56657F;  /* WCAG AA on white: 5.1:1 */
+  --color-text-on-primary:       #FFFFFF;
+  --color-bg-page:               #F6F9FD;
+  --color-bg-blue:               #EFF5FD;
+  --color-bg-card:               #FFFFFF;
+  --color-border:                #E6ECF4;
+  --color-border-strong:         #C9D4E5;
+
+  /* Status colors — semantic */
+  --color-shipped-text:       #00602D;
+  --color-shipped-bg:         #DCFCE7;
+  --color-inprogress-text:    #0E68E2;
+  --color-inprogress-bg:      #E1EEFC;
+  --color-beta-text:          #6B2FC7;
+  --color-beta-bg:            #F0E7FB;
+  --color-planned-text:       #4A5B7A;
+  --color-planned-bg:         #EEF2F8;
+  --color-exploring-text:     #4A5B7A;
+  --color-exploring-bg:       #EEF2F8;
+  --color-deprioritized-text: #8C6200;
+  --color-deprioritized-bg:   #FFF7DE;
+
+  --radius-card: 10px;
+  --radius-pill: 9999px;
+  --shadow-card:       0 1px 2px rgba(11,23,48,0.04), 0 2px 8px rgba(11,23,48,0.06);
+  --shadow-card-hover: 0 2px 4px rgba(11,23,48,0.06), 0 8px 24px rgba(11,23,48,0.10);
+  --shadow-modal:      0 20px 48px rgba(11,23,48,0.18);
+  --transition: 220ms ease;
+  --transition-slow: 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+body {
+  font-family: 'Wix Madefor Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 400;
+  color: var(--color-text-primary);
+  background: var(--color-bg-page);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+img, svg { display: block; max-width: 100%; }
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+/* ═══ Buttons ═══ */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 36px; padding: 0 16px;
+  border-radius: var(--radius-pill);
+  font-family: inherit; font-size: 14px; font-weight: 500;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition);
+  white-space: nowrap;
+  background: none;
+}
+.btn-primary { background: var(--color-action-primary); color: #FFFFFF; }
+.btn-primary:hover { background: var(--color-action-primary-hover); }
+.btn-outline {
+  background: #FFFFFF; color: var(--color-text-primary);
+  border-color: var(--color-border-strong);
+}
+.btn-outline:hover { border-color: var(--color-action-primary); color: var(--color-action-primary); }
+.btn-sm { height: 30px; padding: 0 12px; font-size: 13px; }
+.btn-lg { height: 42px; padding: 0 20px; font-size: 15px; }
+.btn-on-dark-primary { background: #FFFFFF; color: var(--color-action-primary); }
+.btn-on-dark-primary:hover { background: #F0F4FA; }
+.btn-on-dark-outline { background: transparent; color: #FFFFFF; border-color: rgba(255, 255, 255, 0.32); }
+.btn-on-dark-outline:hover { border-color: #FFFFFF; background: rgba(255, 255, 255, 0.10); }
+.btn .ext { width: 14px; height: 14px; stroke-width: 2; }
+
+/* ═══ What's new ribbon (top of page, dismissible) ═══ */
+.whatsnew {
+  background: linear-gradient(90deg, #EAF2FC 0%, #F4FAFF 100%);
+  border-bottom: 1px solid #BFD3EE;
+  padding: 10px 0;
+}
+.whatsnew[hidden] { display: none; }
+.whatsnew-wrap {
+  display: flex; align-items: center; gap: 12px;
+}
+.whatsnew-icon {
+  width: 26px; height: 26px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-action-primary);
+  color: #FFFFFF;
+  display: grid; place-items: center;
+}
+.whatsnew-text {
+  flex: 1;
+  font-size: 13.5px;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+.whatsnew-text strong {
+  color: var(--color-action-primary);
+  font-weight: 700;
+  margin-right: 6px;
+}
+.whatsnew-dismiss {
+  background: transparent; border: none;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  color: var(--color-text-tertiary);
+  display: grid; place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+.whatsnew-dismiss:hover {
+  background: rgba(11, 23, 48, 0.06);
+  color: var(--color-text-primary);
+}
+
+/* ═══ Sticky jump-to bar ═══ */
+.jumpbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(246, 249, 253, 0.92);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+}
+.jumpbar-wrap {
+  display: flex; align-items: center; gap: 12px;
+  padding-top: 10px; padding-bottom: 10px;
+}
+.jumpbar-label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.10em; text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+.jumpbar-links {
+  display: flex; align-items: center; gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
+}
+.jumpbar-links::-webkit-scrollbar { height: 0; display: none; }
+.jumpbar-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 13px; font-weight: 500;
+  color: var(--color-text-secondary);
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  white-space: nowrap;
+  transition: all var(--transition);
+}
+.jumpbar-link:hover {
+  border-color: var(--color-action-primary);
+  color: var(--color-action-primary);
+  transform: translateY(-1px);
+}
+.jumpbar-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ═══ Hero ═══ */
+.hero { padding: 56px 0 24px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px; border-radius: var(--radius-pill);
+  background: var(--color-bg-blue);
+  color: var(--color-action-primary);
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+.hero-eyebrow .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--color-action-primary);
+}
+.hero h1 {
+  font-size: clamp(32px, 4.4vw, 44px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  max-width: 760px;
+  margin-bottom: 12px;
+}
+.hero p.lead {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  max-width: 720px;
+  line-height: 1.6;
+}
+
+/* ═══ 2026 Themes (gradient card) ═══ */
+.themes { padding: 16px 0 24px; }
+.themes-card {
+  position: relative; overflow: hidden;
+  /* Darker gradient so white text passes WCAG AA */
+  background: linear-gradient(110deg, #07347A 0%, #0E68E2 100%);
+  border-radius: 16px;
+  padding: 36px 40px;
+  box-shadow: 0 4px 24px rgba(14, 104, 226, 0.18), 0 1px 4px rgba(11, 23, 48, 0.10);
+}
+.themes-card::before {
+  content: ''; position: absolute;
+  top: -120px; right: -120px;
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(86, 168, 255, 0.30) 0%, transparent 70%);
+  pointer-events: none;
+}
+.themes-card::after {
+  content: ''; position: absolute;
+  bottom: -80px; left: -80px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(14, 104, 226, 0.30) 0%, transparent 70%);
+  pointer-events: none;
+}
+.themes-mission {
+  font-size: 19px; color: #FFFFFF;
+  line-height: 1.5; max-width: 760px;
+  margin-bottom: 28px; position: relative;
+  font-weight: 500;
+}
+.themes-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  position: relative;
+}
+.theme-card {
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  border-radius: 12px;
+  padding: 22px 24px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: all var(--transition);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+}
+.theme-card:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.40);
+  transform: translateY(-2px);
+}
+.theme-card:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 3px;
+}
+.theme-card.is-selected {
+  background: rgba(255, 255, 255, 0.20);
+  border-color: rgba(255, 255, 255, 0.50);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.40) inset, 0 6px 18px rgba(0,0,0,0.10);
+}
+.theme-card.is-selected .theme-card-cta { opacity: 1; transform: translateY(0); color: #FFFFFF; }
+.theme-card-cta {
+  margin-top: auto; padding-top: 4px;
+  font-size: 13px; font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: -0.005em;
+  display: inline-flex; align-items: center; gap: 6px;
+  opacity: 0; transform: translateY(2px);
+  transition: opacity var(--transition), transform var(--transition);
+}
+.theme-card:hover .theme-card-cta,
+.theme-card:focus-visible .theme-card-cta {
+  opacity: 1; transform: translateY(0);
+}
+.theme-card-head { display: flex; align-items: center; gap: 12px; }
+.theme-number {
+  width: 28px; height: 28px; flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  color: #FFFFFF;
+  display: grid; place-items: center;
+  font-size: 13px; font-weight: 600;
+}
+.theme-card-title { font-size: 16px; font-weight: 600; color: #FFFFFF; line-height: 1.3; }
+.theme-card-body { font-size: 15px; color: rgba(255, 255, 255, 0.96); line-height: 1.6; }
+.themes-jump {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 24px; padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  flex-wrap: wrap; position: relative;
+}
+.themes-jump-label {
+  font-size: 11px; font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-right: 4px;
+}
+.themes-jump-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-pill);
+  color: #FFFFFF;
+  font-size: 13px; font-weight: 500;
+  transition: all var(--transition);
+}
+.themes-jump-link:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+}
+.themes-jump-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+/* ═══ Spotlight: recent launch demo video ═══ */
+.spotlight { padding: 36px 0 8px; }
+.spotlight-card {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 32px;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+}
+@media (max-width: 900px) {
+  .spotlight-card { grid-template-columns: 1fr; padding: 22px; gap: 22px; }
+}
+.spotlight-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.10em;
+  color: var(--color-action-primary);
+  margin-bottom: 12px;
+}
+.spotlight-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-action-primary);
+  box-shadow: 0 0 0 4px rgba(14, 104, 226, 0.18);
+  animation: spotlight-pulse 2.4s ease-in-out infinite;
+}
+@keyframes spotlight-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(14,104,226,0.45); }
+  50%     { box-shadow: 0 0 0 8px rgba(14,104,226,0); }
+}
+.spotlight-title {
+  font-size: 26px; font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+  color: var(--color-text-primary);
+}
+.spotlight-desc {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.spotlight-cta {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.spotlight-video {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0B1730;
+  aspect-ratio: 16/9;
+  box-shadow: 0 4px 12px rgba(11, 23, 48, 0.10), 0 12px 32px rgba(11, 23, 48, 0.14);
+}
+.spotlight-video video {
+  width: 100%; height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.spotlight-mute {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(11, 23, 48, 0.72);
+  color: #FFFFFF;
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  display: grid; place-items: center;
+  transition: all var(--transition);
+  backdrop-filter: blur(6px);
+}
+.spotlight-mute:hover { background: rgba(11, 23, 48, 0.92); }
+.spotlight-mute .icon-unmuted { display: none; }
+.spotlight-mute.is-unmuted .icon-muted { display: none; }
+.spotlight-mute.is-unmuted .icon-unmuted { display: block; }
+
+/* ═══ Section header ═══ */
+.section-header { margin: 48px 0 24px; }
+.section-header-flex {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap;
+}
+.section-title {
+  font-size: 26px; font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.section-sub {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  max-width: 720px;
+  line-height: 1.55;
+}
+.section-sub a { color: var(--color-action-primary); font-weight: 500; }
+.section-sub a:hover { text-decoration: underline; }
+
+
+/* ═══ Quarter switcher ═══ */
+.qtabs {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex; gap: 8px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.qtabs::-webkit-scrollbar { height: 0; display: none; }
+.qtab {
+  flex: 1 0 auto; min-width: 220px;
+  scroll-snap-align: start;
+  background: transparent; border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition);
+  display: flex; flex-direction: column; gap: 6px;
+}
+@media (max-width: 768px) {
+  .qtab { min-width: 200px; padding: 12px 14px; }
+  .qtabs { padding: 8px; }
+}
+.qtab:hover { background: var(--color-bg-blue); }
+.qtab.active {
+  background: var(--color-bg-blue);
+  border-color: var(--color-action-primary);
+  box-shadow: 0 2px 8px rgba(14, 104, 226, 0.12);
+  transform: translateY(-1px);
+}
+.qtab.qtab-link::after {
+  content: '↓';
+  position: absolute;
+  top: 12px; right: 14px;
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  transition: transform var(--transition);
+  font-weight: 700;
+}
+.qtab.qtab-link:hover::after { color: var(--color-action-primary); transform: translateY(2px); }
+.qtab.qtab-link { position: relative; }
+.qtab-label {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.qtab-name { font-size: 15px; font-weight: 600; color: var(--color-text-primary); }
+.qtab-months { font-size: 12px; color: var(--color-text-tertiary); font-weight: 500; }
+
+/* ═══ Theme expansion drawer (opens beneath hero themes) ═══ */
+.theme-expand {
+  margin-top: 16px;
+  background: linear-gradient(180deg, #EAF2FC 0%, #DCE9F8 100%);
+  border: 1px solid #BFD3EE;
+  border-radius: 16px;
+  padding: 26px 30px 30px;
+  box-shadow: 0 1px 2px rgba(11,23,48,0.04), 0 10px 28px rgba(14, 104, 226, 0.10);
+  position: relative;
+  animation: theme-expand-in 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes theme-expand-in {
+  from { opacity: 0; transform: translateY(-14px) scale(0.985); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);     filter: blur(0); }
+}
+.theme-expand[hidden] { display: none; }
+/* Visual "tab" connecting the drawer to the hero gradient above */
+.theme-expand::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 50%;
+  transform: translate(-50%, -100%);
+  width: 80px; height: 12px;
+  background: linear-gradient(180deg, #0E68E2 0%, #1D7BEC 100%);
+  border-radius: 12px 12px 0 0;
+  opacity: 0.85;
+}
+.theme-expand-head {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.theme-expand-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.10em;
+  color: var(--color-action-primary);
+}
+.theme-expand-num {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--color-action-primary);
+  color: #FFFFFF;
+  display: grid; place-items: center;
+  font-size: 13px; font-weight: 700;
+}
+.theme-expand-close {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px 6px 10px;
+  font-family: inherit; font-size: 13px; font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: all var(--transition);
+}
+.theme-expand-close:hover {
+  border-color: var(--color-action-primary);
+  color: var(--color-action-primary);
+  background: var(--color-bg-blue);
+}
+.theme-expand-title {
+  font-size: 24px; font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  color: var(--color-text-primary);
+}
+.theme-expand-summary {
+  font-size: 16px; color: var(--color-text-secondary);
+  line-height: 1.6; max-width: 820px;
+  margin-bottom: 22px;
+}
+.feature-grid-theme .feature-card {
+  background: #FFFFFF;
+  border-color: #C9D9EE;
+}
+
+/* ═══ Theme tabs (legacy, kept for fallback only) ═══ */
+.ttabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+@media (max-width: 800px) { .ttabs { grid-template-columns: 1fr; } }
+.ttab {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 16px 18px;
+  display: flex; align-items: flex-start; gap: 14px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+}
+.ttab::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--color-action-primary);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.ttab:hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card-hover);
+}
+.ttab.active {
+  border-color: var(--color-action-primary);
+  background: var(--color-bg-blue);
+}
+.ttab.active::before { opacity: 1; }
+.ttab-num {
+  width: 32px; height: 32px; flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-bg-blue);
+  color: var(--color-action-primary);
+  display: grid; place-items: center;
+  font-size: 14px; font-weight: 700;
+  border: 1px solid var(--color-border);
+}
+.ttab.active .ttab-num {
+  background: var(--color-action-primary);
+  color: #FFFFFF;
+  border-color: var(--color-action-primary);
+}
+.ttab-body { flex: 1; min-width: 0; }
+.ttab-name { font-size: 15px; font-weight: 600; color: var(--color-text-primary); line-height: 1.3; margin-bottom: 4px; }
+.ttab-count { font-size: 12px; color: var(--color-text-tertiary); font-weight: 500; }
+
+/* ═══ Theme panel ═══ */
+.tpanel {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 28px 32px 32px;
+  box-shadow: var(--shadow-card);
+}
+.tview-summary {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  max-width: 820px;
+  margin-bottom: 24px;
+}
+
+/* ═══ Quarter stack: both Q2 and Q1 panels always visible ═══ */
+.qstack {
+  display: flex; flex-direction: column;
+  gap: 20px;
+  perspective: 1400px;
+}
+.qview {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 32px 36px 36px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  transition: transform var(--transition-slow), box-shadow var(--transition-slow), border-color var(--transition);
+  transform-origin: 50% 30%;
+  will-change: transform, opacity, filter;
+  scroll-margin-top: 24px;
+}
+.qview.active {
+  border-color: var(--color-action-primary);
+  box-shadow: 0 4px 16px rgba(14, 104, 226, 0.10), 0 24px 48px rgba(14, 104, 226, 0.10);
+}
+.qview.is-zooming {
+  animation: qview-zoom 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes qview-zoom {
+  0%   { transform: perspective(1400px) translateZ(-160px) scale(0.92); opacity: 0;   filter: blur(8px); }
+  35%  { opacity: 1; filter: blur(2px); }
+  70%  { filter: blur(0); }
+  100% { transform: perspective(1400px) translateZ(0)      scale(1);    opacity: 1;   filter: blur(0); }
+}
+/* Ambient state: non-active panel sits slightly back */
+.qview.is-recessed {
+  transform: scale(0.98);
+  opacity: 0.92;
+}
+.qview-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.qview-title {
+  font-size: 26px; font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.qview-meta { font-size: 14px; color: var(--color-text-tertiary); margin-left: 8px; }
+.qview-summary {
+  font-size: 16px; color: var(--color-text-secondary);
+  margin: 12px 0 28px; max-width: 820px;
+  line-height: 1.65;
+}
+
+/* Quarter highlights row */
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px dashed var(--color-border);
+}
+.highlights-label {
+  grid-column: 1 / -1;
+  font-size: 11px; font-weight: 500;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.highlight-chip {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-border-strong);
+  border-radius: 8px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+  font-family: inherit;
+  display: flex; flex-direction: column; gap: 4px;
+  min-height: 80px; justify-content: space-between;
+}
+.highlight-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+.highlight-chip[data-status="shipped"] { border-left-color: var(--color-shipped-text); }
+.highlight-chip[data-status="beta"] { border-left-color: var(--color-beta-text); }
+.highlight-chip[data-status="inprogress"] { border-left-color: var(--color-action-primary); }
+.highlight-chip[data-status="planned"] { border-left-color: var(--color-planned-text); }
+.highlight-chip-area {
+  font-size: 10px; font-weight: 500;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.highlight-chip-title {
+  font-size: 14.5px; font-weight: 600; line-height: 1.35;
+  color: var(--color-text-primary);
+  transition: color var(--transition);
+}
+.highlight-chip:hover .highlight-chip-title { color: var(--color-action-primary); }
+.highlight-chip-footer {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.highlight-chip-status {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.highlight-chip[data-status="shipped"] .highlight-chip-status { color: var(--color-shipped-text); }
+.highlight-chip[data-status="beta"] .highlight-chip-status { color: var(--color-beta-text); }
+.highlight-chip[data-status="inprogress"] .highlight-chip-status { color: var(--color-action-primary); }
+.highlight-chip[data-status="planned"] .highlight-chip-status { color: var(--color-planned-text); }
+.highlight-chip-arrow {
+  font-size: 14px; color: var(--color-text-tertiary);
+  transition: transform var(--transition);
+}
+.highlight-chip:hover .highlight-chip-arrow {
+  transform: translateX(2px); color: var(--color-action-primary);
+}
+
+/* Track group */
+.track-group { margin-bottom: 28px; }
+.track-group:last-child { margin-bottom: 0; }
+.track-label {
+  font-size: 12px; font-weight: 500;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 1100px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .feature-grid { grid-template-columns: 1fr; } }
+.feature-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 14px 16px 16px;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+  font-family: inherit;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.feature-card-q {
+  position: absolute;
+  top: 14px; right: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.feature-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+}
+.feature-card:focus-visible {
+  outline: 2px solid var(--color-action-primary);
+  outline-offset: 2px;
+}
+.feature-card-head {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+}
+.feature-title { font-size: 15px; font-weight: 600; line-height: 1.35; color: var(--color-text-primary); }
+.feature-desc { font-size: 14px; color: var(--color-text-secondary); line-height: 1.55; }
+
+/* ═══ Private roadmap teaser ═══ */
+.more-roadmap {
+  display: flex; align-items: center; gap: 14px;
+  margin-top: 18px;
+  padding: 16px 20px;
+  background: var(--color-bg-blue);
+  border: 1px dashed var(--color-action-primary);
+  border-radius: var(--radius-card);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.more-roadmap:hover {
+  background: #DBE9FB;
+  border-style: solid;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(14, 104, 226, 0.10);
+}
+.more-roadmap-icon {
+  width: 34px; height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(14, 104, 226, 0.12);
+  color: var(--color-action-primary);
+  display: grid; place-items: center;
+}
+.more-roadmap-body { flex: 1; }
+.more-roadmap-title {
+  font-size: 15px; font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.005em;
+}
+.more-roadmap-meta {
+  font-size: 13.5px; color: var(--color-text-secondary);
+  margin-top: 2px;
+  line-height: 1.45;
+}
+.more-roadmap-arrow {
+  color: var(--color-action-primary);
+  font-size: 18px; font-weight: 700;
+  transition: transform var(--transition);
+  flex-shrink: 0;
+}
+.more-roadmap:hover .more-roadmap-arrow { transform: translateX(3px); }
+
+/* ═══ Pills ═══ */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 22px; padding: 0 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px; font-weight: 500; line-height: 1;
+  white-space: nowrap;
+}
+.pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.pill-shipped       { background: var(--color-shipped-bg);       color: var(--color-shipped-text); }
+.pill-inprogress    { background: var(--color-inprogress-bg);    color: var(--color-inprogress-text); }
+.pill-beta          { background: var(--color-beta-bg);          color: var(--color-beta-text); }
+.pill-planned       { background: var(--color-planned-bg);       color: var(--color-planned-text); }
+.pill-exploring     { background: var(--color-exploring-bg);     color: var(--color-exploring-text); border: 1px dashed var(--color-border-strong); padding: 0 9px; }
+.pill-deprioritized { background: var(--color-deprioritized-bg); color: var(--color-deprioritized-text); }
+
+/* ═══ Active betas section ═══ */
+.betas {
+  background: linear-gradient(135deg, #F0E7FB 0%, #F6F0FC 100%);
+  border: 1px solid #D6BEE8;
+  border-radius: var(--radius-card);
+  padding: 24px 28px;
+  margin-top: 32px;
+}
+.betas-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.betas-icon { width: 22px; height: 22px; color: var(--color-beta-text); }
+.betas-title { font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+.betas-sub { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 16px; line-height: 1.55; }
+.betas-sub a { color: var(--color-beta-text); font-weight: 500; }
+.betas-sub a:hover { text-decoration: underline; }
+.betas-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+@media (max-width: 900px) { .betas-list { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .betas-list { grid-template-columns: 1fr; } }
+.betas-item {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 14.5px; cursor: pointer;
+  transition: all var(--transition);
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font-family: inherit; text-align: left;
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+.betas-item:hover { border-color: var(--color-beta-text); }
+.betas-item-area { font-size: 11px; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500; margin-bottom: 2px; }
+.betas-item-body { flex: 1; }
+
+/* ═══ Where we're looking next ═══ */
+.horizon { margin-top: 56px; }
+.horizon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.horizon-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 18px 20px;
+  display: flex; flex-direction: column; gap: 8px;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+  font-family: inherit;
+}
+.horizon-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+}
+.horizon-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.horizon-card h4 {
+  font-size: 16px; font-weight: 600; line-height: 1.35;
+  color: var(--color-text-primary);
+}
+.horizon-card p {
+  font-size: 14.5px; color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+.horizon-note {
+  margin-top: 18px;
+  padding: 14px 18px;
+  background: #FFFFFF;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-card);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+.horizon-note strong { color: var(--color-text-primary); font-weight: 500; }
+
+/* ═══ Help us shape (events + feedback) ═══ */
+.shape { margin: 56px 0 64px; }
+.shape-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  margin-top: 20px;
+}
+@media (max-width: 900px) { .shape-grid { grid-template-columns: 1fr; } }
+.shape-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 24px 26px;
+  box-shadow: var(--shadow-card);
+  display: flex; flex-direction: column;
+  transition: all var(--transition);
+}
+.shape-card:hover { box-shadow: var(--shadow-card-hover); border-color: var(--color-border-strong); }
+.shape-card .icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: var(--color-bg-blue);
+  color: var(--color-action-primary);
+  display: grid; place-items: center;
+  margin-bottom: 14px;
+}
+.shape-card h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 6px; color: var(--color-text-primary); }
+.shape-card p { font-size: 15px; color: var(--color-text-secondary); line-height: 1.6; flex: 1; margin-bottom: 16px; }
+.shape-card-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+.event-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.event-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--color-bg-blue);
+  text-align: left;
+  font-family: inherit;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.event-item:hover { border-color: var(--color-action-primary); }
+.event-date {
+  flex-shrink: 0; width: 46px; text-align: center;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 4px 0;
+}
+.event-date-mo { font-size: 10px; font-weight: 700; color: var(--color-action-primary); text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.2; }
+.event-date-day { font-size: 16px; font-weight: 500; line-height: 1.1; color: var(--color-text-primary); }
+.event-body { flex: 1; }
+.event-title { font-size: 14px; font-weight: 500; margin-bottom: 2px; line-height: 1.35; }
+.event-meta { font-size: 12px; color: var(--color-text-tertiary); }
+.event-empty {
+  padding: 14px 12px;
+  background: var(--color-bg-blue);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* ═══ Footer ═══ */
+footer {
+  border-top: 1px solid var(--color-border);
+  background: #FFFFFF;
+  padding: 24px 0 32px;
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+}
+footer .wrap {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+footer .disclaimer { max-width: 600px; line-height: 1.55; }
+footer .disclaimer strong { color: var(--color-text-secondary); font-weight: 500; }
+footer a { color: var(--color-action-primary); font-weight: 500; }
+footer a:hover { text-decoration: underline; }
+
+/* ═══ Modal ═══ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(11, 23, 48, 0.5);
+  backdrop-filter: blur(4px);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--transition);
+  z-index: 100;
+  display: grid; place-items: center;
+  padding: 24px;
+}
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal {
+  background: #FFFFFF;
+  border-radius: 14px;
+  box-shadow: var(--shadow-modal);
+  width: 100%; max-width: 700px; max-height: 88vh;
+  display: flex; flex-direction: column;
+  transform: translateY(8px);
+  transition: transform var(--transition);
+  overflow: hidden;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-hero {
+  padding: 28px 32px 22px;
+  background: linear-gradient(135deg, #EFF5FD 0%, #E1EEFC 100%);
+  position: relative;
+  border-bottom: 1px solid var(--color-border);
+}
+.modal-hero[data-status="beta"]          { background: linear-gradient(135deg, #F6F0FC 0%, #F0E7FB 100%); }
+.modal-hero[data-status="shipped"]       { background: linear-gradient(135deg, #EEFBF3 0%, #DCFCE7 100%); }
+.modal-hero[data-status="planned"],
+.modal-hero[data-status="exploring"]     { background: linear-gradient(135deg, #F4F6FB 0%, #EEF2F8 100%); }
+.modal-hero[data-status="deprioritized"] { background: linear-gradient(135deg, #FFFAEB 0%, #FFF7DE 100%); }
+.modal-meta {
+  display: flex; gap: 8px; align-items: center;
+  font-size: 12px; color: var(--color-text-tertiary);
+  margin-bottom: 10px; flex-wrap: wrap;
+}
+.modal-title {
+  font-size: 26px; font-weight: 400;
+  letter-spacing: -0.02em; line-height: 1.18;
+  margin-bottom: 6px;
+}
+.modal-tagline { font-size: 15px; color: var(--color-text-secondary); line-height: 1.5; max-width: 560px; }
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  padding: 6px;
+  border-radius: 50%;
+  color: var(--color-text-secondary);
+  transition: all var(--transition);
+  width: 30px; height: 30px;
+  display: grid; place-items: center;
+}
+.modal-close:hover { background: #FFFFFF; color: var(--color-text-primary); }
+.modal-body { padding: 22px 32px; overflow-y: auto; flex: 1; }
+.modal-body h3 {
+  font-size: 12px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+  margin: 18px 0 8px;
+}
+.modal-body h3:first-child { margin-top: 0; }
+.modal-body p { font-size: 14.5px; color: var(--color-text-primary); line-height: 1.6; margin-bottom: 10px; }
+.modal-foot {
+  padding: 14px 32px 22px;
+  border-top: 1px solid var(--color-border);
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+
+/* ═══ Waterfall stagger animation for cards ═══ */
+@keyframes card-waterfall {
+  0%   { opacity: 0; transform: translateY(28px) scale(0.96); filter: blur(6px); }
+  60%  { filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0)   scale(1);    filter: blur(0); }
+}
+.feature-card.is-waterfalling {
+  animation: card-waterfall 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ═══ See everything shipped this year ═══ */
+.seeall { margin-top: 32px; }
+.seeall-toggle {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 18px;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-primary);
+  font-family: inherit; font-size: 14.5px; font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-card);
+}
+.seeall-toggle:hover {
+  border-color: var(--color-action-primary);
+  color: var(--color-action-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card-hover);
+}
+.seeall-toggle-icon {
+  display: inline-grid; place-items: center;
+  transition: transform var(--transition);
+  color: var(--color-action-primary);
+}
+.seeall-toggle[aria-expanded="true"] .seeall-toggle-icon { transform: rotate(180deg); }
+.seeall-toggle-count {
+  font-size: 12px; font-weight: 500;
+  color: var(--color-text-tertiary);
+  padding: 3px 8px;
+  background: var(--color-bg-blue);
+  border-radius: var(--radius-pill);
+}
+.seeall-list {
+  margin-top: 18px;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 8px;
+  box-shadow: var(--shadow-card);
+}
+.seeall-list[hidden] { display: none; }
+.seeall-group { padding: 8px 0; }
+.seeall-group + .seeall-group { border-top: 1px solid var(--color-border); }
+.seeall-group-label {
+  font-size: 11px; font-weight: 700;
+  color: var(--color-action-primary);
+  letter-spacing: 0.10em; text-transform: uppercase;
+  padding: 6px 12px 8px;
+}
+.seeall-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  transition: all var(--transition);
+}
+.seeall-row:hover { background: var(--color-bg-blue); border-color: var(--color-border); }
+.seeall-row-title { font-size: 14.5px; font-weight: 500; color: var(--color-text-primary); }
+.seeall-row-meta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.seeall-row-theme {
+  font-size: 11px; font-weight: 600;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* ═══ Responsive ═══ */
+@media (max-width: 900px) {
+  .themes-grid { grid-template-columns: 1fr; }
+  .themes-card { padding: 28px 24px; }
+}
+@media (max-width: 768px) {
+  .qpanel { padding: 24px 22px; }
+  .hero h1 { font-size: 30px; }
+  .qview-head { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ What's new ribbon (dismissible per-version via localStorage) ═══ -->
+<!-- Bump data-version each quarter to re-show after dismissal. -->
+<div class="whatsnew" id="whatsnew" data-version="{{WHATS_NEW_VERSION}}">
+  <div class="wrap whatsnew-wrap">
+    <span class="whatsnew-icon" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M21 12h-3M12 21v-3M3 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.2"/></svg>
+    </span>
+    <span class="whatsnew-text">
+      <strong>What's new this quarter:</strong>
+      {{WHATS_NEW_TEXT}}
+    </span>
+    <button class="whatsnew-dismiss" id="whatsnew-dismiss" type="button" aria-label="Dismiss this update">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ═══ Hero ═══ -->
+<section class="hero">
+  <div class="wrap">
+    <span class="hero-eyebrow"><span class="dot"></span>Roadmap · 2026</span>
+    <h1>What we're working on at Hint.</h1>
+    <p class="lead">Transparency in what we've shipped, what's in flight, and where we're headed. Last updated on {{LAST_UPDATED}}.</p>
+  </div>
+</section>
+
+<!-- ═══ Sticky jump-to bar (always reachable while scrolling) ═══ -->
+<nav class="jumpbar" aria-label="Page sections">
+  <div class="wrap jumpbar-wrap">
+    <span class="jumpbar-label">Jump to</span>
+    <div class="jumpbar-links">
+      <a class="jumpbar-link" href="#current-quarter">
+        <span class="jumpbar-dot" style="background: #0E68E2"></span>Quarterly timeline
+      </a>
+      <a class="jumpbar-link" href="#active-betas">
+        <span class="jumpbar-dot" style="background: #B583E8"></span>Active betas
+      </a>
+      <a class="jumpbar-link" href="#seeall" id="jump-shipped">
+        <span class="jumpbar-dot" style="background: #5ED4B0"></span>Everything shipped
+      </a>
+      <a class="jumpbar-link" href="#horizon">
+        <span class="jumpbar-dot" style="background: #FFD478"></span>What's next
+      </a>
+      <a class="jumpbar-link" href="#shape">
+        <span class="jumpbar-dot" style="background: #FF9A5A"></span>Get involved
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ 2026 Themes ═══ -->
+<section class="themes" id="themes">
+  <div class="wrap">
+    <div class="themes-card">
+      <h2 class="themes-mission">Our mission is to make direct care the new standard. In 2026, our themes are:</h2>
+      <div class="themes-grid">
+        <button class="theme-card" data-theme="1" type="button">
+          <div class="theme-card-head">
+            <div class="theme-number">1</div>
+            <div class="theme-card-title">Expand and evolve your care offerings</div>
+          </div>
+          <div class="theme-card-body">New revenue models, new services, new programs &mdash; without adding friction or overhead to your operations.</div>
+          <span class="theme-card-cta">See features in this theme <span aria-hidden="true">→</span></span>
+        </button>
+        <button class="theme-card" data-theme="2" type="button">
+          <div class="theme-card-head">
+            <div class="theme-number">2</div>
+            <div class="theme-card-title">Protect time for what matters most</div>
+          </div>
+          <div class="theme-card-body">Deeper, more seamless experiences across Hint so clinical time stays focused on delivering best-in-class care.</div>
+          <span class="theme-card-cta">See features in this theme <span aria-hidden="true">→</span></span>
+        </button>
+        <button class="theme-card" data-theme="3" type="button">
+          <div class="theme-card-head">
+            <div class="theme-number">3</div>
+            <div class="theme-card-title">Support flexible styles of practice</div>
+          </div>
+          <div class="theme-card-body">Whether you run pure DPC, hybrid, longevity, or multi-location, Hint should let you operate the way you want.</div>
+          <span class="theme-card-cta">See features in this theme <span aria-hidden="true">→</span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══ Theme expansion drawer (opens beneath the gradient when a theme is clicked) ═══ -->
+    <div class="theme-expand" id="theme-expand" hidden>
+      <div class="theme-expand-head">
+        <div class="theme-expand-eyebrow">
+          <span class="theme-expand-num" id="theme-expand-num">1</span>
+          <span class="theme-expand-label">Theme <span id="theme-expand-num-text">01</span> · features mapped to this commitment</span>
+        </div>
+        <button class="theme-expand-close" id="theme-expand-close" type="button" aria-label="Close theme view">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <span>Close</span>
+        </button>
+      </div>
+      <h3 class="theme-expand-title" id="theme-expand-title">Expand and evolve your care offerings</h3>
+      <p class="theme-expand-summary" id="theme-expand-summary"></p>
+      <div class="feature-grid feature-grid-theme" id="theme-grid"></div>
+      <a class="more-roadmap" href="{{COMMUNITY_URL}}" target="_blank" rel="noopener">
+        <div class="more-roadmap-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <div class="more-roadmap-body">
+          <div class="more-roadmap-title">More features in this theme on our private customer roadmap</div>
+          <div class="more-roadmap-meta">Customers see the full roadmap and join active discussions in Community →</div>
+        </div>
+        <span class="more-roadmap-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Spotlight: most recent launch in action (autoplay-on-view) ═══ -->
+<section class="spotlight" id="spotlight" aria-label="Recent launch in action">
+  <div class="wrap">
+    <div class="spotlight-card">
+      <div class="spotlight-text">
+        <span class="spotlight-eyebrow"><span class="spotlight-dot"></span>Recently launched · See it in action</span>
+        <h3 class="spotlight-title">Hint Marketplace</h3>
+        <p class="spotlight-desc">Browse, filter, and connect to approved partners directly inside Hint. Practices extend their offering &mdash; labs, supplements, scheduling, communication tools &mdash; without leaving the app.</p>
+        <div class="spotlight-cta">
+          <a class="btn btn-primary btn-sm" href="https://hint.com/marketplace" target="_blank" rel="noopener">Browse the marketplace<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+          <button class="btn btn-outline btn-sm" data-feature="app-store-mvp" type="button">Read the release</button>
+        </div>
+      </div>
+      <div class="spotlight-video">
+        <video id="spotlight-video"
+               src="videos/install_spend.mp4"
+               muted loop playsinline preload="metadata"
+               poster=""
+               aria-label="Marketplace App Store demo">
+        </video>
+        <button class="spotlight-mute" id="spotlight-mute" type="button" aria-label="Toggle sound">
+          <svg class="icon-muted"   width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg class="icon-unmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Quarterly timeline (always visible) ═══ -->
+<section id="current-quarter">
+  <div class="wrap">
+    <div class="section-header">
+      <h2 class="section-title">Quarterly timeline</h2>
+      <p class="section-sub">What we shipped, what's in flight, and what's planned. Pick a quarter to see the detail.</p>
+    </div>
+
+    <div class="qtabs" role="tablist" aria-label="Quarter selector">
+      <button class="qtab" data-quarter="q1" role="tab" aria-selected="false">
+        <div class="qtab-label">
+          <span class="qtab-name">Q1 2026</span>
+          <span class="pill pill-shipped">Shipped</span>
+        </div>
+        <span class="qtab-months">Jan – Mar</span>
+      </button>
+      <button class="qtab" data-quarter="q2" role="tab" aria-selected="false">
+        <div class="qtab-label">
+          <span class="qtab-name">Q2 2026</span>
+          <span class="pill pill-inprogress">In progress</span>
+        </div>
+        <span class="qtab-months">Apr – Jun</span>
+      </button>
+      <button class="qtab qtab-link" data-link="horizon" role="tab" aria-selected="false">
+        <div class="qtab-label">
+          <span class="qtab-name">Q3 2026</span>
+          <span class="pill pill-planned">Planned</span>
+        </div>
+        <span class="qtab-months">Jul – Sep · See "Where we're looking next"</span>
+      </button>
+      <button class="qtab qtab-link" data-link="horizon" role="tab" aria-selected="false">
+        <div class="qtab-label">
+          <span class="qtab-name">Q4 2026</span>
+          <span class="pill pill-planned">Planned</span>
+        </div>
+        <span class="qtab-months">Oct – Dec · See "Where we're looking next"</span>
+      </button>
+    </div>
+
+    <div class="qstack">
+      <div class="qview" id="view-q2">
+        <div class="qview-head">
+          <h3 class="qview-title">Q2 2026<span class="qview-meta">Apr – Jun · Current quarter</span></h3>
+          <span class="pill pill-inprogress">In progress</span>
+        </div>
+        <p class="qview-summary">We're launching the Unified App to all customers, opening Patient Portal self-buy for multiple memberships and providers, and deepening the AI-native chart with threading, summaries, and task management.</p>
+
+        <div class="feature-grid">
+          <button class="feature-card" data-feature="ai-analyze"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">AI Analyze</span></div><p class="feature-desc">Ask questions of your practice in plain English. Get answers drawn from your membership, billing, and clinical data.</p></button>
+          <button class="feature-card" data-feature="unified-app-launch"><div class="feature-card-head"><span class="pill pill-beta">Beta</span><span class="feature-title">Unified App launch</span></div><p class="feature-desc">One app for Core and EMR, with unified navigation, patient chart, and core cards shipping to all customers.</p></button>
+          <button class="feature-card" data-feature="patient-portal-selfbuy"><div class="feature-card-head"><span class="pill pill-beta">Beta</span><span class="feature-title">Patient Portal Self-Buy</span></div><p class="feature-desc">Configurability, marketing images, and confirmation emails for self-service membership purchase.</p></button>
+          <button class="feature-card" data-feature="multi-memberships-providers"><div class="feature-card-head"><span class="pill pill-beta">Beta</span><span class="feature-title">Multiple memberships: multiple providers</span></div><p class="feature-desc">Household and multi-provider membership structures with proper attribution and reporting.</p></button>
+          <button class="feature-card" data-feature="chat-threading"><div class="feature-card-head"><span class="pill pill-beta">Beta</span><span class="feature-title">Chat threading and team chat</span></div><p class="feature-desc">Threaded replies for clinical conversations, plus a dedicated space for internal care-team discussion.</p></button>
+          <button class="feature-card" data-feature="ai-chart-summaries"><div class="feature-card-head"><span class="pill pill-beta">Beta</span><span class="feature-title">AI chart and file summaries</span></div><p class="feature-desc">A summary of any patient chart or uploaded file, with citations back to the source material.</p></button>
+          <button class="feature-card" data-feature="packages-refinement"><div class="feature-card-head"><span class="pill pill-inprogress">In progress</span><span class="feature-title">Packages refinement</span></div><p class="feature-desc">Coverage rules, basic reporting, and beta responsiveness improvements for Packages.</p></button>
+          <button class="feature-card" data-feature="marketplace-engagement-billing"><div class="feature-card-head"><span class="pill pill-inprogress">In progress</span><span class="feature-title">Marketplace engagement and billing</span></div><p class="feature-desc">Tracking of partner usage and revenue so practices can measure the value each partner adds.</p></button>
+        </div>
+
+        <a class="more-roadmap" href="{{COMMUNITY_URL}}" target="_blank" rel="noopener">
+          <div class="more-roadmap-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <div class="more-roadmap-body">
+            <div class="more-roadmap-title">+ {{Q2_MORE_COUNT}} more features on our private customer roadmap</div>
+            <div class="more-roadmap-meta">Customers see the full roadmap and join active discussions in Community →</div>
+          </div>
+          <span class="more-roadmap-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <!-- Q1 (past quarter, shown beneath Q2) -->
+      <div class="qview" id="view-q1">
+        <div class="qview-head">
+          <h3 class="qview-title">Q1 2026<span class="qview-meta">Jan – Mar</span></h3>
+          <span class="pill pill-shipped">Shipped</span>
+        </div>
+        <p class="qview-summary">A foundational quarter. Packages and deferred revenue shipped. The Unified App moved into customer beta. The Marketplace App Store opened with our first premier partners. EMR shipped a string of AI and Rx improvements.</p>
+
+        <div class="feature-grid">
+          <button class="feature-card" data-feature="packages-deferred-revenue"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Packages + deferred revenue MVP</span></div><p class="feature-desc">Sell pre-paid service bundles, with revenue recognition deferred until services are delivered.</p></button>
+          <button class="feature-card" data-feature="unified-nav-chart"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Unified App nav and patient chart</span></div><p class="feature-desc">The first version of one app for Core and EMR, in design-partner beta.</p></button>
+          <button class="feature-card" data-feature="app-store-mvp"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Marketplace App Store MVP</span></div><p class="feature-desc">Browse, discover, and connect to approved partners from inside Hint.</p></button>
+          <button class="feature-card" data-feature="tap-to-pay"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Tap to Pay</span></div><p class="feature-desc">Accept contactless in-person payment from a supported mobile device.</p></button>
+          <button class="feature-card" data-feature="messaging-instant-delivery"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Messaging: instant delivery and SMS triage</span></div><p class="feature-desc">Faster messaging delivery, with SMS routed through clinical triage alongside in-app chat.</p></button>
+          <button class="feature-card" data-feature="patient-portal-refresh"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Patient portal refresh</span></div><p class="feature-desc">A cleaner patient-facing experience with a refreshed homepage, login, and navigation.</p></button>
+          <button class="feature-card" data-feature="stripe-capital"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Stripe Capital</span></div><p class="feature-desc">Working capital underwritten against your practice's Hint revenue.</p></button>
+          <button class="feature-card" data-feature="partner-onboarding"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Automated partner onboarding</span></div><p class="feature-desc">Self-serve onboarding for new partners, including sandbox and endpoint config.</p></button>
+        </div>
+
+        <a class="more-roadmap" href="{{COMMUNITY_URL}}" target="_blank" rel="noopener">
+          <div class="more-roadmap-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <div class="more-roadmap-body">
+            <div class="more-roadmap-title">+ {{Q1_MORE_COUNT}} more features on our private customer roadmap</div>
+            <div class="more-roadmap-meta">Customers see the full roadmap and join active discussions in Community →</div>
+          </div>
+          <span class="more-roadmap-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ═══ Active betas ═══ -->
+    <section class="betas" id="active-betas">
+      <div class="betas-head">
+        <svg class="betas-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <h2 class="betas-title">Active betas</h2>
+      </div>
+      <p class="betas-sub">Features running with customers in live beta right now. Want in? Join the conversation in <a href="{{COMMUNITY_URL}}" target="_blank" rel="noopener">Community</a>.</p>
+      <div class="betas-list">
+        <button class="betas-item" data-feature="patient-portal-selfbuy"><div class="betas-item-body"><div class="betas-item-area">Flexible practice</div><div>Patient Portal Self-Buy</div></div><span class="pill pill-beta">Beta</span></button>
+        <button class="betas-item" data-feature="multi-memberships-providers"><div class="betas-item-body"><div class="betas-item-area">Flexible practice</div><div>Multiple memberships &amp; providers</div></div><span class="pill pill-beta">Beta</span></button>
+        <button class="betas-item" data-feature="unified-app-launch"><div class="betas-item-body"><div class="betas-item-area">Protect time</div><div>Unified App</div></div><span class="pill pill-beta">Beta</span></button>
+        <button class="betas-item" data-feature="chat-threading"><div class="betas-item-body"><div class="betas-item-area">Protect time</div><div>Chat threading &amp; team chat</div></div><span class="pill pill-beta">Beta</span></button>
+        <button class="betas-item" data-feature="ai-chart-summaries"><div class="betas-item-body"><div class="betas-item-area">Protect time</div><div>AI chart and file summaries</div></div><span class="pill pill-beta">Beta</span></button>
+      </div>
+    </section>
+
+    <!-- ═══ See everything shipped this year ═══ -->
+    <div class="seeall" id="seeall">
+      <button class="seeall-toggle" id="seeall-toggle" aria-expanded="false" aria-controls="seeall-list">
+        <span class="seeall-toggle-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </span>
+        <span class="seeall-toggle-text">See everything shipped this year</span>
+        <span class="seeall-toggle-count" id="seeall-toggle-count"></span>
+      </button>
+      <div class="seeall-list" id="seeall-list" hidden></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Where we're looking next ═══ -->
+<section id="horizon" class="horizon">
+  <div class="wrap">
+    <div class="section-header">
+      <h2 class="section-title">Where we're looking next</h2>
+      <p class="section-sub">Themes for the second half of 2026. These shape our research and planning, but commitments come quarter by quarter.</p>
+    </div>
+    <div class="horizon-grid">
+      <button class="horizon-card" data-feature="multi-location-emr">
+        <div class="horizon-card-head"><h4>Multiple locations in the EMR</h4><span class="pill pill-planned">Planned</span></div>
+        <p>Location-aware scheduling, charting, reporting, and staff permissions for practices that operate across more than one site.</p>
+      </button>
+      <button class="horizon-card" data-feature="cash-pay-outside-membership">
+        <div class="horizon-card-head"><h4>Cash pay outside the membership</h4><span class="pill pill-planned">Planned</span></div>
+        <p>First-class workflows for à-la-carte visits, procedures, and services for patients who aren't on a membership.</p>
+      </button>
+      <button class="horizon-card" data-feature="mobile-app-ga">
+        <div class="horizon-card-head"><h4>Hint Mobile App GA</h4><span class="pill pill-planned">Planned</span></div>
+        <p>Moving the clinician and admin mobile experience out of early access and into general availability.</p>
+      </button>
+      <button class="horizon-card" data-feature="membership-pricing-transparency">
+        <div class="horizon-card-head"><h4>Membership pricing transparency</h4><span class="pill pill-planned">Planned</span></div>
+        <p>Tooling that helps patients understand exactly what their membership covers, and what it doesn't.</p>
+      </button>
+    </div>
+    <div class="horizon-note">
+      <strong>About this section.</strong> The further out an item sits, the more it can shift. We share this so you can see where our heads are, not as a commitment. If something here matters to you, let us know &mdash; that's how it gets prioritized.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Help us shape what we build ═══ -->
+<section id="shape" class="shape">
+  <div class="wrap">
+    <div class="section-header">
+      <h2 class="section-title">Help us shape what we build</h2>
+      <p class="section-sub">The roadmap moves because customers tell us what's working, what isn't, and what's missing. Here's how to plug in.</p>
+    </div>
+    <div class="shape-grid">
+
+      <div class="shape-card">
+        <div class="icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+        </div>
+        <h3>Request a feature</h3>
+        <p>Submit ideas and upvote what other customers have asked for. The product team reviews this regularly &mdash; popular requests show up here as planned work.</p>
+        <div class="shape-card-actions">
+          <a href="{{CANNY_URL}}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Open Canny<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+          <a href="{{COMMUNITY_URL}}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Visit Community<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+        </div>
+      </div>
+
+      <div class="shape-card">
+        <div class="icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+        </div>
+        <h3>Meet the product team</h3>
+        <p>Office hours, Unified App roundtables, and Hint Summit. Places where you can talk to the people building Hint.</p>
+        <div class="event-list" id="events-list"></div>
+        <div class="shape-card-actions">
+          <a href="{{COMMUNITY_URL}}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">All events<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+        </div>
+      </div>
+
+      <div class="shape-card">
+        <div class="icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>New to Hint?</h3>
+        <p>Curious how Hint can power your practice? Talk with our team about how the roadmap maps to the workflows you're trying to support.</p>
+        <div class="shape-card-actions">
+          <a href="{{SALES_URL}}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Talk to sales<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Footer ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="disclaimer">
+      <strong>Roadmap items can shift as we learn from customers.</strong> We refresh this page each quarter.
+    </div>
+    <div><a href="https://hint.com" target="_blank" rel="noopener">hint.com →</a></div>
+  </div>
+</footer>
+
+<!-- ═══ Modal ═══ -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="modal" id="modal">
+    <div class="modal-hero" id="modal-hero">
+      <div class="modal-meta">
+        <span id="modal-quarter">Q2 2026</span><span>·</span><span id="modal-theme">EMR</span><span class="pill" id="modal-status">Beta</span>
+      </div>
+      <h2 class="modal-title" id="modal-title">Feature</h2>
+      <p class="modal-tagline" id="modal-tagline"></p>
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot" id="modal-foot"></div>
+  </div>
+</div>
+
+<script>
+const COMMUNITY_URL = '{{COMMUNITY_URL}}';
+const CANNY_URL     = '{{CANNY_URL}}';
+
+/* ═══ Feature data ═══ */
+const features = {
+  // ───── Q1 2026 — Shipped ─────
+  'patient-portal-refresh': { theme: 2, quarter: 'Q1 2026', track: 'EMR', status: 'shipped',
+    title: 'Patient portal refresh and navigation',
+    tagline: "A cleaner, faster patient-facing experience.",
+    sections: {
+      'What it does': "Navigation enhancements, a homepage refresh, and login page polish for the patient portal.",
+      'Why it matters': "Patients now land in a clearer surface. Sets the visual direction we're extending in the Q2 Patient Portal restyle.",
+      "Who it's for": "Practices whose patients use the portal."
+    },
+    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_PATIENT_PORTAL_REFRESH}}' }]
+  },
+  'messaging-instant-delivery': { theme: 2, quarter: 'Q1 2026', track: 'EMR', status: 'shipped',
+    title: 'Messaging: instant delivery and SMS triage',
+    tagline: "Messages show up faster. SMS flows through clinical triage.",
+    sections: {
+      'What it does': "Instant message delivery for clinical chat, plus routing of SMS messages through chat triage so they follow the same workflow as in-app messages.",
+      'Why it matters': "Patients don't care which channel they messaged on. Your team shouldn't have to either.",
+      "Who it's for": "Practices that communicate with patients over both SMS and in-app chat."
+    },
+    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_MESSAGING}}' }]
+  },
+  'rx-refills-dedup': { theme: 2, quarter: 'Q1 2026', track: 'EMR', status: 'shipped',
+    title: 'Rx refills and deduplication',
+    tagline: "Cleaner medication lists and faster refills.",
+    sections: {
+      'What it does': "Streamlined Rx refill workflow and automatic deduplication of medication records that were duplicates or variations of the same drug.",
+      'Why it matters': "Medication list hygiene is clinical safety. Cleaner lists mean better prescribing decisions and less time spent reconciling.",
+      "Who it's for": "Prescribers and clinical staff."
+    },
+    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+  },
+  'structured-supplements': { theme: 2, quarter: 'Q1 2026', track: 'EMR', status: 'shipped',
+    title: 'Structured supplements via Fullscripts',
+    tagline: "Supplement recommendations as structured chart data.",
+    sections: {
+      'What it does': "Integration with Fullscripts that captures supplement recommendations as structured, trendable data inside the chart.",
+      'Why it matters': "Supplement recommendations used to live as free text. Structuring them unlocks tracking, trending, and better downstream analysis.",
+      "Who it's for": "Functional, longevity, and integrative practices."
+    },
+    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+  },
+  'packages-deferred-revenue': { theme: 1, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
+    title: 'Packages + deferred revenue MVP',
+    tagline: "Sell and account for pre-paid service packages the right way.",
+    sections: {
+      'What it does': "Practices can sell bundles of visits, procedures, or services as pre-paid packages, with revenue recognition deferred until services are delivered.",
+      'Why it matters': "Packages are a growing part of how DPC, weight-loss, and longevity practices monetize. Deferred revenue support means your books match the accounting reality of pre-paid services.",
+      "Who it's for": "Practices selling visit bundles, program packages, or pre-paid specialty services."
+    },
+    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_PACKAGES}}' }, { label: 'Read the release', href: '#' }]
+  },
+  'scheduled-price-change': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
+    title: 'Scheduled price change at renewal',
+    tagline: "Announce a price change now, apply it at the right time, for the right members.",
+    sections: {
+      'What it does': "Configure price changes that apply on each member's next renewal date, rather than in a single cutover.",
+      'Why it matters': "A long-time request. You can raise prices cleanly without a manual workaround, and members see the change at the moment that matches what you communicated.",
+      "Who it's for": "Practices that raise prices on an annual cadence."
+    },
+    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_SCHEDULED_PRICE_CHANGE}}' }]
+  },
+  'default-payment-per-membership': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
+    title: 'Default payment per membership',
+    tagline: "One member, many memberships, the right card on each.",
+    sections: {
+      'What it does': "Members with multiple memberships can set a different default payment method per membership.",
+      'Why it matters': "Previously a source of billing errors and manual cleanup. Families and corporate-sponsored memberships now work the way members expect.",
+      "Who it's for": "Practices with family plans, sponsored memberships, or multi-membership households."
+    },
+    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+  },
+  'embedded-stripe-onboarding': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
+    title: 'Embedded Stripe onboarding',
+    tagline: "Set up payments without leaving Hint.",
+    sections: {
+      'What it does': "New practices complete Stripe onboarding inside Hint rather than being redirected to Stripe's own flow.",
+      'Why it matters': "Cuts onboarding friction and the drop-off that comes with a redirect, especially for self-serve signup.",
+      "Who it's for": "New practices starting with Hint."
+    },
+    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+  },
+  'stripe-capital': { theme: 1, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
+    title: 'Stripe Capital',
+    tagline: "Working capital based on your practice's Hint revenue.",
+    sections: {
+      'What it does': "Eligible practices can access working capital offers from Stripe Capital, underwritten based on their payment history in Hint.",
+      'Why it matters': "Growth investments often get stuck on cash flow. A partner-backed path to capital unblocks hiring, equipment, and expansion.",
+      "Who it's for": "Practices considering expansion, equipment, or hiring."
+    },
+    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+  },
+  'tap-to-pay': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
+    title: 'Tap to Pay',
+    tagline: "Accept in-person payment with a phone.",
+    sections: {
+      'What it does': "Contactless Tap to Pay for in-person charges from a supported mobile device.",
+      'Why it matters': "No card reader, no extra hardware. Front desk staff can take payment anywhere in the practice.",
+      "Who it's for": "Practices with in-person visits, especially those with aesthetics or retail add-ons."
+    },
+    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_TAP_TO_PAY}}' }]
+  },
+  'unified-nav-chart': { theme: 2, quarter: 'Q1 2026', track: 'Platform', status: 'shipped',
+    title: 'Unified App navigation and patient chart',
+    tagline: "The first version of one app for Core and EMR.",
+    sections: {
+      'What it does': "Unified navigation and a shared patient chart surface across Core and EMR, shipped to design partners in beta.",
+      'Why it matters': "The foundation for everything downstream. Unified navigation is the scaffolding that makes context switching, AI features, and cross-surface workflows possible.",
+      "Who it's for": "Beta customers in Q1. Rolling to everyone in Q2."
+    },
+    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_UNIFIED_NAV_CHART}}' }]
+  },
+  'unified-app-infra': { theme: 2, quarter: 'Q1 2026', track: 'Platform', status: 'shipped',
+    title: 'Unified App customer beta',
+    tagline: "Design partner customers live on the Unified App.",
+    sections: {
+      'What it does': "Production infrastructure for running the Unified App with real customers, plus the beta program that informs the Q2 launch.",
+      'Why it matters': "Real beta customers catch the real issues. The Q2 launch is informed by what design partners actually encountered.",
+      "Who it's for": "Beta customers."
+    },
+    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+  },
+  'app-store-mvp': { theme: 1, quarter: 'Q1 2026', track: 'Marketplace', status: 'shipped',
+    title: 'Marketplace App Store MVP',
+    tagline: "Discover and connect to approved partners from inside Hint.",
+    sections: {
+      'What it does': "The first version of the Marketplace App Store: a directory of approved partners (labs, pharmacies, specialty services, tools) that practices can browse and connect to from inside Hint.",
+      'Why it matters': "Partner setup used to mean emails, contracts, and configuration work. The App Store turns that into a few clicks.",
+      "Who it's for": "Practices expanding their service offering."
+    },
+    actions: [{ label: 'Browse the marketplace', primary: true, href: 'https://www.hint.com/marketplace' }, { label: 'Watch demo', href: '{{DEMO_APP_STORE}}' }]
+  },
+  'partner-onboarding': { theme: 1, quarter: 'Q1 2026', track: 'Marketplace', status: 'shipped',
+    title: 'Automated partner onboarding',
+    tagline: "Partners can onboard themselves into the marketplace.",
+    sections: {
+      'What it does': "Self-serve onboarding for new marketplace partners, including the partner portal, sandbox access, and clinical and billing endpoint configuration.",
+      'Why it matters': "Reduces the manual work to bring a new partner live from weeks of white-glove setup to a guided flow.",
+      "Who it's for": "New and prospective marketplace partners."
+    },
+    actions: [{ label: 'Become a partner', primary: true, href: '#' }]
+  },
+  'partner-billing': { theme: 1, quarter: 'Q1 2026', track: 'Marketplace', status: 'shipped',
+    title: 'Partner billing and payments',
+    tagline: "Partners get paid for the work they do through Hint.",
+    sections: {
+      'What it does': "Billing and payment flows between Hint, practices, and marketplace partners, plus reporting that shows each partner what they're owed.",
+      'Why it matters': "Without clean billing, marketplace partnerships hit friction quickly. This is the plumbing that lets the marketplace scale.",
+      "Who it's for": "Marketplace partners and practice admins."
+    },
+    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+  },
+
+  // ───── Q2 2026 — In progress ─────
+  'ai-analyze': { theme: 2, quarter: 'Q2 2026', track: 'EMR · AI', status: 'shipped',
+    title: 'AI Analyze',
+    tagline: "Ask questions of your practice in plain English. Get answers from your own data.",
+    sections: {
+      'What it does': "Analyze is the business intelligence layer of the Hint AI-native chart. Ask a natural-language question about your practice and Analyze pulls from your membership, billing, and clinical data to answer it. The underlying numbers and sources are always one click away.",
+      'Why it matters': "Practice owners run the business on a handful of recurring questions: who's churning and why, what's growing, where revenue comes from, which providers carry which patients. Those answers used to live in spreadsheet exports or a CSM's head. Analyze makes them part of the product.",
+      "Who it's for": "Practice owners, operators, and admins who need to understand practice performance without becoming a SQL analyst."
+    },
+    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_AI_ANALYZE}}' }, { label: 'Read the release', href: '#' }]
+  },
+  'chat-threading': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'beta',
+    title: 'Chat threading and private team chat',
+    tagline: "Keep clinical conversations organized without losing context.",
+    sections: {
+      'What it does': "Threaded replies in Chat so follow-up discussion stays attached to the original message, plus a private Team Chat surface for internal care-team conversations that shouldn't live in the patient thread.",
+      'Why it matters': "EMR chat becomes noisy fast. Threading means a quick question doesn't bury an active conversation, and private team chat gives clinicians a place to huddle without cluttering the patient-facing thread.",
+      "Who it's for": "Multi-provider practices where several clinicians and staff coordinate on the same patients."
+    },
+    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
+  },
+  'ai-chart-summaries': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'beta',
+    title: 'AI chart and file summaries',
+    tagline: "Get to the point of any chart or uploaded file.",
+    sections: {
+      'What it does': "Concise, structured summaries of a patient's chart and uploaded clinical files, with citations back to the original source material.",
+      'Why it matters': "Pre-visit chart review is one of the biggest time sinks in the clinical day. A summary that points back to source lets you prep faster without losing confidence in the detail.",
+      "Who it's for": "Clinicians who see patients with complex histories or uploaded outside records."
+    },
+    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
+  },
+  'task-management': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'planned',
+    title: 'Task management: templates and automations',
+    tagline: "Standardize how your team gets work done.",
+    sections: {
+      'What it does': "Task templates, repeating schedules, health maintenance support, and rule-based automations on top of the task management surface embedded in the chart and chat.",
+      'Why it matters': "Every practice has the same routine follow-ups: annual wellness, chronic condition check-ins, lab result follow-through. Templating those means new staff ramp faster and nothing falls through.",
+      "Who it's for": "Practice managers and care teams that want to systematize follow-up work."
+    },
+    actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
+  },
+  'patient-portal-restyle': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'inprogress',
+    title: 'Patient Portal restyle',
+    tagline: "A refreshed patient-facing experience aligned to the unified brand.",
+    sections: {
+      'What it does': "Visual and interaction refresh for the patient portal, aligning it to the unified Hint experience clinicians now use.",
+      'Why it matters': "Patients judge your practice by the portal. A cleaner, more modern surface makes signup, self-service, and messaging feel like the high-touch experience DPC is known for.",
+      "Who it's for": "Practices whose patients use the portal for booking, messaging, or membership management."
+    },
+    actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
+  },
+  'patient-portal-selfbuy': { theme: 3, quarter: 'Q2 2026', track: 'Billing', status: 'beta',
+    title: 'Patient Portal Self-Buy',
+    tagline: "Let new members sign up and pay without staff coordination.",
+    sections: {
+      'What it does': "Configurability, marketing images, and confirmation emails for self-service membership purchase through the Patient Portal. Prospective members can see your plans, pick one, and complete payment on their own.",
+      'Why it matters': "Most practices lose prospective members in the gap between interest and signup. Self-Buy closes that gap and removes a real tax on your front desk.",
+      "Who it's for": "Practices running marketing or referral programs where the volume of inbound interest is too high to hand-hold every signup."
+    },
+    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
+  },
+  'multi-memberships-providers': { theme: 3, quarter: 'Q2 2026', track: 'Billing', status: 'beta',
+    title: 'Multiple memberships: multiple providers',
+    tagline: "Households and multi-provider practices, modeled the way they actually work.",
+    sections: {
+      'What it does': "Extends Multiple Memberships so a single household or employer group can be attributed to multiple providers within a practice, with proper revenue attribution and reporting.",
+      'Why it matters': "Real families don't always see the same provider. Real employer groups aren't attributed to one clinician. Getting the data model right means reporting and compensation actually reflect what happened.",
+      "Who it's for": "Multi-provider practices, group practices, and any practice serving employer contracts."
+    },
+    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
+  },
+  'packages-refinement': { theme: 1, quarter: 'Q2 2026', track: 'Billing', status: 'inprogress',
+    title: 'Packages refinement',
+    tagline: "Taking Packages from MVP to ready for every practice.",
+    sections: {
+      'What it does': "Coverage rules, basic reporting, and responsiveness improvements on top of the Packages + Deferred Revenue MVP shipped in Q1.",
+      'Why it matters': "Packages shipped as an MVP. These refinements take it from working-for-design-partners to ready-for-every-practice.",
+      "Who it's for": "Practices selling visit bundles, weight-loss programs, longevity packages, or any pre-paid service with deferred revenue recognition."
+    },
+    actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
+  },
+  'billing-at-engagement': { theme: 3, quarter: 'Q2 2026', track: 'Billing', status: 'inprogress',
+    title: 'Billing at engagement',
+    tagline: "Charge when the work happens, not when the calendar says to.",
+    sections: {
+      'What it does': "Charge at the moment of engagement (visit, procedure, service) rather than exclusively on a calendar billing cycle.",
+      'Why it matters': "Many practices today work around Hint's billing cadence. This lets Hint match the pricing model the practice already runs.",
+      "Who it's for": "Practices with flexible or event-driven pricing, aesthetics add-ons, or à-la-carte services alongside memberships."
+    },
+    actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
+  },
+  'unified-app-launch': { theme: 2, quarter: 'Q2 2026', track: 'Platform', status: 'beta',
+    title: 'Unified App launch',
+    tagline: "One app for Core and EMR. Launching to everyone in Q2.",
+    sections: {
+      'What it does': "Rolls out the Unified App to all customers, bringing Core (Provider Portal) and EMR (Aero) into a single experience with unified navigation, patient chart, and core cards.",
+      'Why it matters': "Most Hint users live in two apps today. Unifying them ends the context-switching tax and sets the foundation for every AI and workflow improvement going forward.",
+      "Who it's for": "Every Hint customer."
+    },
+    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
+  },
+  'sales-orders-self-onboarding': { theme: 3, quarter: 'Q2 2026', track: 'Platform', status: 'inprogress',
+    title: 'Sales orders in self onboarding',
+    tagline: "Sales starts the order. The customer finishes on their own.",
+    sections: {
+      'What it does': "Sales reps create an order that pre-configures a new practice's plan. The practice completes onboarding themselves through a guided self-serve flow.",
+      'Why it matters': "Unlocks Self-Buy revenue. We can serve smaller or self-directed practices efficiently without losing the human touch on bigger deals.",
+      "Who it's for": "Prospective customers in the self-serve and hybrid sales segments."
+    },
+    actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
+  },
+  'marketplace-engagement-billing': { theme: 1, quarter: 'Q2 2026', track: 'Marketplace', status: 'inprogress',
+    title: 'Marketplace engagement and billing',
+    tagline: "See the value of the partners you work with.",
+    sections: {
+      'What it does': "Tracking of partner usage and revenue so practices can measure the value each marketplace partner adds.",
+      'Why it matters': "The Marketplace shipped its App Store in Q1. This is the layer that helps practices understand which partnerships are working and helps partners prove their value.",
+      "Who it's for": "Practices using multiple marketplace partners and the partners themselves."
+    },
+    actions: [{ label: 'Browse the marketplace', primary: true, href: 'https://www.hint.com/marketplace' }]
+  },
+
+  // ───── Horizon ─────
+  'multi-location-emr': { theme: 3, quarter: 'H2 2026', track: 'Planned', status: 'planned',
+    title: 'Multiple locations in the EMR',
+    tagline: "First-class support for practices operating across multiple locations.",
+    sections: {
+      'What it does': "Location-aware scheduling, charting, reporting, and staff permissions in the EMR. Work we expect to span Q3 and Q4.",
+      'Why it matters': "Growing practices outgrow single-location assumptions. We want to be the EMR that grows with you, not the one you leave when you open your second clinic.",
+      "Who it's for": "Multi-location practices today and single-location practices planning to expand."
+    },
+    actions: [
+      { label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true },
+      { label: 'Upvote on Canny', href: CANNY_URL, external: true }
+    ]
+  },
+  'cash-pay-outside-membership': { theme: 1, quarter: 'H2 2026', track: 'Planned', status: 'planned',
+    title: 'Cash pay outside the membership',
+    tagline: "À-la-carte services for patients who aren't on a plan.",
+    sections: {
+      'What it does': "Workflows to charge for visits, procedures, and services outside of the membership model, for patients who aren't members or for services members pay extra for.",
+      'Why it matters': "DPC practices increasingly blend memberships with cash-pay services like aesthetics, peptides, or specialty procedures. Hint should support that as a first-class workflow rather than a workaround.",
+      "Who it's for": "Hybrid DPC practices, longevity practices, and any practice offering services beyond the core membership."
+    },
+    actions: [
+      { label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true },
+      { label: 'Upvote on Canny', href: CANNY_URL, external: true }
+    ]
+  },
+  'mobile-app-ga': { theme: 2, quarter: 'H2 2026', track: 'Planned', status: 'planned',
+    title: 'Hint Mobile App — GA',
+    tagline: "The clinician and admin mobile experience moves out of early access.",
+    sections: {
+      'What it does': "Brings the mobile app to general availability, with the workflows clinicians and admins rely on between desk sessions.",
+      'Why it matters': "Charting and admin work doesn't only happen at a laptop. We want the mobile experience to be a first-class part of the practice day, not an escape hatch.",
+      "Who it's for": "Clinicians and admins who work across rooms, locations, or off-hours."
+    },
+    actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
+  },
+  'membership-pricing-transparency': { theme: 3, quarter: 'H2 2026', track: 'Planned', status: 'planned',
+    title: 'Membership pricing transparency',
+    tagline: "Help patients understand what their membership covers.",
+    sections: {
+      'What it does': "Tooling that surfaces what a given membership includes, what it doesn't, and what add-ons cost, so patients can self-serve without calling the practice.",
+      'Why it matters': "Pricing confusion is the most common source of inbound questions to the front desk. Putting it in the hands of patients reduces friction for everyone.",
+      "Who it's for": "Practices with multiple membership tiers, add-ons, or family plans."
+    },
+    actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
+  }
+};
+
+const statusLabels = {
+  shipped:       { label: 'Shipped',       class: 'pill-shipped' },
+  inprogress:    { label: 'In progress',   class: 'pill-inprogress' },
+  beta:          { label: 'Beta',          class: 'pill-beta' },
+  planned:       { label: 'Planned',       class: 'pill-planned' },
+  deprioritized: { label: 'Deprioritized', class: 'pill-deprioritized' }
+};
+
+/* ═══ Events — EDIT ME ═══ */
+// Each entry: { name, month, day, location, url }
+const EVENTS = [
+  // { name: 'Product office hours',       month: 'May', day: '14', location: 'Virtual · 30 min',   url: '#' },
+  // { name: 'Unified App roundtable',     month: 'Jun', day: '03', location: 'Virtual',            url: '#' },
+  // { name: 'Hint Summit Fall 2026',      month: 'Sep', day: '18', location: 'Denver, CO',         url: '#' }
+];
+
+/* ═══ Render events ═══ */
+(function renderEvents() {
+  const list = document.getElementById('events-list');
+  if (!list) return;
+  if (!EVENTS.length) {
+    list.innerHTML = '<div class="event-empty">More events coming soon.</div>';
+    return;
+  }
+  list.innerHTML = EVENTS.map(e => `
+    <a class="event-item" href="${e.url}" target="_blank" rel="noopener">
+      <div class="event-date">
+        <div class="event-date-mo">${e.month}</div>
+        <div class="event-date-day">${e.day}</div>
+      </div>
+      <div class="event-body">
+        <div class="event-title">${e.name}</div>
+        <div class="event-meta">${e.location || ''}</div>
+      </div>
+    </a>
+  `).join('');
+})();
+
+/* ═══ Roadmap controller: theme drawer + quarter tabs + waterfall ═══ */
+(function roadmapController() {
+
+  const THEME_LABELS = {
+    1: 'Expand offerings',
+    2: 'Protect time',
+    3: 'Flexible practice'
+  };
+  const THEME_TITLES = {
+    1: 'Expand and evolve your care offerings',
+    2: 'Protect time for what matters most',
+    3: 'Support flexible styles of practice'
+  };
+  const THEME_SUMMARIES = {
+    1: "Helping practices add new revenue models, services, and programs without piling on operational overhead. Marketplace, packages, and the rails that make new offerings billable.",
+    2: "Cutting context-switching and giving clinical teams more uninterrupted time with patients. Unified App, AI in the chart, and richer messaging.",
+    3: "Supporting how you actually run a practice — DPC, hybrid, longevity, or multi-site — with billing, onboarding, and patient access that fits."
+  };
+
+  /* ─── Helpers ─── */
+  function scrollToEl(el, offset) {
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - (offset || 16);
+    window.scrollTo(0, top);
+  }
+  function waterfallCards(grid, perCardDelay) {
+    const cards = grid.querySelectorAll('.feature-card');
+    cards.forEach((c, i) => {
+      c.classList.remove('is-waterfalling');
+      c.style.animationDelay = '';
+      void c.offsetWidth; // force reflow to replay animation
+      c.style.animationDelay = (i * (perCardDelay || 60)) + 'ms';
+      c.classList.add('is-waterfalling');
+    });
+  }
+
+  /* ─── Build a feature-card for theme view (with quiet quarter chip) ─── */
+  function shortQuarter(q) {
+    if (!q) return '';
+    const m = String(q).match(/^(Q[1-4]|H[12])\s*\d{4}/i);
+    return m ? m[1].toUpperCase() : q.split(/\s+·/)[0].trim();
+  }
+  function buildFeatureCard(slug, f) {
+    const status = statusLabels[f.status] || { label: f.status, class: 'pill-planned' };
+    const qLabel = shortQuarter(f.quarter);
+    const btn = document.createElement('button');
+    btn.className = 'feature-card';
+    btn.dataset.feature = slug;
+    btn.innerHTML =
+      '<div class="feature-card-head">' +
+        '<span class="pill ' + status.class + '">' + status.label + '</span>' +
+        '<span class="feature-title">' + f.title + '</span>' +
+      '</div>' +
+      '<p class="feature-desc">' + (f.tagline || '') + '</p>' +
+      (qLabel ? '<span class="feature-card-q">' + qLabel + '</span>' : '');
+    btn.addEventListener('click', () => openFeature(slug));
+    return btn;
+  }
+
+  /* ─── Theme expansion drawer (lives below the hero themes card) ─── */
+  const themeExpand = document.getElementById('theme-expand');
+  const themeGrid = document.getElementById('theme-grid');
+  const themeTitle = document.getElementById('theme-expand-title');
+  const themeSummary = document.getElementById('theme-expand-summary');
+  const themeNum = document.getElementById('theme-expand-num');
+  const themeNumText = document.getElementById('theme-expand-num-text');
+  const themeClose = document.getElementById('theme-expand-close');
+  let activeThemeNum = null;
+
+  function setHeroThemeSelected(num) {
+    document.querySelectorAll('.theme-card[data-theme]').forEach(c => {
+      c.classList.toggle('is-selected', +c.dataset.theme === num);
+    });
+  }
+
+  function openThemeDrawer(num) {
+    if (!themeExpand || !themeGrid) return;
+    activeThemeNum = num;
+    themeExpand.hidden = false;
+    themeNum.textContent = num;
+    themeNumText.textContent = String(num).padStart(2, '0');
+    themeTitle.textContent = THEME_TITLES[num] || '';
+    themeSummary.textContent = THEME_SUMMARIES[num] || '';
+    themeGrid.innerHTML = '';
+    const slugs = Object.keys(features).filter(k => features[k].theme === num);
+    slugs.forEach(slug => themeGrid.appendChild(buildFeatureCard(slug, features[slug])));
+    setHeroThemeSelected(num);
+    // Replay drawer entrance animation each time
+    themeExpand.style.animation = 'none';
+    void themeExpand.offsetWidth;
+    themeExpand.style.animation = '';
+    waterfallCards(themeGrid, 55);
+  }
+  function closeThemeDrawer() {
+    if (!themeExpand) return;
+    themeExpand.hidden = true;
+    activeThemeNum = null;
+    setHeroThemeSelected(null);
+  }
+
+  /* ─── Hero theme cards: toggle drawer ─── */
+  document.querySelectorAll('.theme-card[data-theme]').forEach(card => {
+    card.addEventListener('click', () => {
+      const t = +card.dataset.theme;
+      if (activeThemeNum === t) {
+        closeThemeDrawer();
+      } else {
+        openThemeDrawer(t);
+        // Smooth-scroll the drawer into view (CSS scroll-behavior handles easing)
+        setTimeout(() => scrollToEl(themeExpand, 24), 30);
+      }
+    });
+  });
+  if (themeClose) themeClose.addEventListener('click', closeThemeDrawer);
+
+  /* ─── Quarter tabs ─── */
+  const qtabs = document.querySelectorAll('.qtab');
+  const qviews = document.querySelectorAll('.qview');
+
+  function setActiveQTab(activeTab) {
+    qtabs.forEach(t => {
+      const on = (t === activeTab);
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
+  function setActivePanel(qid) {
+    qviews.forEach(v => {
+      const on = (v.id === 'view-' + qid);
+      v.classList.toggle('active', on);
+      v.classList.toggle('is-recessed', !on);
+    });
+  }
+
+  qtabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      setActiveQTab(tab);
+      if (tab.classList.contains('qtab-link')) {
+        scrollToEl(document.getElementById(tab.dataset.link), 16);
+        return;
+      }
+      const qid = tab.dataset.quarter;
+      const view = document.getElementById('view-' + qid);
+      if (!view) return;
+      setActivePanel(qid);
+      scrollToEl(view, 16);
+      const grid = view.querySelector('.feature-grid');
+      if (grid) waterfallCards(grid, 55);
+    });
+  });
+
+  // Default: Q2 selected; both Q1 and Q2 panels rendered.
+  const defaultQTab = document.querySelector('.qtab[data-quarter="q2"]');
+  if (defaultQTab) {
+    setActiveQTab(defaultQTab);
+    setActivePanel('q2');
+  }
+
+  // Each quarter panel waterfalls when it scrolls into view (only once)
+  if ('IntersectionObserver' in window) {
+    const panelIO = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const grid = e.target.querySelector('.feature-grid');
+          if (grid) waterfallCards(grid, 55);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    qviews.forEach(v => panelIO.observe(v));
+  }
+
+  /* ─── See everything shipped this year ─── */
+  const seeBtn   = document.getElementById('seeall-toggle');
+  const seeList  = document.getElementById('seeall-list');
+  const seeCount = document.getElementById('seeall-toggle-count');
+
+  function renderShippedTimeline() {
+    if (!seeList) return;
+    const shipped = Object.entries(features).filter(([, f]) => f.status === 'shipped');
+    const groups = {};
+    shipped.forEach(([slug, f]) => {
+      const q = (f.quarter || '').replace(/\s+·.*$/, '').trim();
+      (groups[q] = groups[q] || []).push([slug, f]);
+    });
+    const order = ['Q2 2026', 'Q1 2026'];
+    seeList.innerHTML = order
+      .filter(q => groups[q] && groups[q].length)
+      .map(q => {
+        const items = groups[q].map(([slug, f]) =>
+          '<button class="seeall-row" data-feature="' + slug + '">' +
+            '<span class="seeall-row-title">' + f.title + '</span>' +
+            '<span class="seeall-row-meta">' +
+              '<span class="seeall-row-theme">' + (THEME_LABELS[f.theme] || '') + '</span>' +
+              '<span class="pill pill-shipped">Shipped</span>' +
+            '</span>' +
+          '</button>'
+        ).join('');
+        return '<div class="seeall-group">' +
+                 '<div class="seeall-group-label">' + q + '</div>' +
+                 items +
+               '</div>';
+      }).join('');
+    if (seeCount) seeCount.textContent = shipped.length + ' shipped';
+    seeList.querySelectorAll('.seeall-row').forEach(r => {
+      r.addEventListener('click', () => openFeature(r.dataset.feature));
+    });
+  }
+  renderShippedTimeline();
+
+  if (seeBtn && seeList) {
+    seeBtn.addEventListener('click', () => {
+      const open = seeBtn.getAttribute('aria-expanded') === 'true';
+      seeBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      seeList.hidden = open;
+    });
+  }
+
+  /* ─── "Everything shipped" jump-to chip auto-expands the list ─── */
+  const jumpShipped = document.getElementById('jump-shipped');
+  if (jumpShipped && seeBtn && seeList) {
+    jumpShipped.addEventListener('click', () => {
+      seeBtn.setAttribute('aria-expanded', 'true');
+      seeList.hidden = false;
+    });
+  }
+
+  /* ─── Spotlight video: play when in view, pause when out ─── */
+  const spotlightVideo = document.getElementById('spotlight-video');
+  if (spotlightVideo && 'IntersectionObserver' in window) {
+    const vio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const p = spotlightVideo.play();
+          if (p && p.catch) p.catch(() => {/* autoplay can be blocked, ignore */});
+        } else {
+          spotlightVideo.pause();
+        }
+      });
+    }, { threshold: 0.4 });
+    vio.observe(spotlightVideo);
+  }
+  const muteBtn = document.getElementById('spotlight-mute');
+  if (muteBtn && spotlightVideo) {
+    muteBtn.addEventListener('click', () => {
+      spotlightVideo.muted = !spotlightVideo.muted;
+      muteBtn.classList.toggle('is-unmuted', !spotlightVideo.muted);
+      muteBtn.setAttribute('aria-label', spotlightVideo.muted ? 'Unmute video' : 'Mute video');
+    });
+  }
+
+  /* ─── What's new ribbon: dismiss per data-version via localStorage ─── */
+  const wn = document.getElementById('whatsnew');
+  if (wn) {
+    const ver = wn.dataset.version || '';
+    const lookLikePlaceholder = /\{\{[^}]+\}\}/.test(ver) || /\{\{[^}]+\}\}/.test(wn.textContent);
+    const key = 'hint-roadmap-whatsnew-' + ver;
+    let dismissed = false;
+    try { dismissed = !!localStorage.getItem(key); } catch (_) {}
+    if (dismissed || lookLikePlaceholder) {
+      wn.hidden = true;
+    } else {
+      const close = document.getElementById('whatsnew-dismiss');
+      if (close) close.addEventListener('click', () => {
+        try { localStorage.setItem(key, '1'); } catch (_) {}
+        wn.hidden = true;
+      });
+    }
+  }
+
+  /* ─── Placeholder fallback: if {{Q*_MORE_COUNT}} wasn't replaced, render a clean string ─── */
+  document.querySelectorAll('.more-roadmap-title').forEach(el => {
+    const t = el.textContent;
+    if (/\{\{[^}]+\}\}/.test(t)) {
+      el.textContent = el.closest('#theme-expand')
+        ? 'More features in this theme on our private customer roadmap'
+        : 'More features in this quarter on our private customer roadmap';
+    }
+  });
+
+  // Expose for debug
+  window.__roadmap = { openThemeDrawer, closeThemeDrawer };
+})();
+
+/* ═══ Modal ═══ */
+const modalOverlay = document.getElementById('modal-overlay');
+const modal = document.getElementById('modal');
+const modalHero = document.getElementById('modal-hero');
+const modalQuarter = document.getElementById('modal-quarter');
+const modalTheme = document.getElementById('modal-theme');
+const modalStatus = document.getElementById('modal-status');
+const modalTitle = document.getElementById('modal-title');
+const modalTagline = document.getElementById('modal-tagline');
+const modalBody = document.getElementById('modal-body');
+const modalFoot = document.getElementById('modal-foot');
+const modalCloseBtn = document.getElementById('modal-close');
+
+let lastFocused = null;
+
+function openFeature(key, opts) {
+  const f = features[key];
+  if (!f) return;
+  lastFocused = document.activeElement;
+
+  const s = statusLabels[f.status];
+  modalHero.dataset.status = f.status;
+  modalQuarter.textContent = f.quarter;
+  // Show track + customer theme in modal meta
+  const themeNames = { 1: 'Theme 01 — Expand offerings', 2: 'Theme 02 — Protect time', 3: 'Theme 03 — Flexible practice' };
+  const themeLabel = themeNames[f.theme] || '';
+  const trackLabel = f.track || '';
+  modalTheme.textContent = [themeLabel, trackLabel].filter(Boolean).join(' · ');
+  modalStatus.textContent = s.label;
+  modalStatus.className = 'pill ' + s.class;
+  modalTitle.textContent = f.title;
+  modalTagline.textContent = f.tagline || '';
+
+  let body = '';
+  for (const [heading, content] of Object.entries(f.sections || {})) {
+    body += '<h3>' + heading + '</h3><p>' + content + '</p>';
+  }
+  modalBody.innerHTML = body;
+
+  modalFoot.innerHTML = (f.actions || []).map(a => {
+    const cls = a.primary ? 'btn btn-primary' : 'btn btn-outline';
+    const icon = a.external
+      ? '<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>'
+      : '';
+    const target = a.external ? ' target="_blank" rel="noopener"' : '';
+    return '<a href="' + a.href + '"' + target + ' class="' + cls + '">' + a.label + icon + '</a>';
+  }).join('');
+
+  modalOverlay.classList.add('open');
+  modalOverlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => modal.focus(), 50);
+
+  if (!opts || !opts.skipHash) {
+    if (history.replaceState) history.replaceState(null, '', '#feature/' + key);
+  }
+}
+
+function closeFeature() {
+  modalOverlay.classList.remove('open');
+  modalOverlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  modalBody.scrollTop = 0;
+  if (history.replaceState && location.hash.startsWith('#feature/')) {
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  if (lastFocused && lastFocused.focus) lastFocused.focus();
+}
+
+modalCloseBtn.addEventListener('click', closeFeature);
+modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeFeature(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeFeature(); });
+
+document.querySelectorAll('[data-feature]').forEach(el => {
+  el.addEventListener('click', () => openFeature(el.dataset.feature));
+});
+
+/* Open by URL hash on load */
+function handleHash() {
+  const m = location.hash.match(/^#feature\/([\w-]+)$/);
+  if (m && features[m[1]]) openFeature(m[1], { skipHash: true });
+}
+window.addEventListener('hashchange', handleHash);
+handleHash();
+</script>
+
+</body>
+</html>
