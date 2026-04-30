@@ -582,6 +582,113 @@ img, svg { display: block; max-width: 100%; }
   border-color: #C9D9EE;
 }
 
+/* ═══ Theme drawer body: timeline + per-quarter feature list ═══ */
+.theme-timeline {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(var(--theme-timeline-cols, 3), 1fr);
+  margin: 4px 0 8px;
+  padding: 0;
+  position: relative;
+}
+.theme-timeline::before {
+  content: '';
+  position: absolute;
+  left: calc(100% / var(--theme-timeline-cols, 3) / 2);
+  right: calc(100% / var(--theme-timeline-cols, 3) / 2);
+  top: 8px; height: 2px;
+  background: var(--color-border-strong);
+  border-radius: 1px;
+}
+.theme-timeline-node {
+  position: relative;
+  text-align: center;
+}
+.theme-timeline-dot {
+  display: block;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid var(--color-border-strong);
+  margin: 0 auto 10px;
+  position: relative; z-index: 1;
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+.theme-timeline-node.has-features .theme-timeline-dot {
+  background: var(--color-action-primary);
+  border-color: var(--color-action-primary);
+  box-shadow: 0 0 0 4px var(--color-bg-blue);
+}
+.theme-timeline-label {
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+.theme-timeline-node.has-features .theme-timeline-label {
+  color: var(--color-action-primary);
+}
+
+.theme-quarter + .theme-quarter { margin-top: 18px; }
+.theme-quarter-head {
+  font-size: 12px; font-weight: 700;
+  color: var(--color-action-primary);
+  letter-spacing: 0.10em; text-transform: uppercase;
+  padding: 0 0 10px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--color-border);
+}
+.theme-feature-list {
+  list-style: none;
+  padding: 0; margin: 0;
+}
+.theme-feature-row {
+  display: flex; align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: background var(--transition), border-color var(--transition);
+}
+.theme-feature-row:hover,
+.theme-feature-row:focus-visible {
+  background: #FFFFFF;
+  border-color: #C9D9EE;
+  outline: none;
+}
+.theme-feature-row .pill { flex-shrink: 0; margin-top: 1px; }
+.theme-feature-row-text {
+  display: flex; flex-direction: column; gap: 2px;
+  flex: 1; min-width: 0;
+}
+.theme-feature-row-title {
+  font-size: 15px; font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.35;
+}
+.theme-feature-row-tagline {
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+.theme-feature-row-arrow {
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+  align-self: center;
+  opacity: 0;
+  transition: opacity var(--transition), transform var(--transition), color var(--transition);
+}
+.theme-feature-row:hover .theme-feature-row-arrow,
+.theme-feature-row:focus-visible .theme-feature-row-arrow {
+  opacity: 1;
+  transform: translateX(2px);
+  color: var(--color-action-primary);
+}
+
 /* ═══ Theme tabs (legacy, kept for fallback only) ═══ */
 .ttabs {
   display: grid;
@@ -1301,7 +1408,7 @@ footer a:hover { text-decoration: underline; }
 <section class="hero">
   <div class="wrap">
     <h1>What we're working on at Hint.</h1>
-    <p class="lead">Transparency in what we've shipped, what's in flight, and where we're headed. Last updated on {{LAST_UPDATED}}.</p>
+    <p class="lead">Transparency in what we've shipped, what's in flight, and where we're headed. Last updated on April 30, 2026.</p>
   </div>
 </section>
 
@@ -1376,7 +1483,7 @@ footer a:hover { text-decoration: underline; }
       </div>
       <h3 class="theme-expand-title" id="theme-expand-title">Expand and evolve your care offerings</h3>
       <p class="theme-expand-summary" id="theme-expand-summary"></p>
-      <div class="feature-grid feature-grid-theme" id="theme-grid"></div>
+      <div class="theme-body" id="theme-body"></div>
       <a class="more-roadmap" href="{{COMMUNITY_URL}}" target="_blank" rel="noopener">
         <div class="more-roadmap-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
@@ -1661,7 +1768,7 @@ const features = {
       'Why it matters': "Medication list hygiene is clinical safety. Cleaner lists mean better prescribing decisions and less time spent reconciling.",
       "Who it's for": "Prescribers and clinical staff."
     },
-    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+    actions: []
   },
   'structured-supplements': { theme: 2, quarter: 'Q1 2026', track: 'EMR', status: 'shipped',
     title: 'Structured supplements via Fullscripts',
@@ -1671,7 +1778,7 @@ const features = {
       'Why it matters': "Supplement recommendations used to live as free text. Structuring them unlocks tracking, trending, and better downstream analysis.",
       "Who it's for": "Functional, longevity, and integrative practices."
     },
-    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+    actions: []
   },
   'packages-deferred-revenue': { theme: 1, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
     title: 'Packages + deferred revenue MVP',
@@ -1681,7 +1788,7 @@ const features = {
       'Why it matters': "Packages are a growing part of how DPC, weight-loss, and longevity practices monetize. Deferred revenue support means your books match the accounting reality of pre-paid services.",
       "Who it's for": "Practices selling visit bundles, program packages, or pre-paid specialty services."
     },
-    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_PACKAGES}}' }, { label: 'Read the release', href: '#' }]
+    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_PACKAGES}}' }]
   },
   'scheduled-price-change': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
     title: 'Scheduled price change at renewal',
@@ -1701,7 +1808,7 @@ const features = {
       'Why it matters': "Previously a source of billing errors and manual cleanup. Families and corporate-sponsored memberships now work the way members expect.",
       "Who it's for": "Practices with family plans, sponsored memberships, or multi-membership households."
     },
-    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+    actions: []
   },
   'embedded-stripe-onboarding': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
     title: 'Embedded Stripe onboarding',
@@ -1711,7 +1818,7 @@ const features = {
       'Why it matters': "Cuts onboarding friction and the drop-off that comes with a redirect, especially for self-serve signup.",
       "Who it's for": "New practices starting with Hint."
     },
-    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+    actions: []
   },
   'stripe-capital': { theme: 1, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
     title: 'Stripe Capital',
@@ -1721,7 +1828,7 @@ const features = {
       'Why it matters': "Growth investments often get stuck on cash flow. A partner-backed path to capital unblocks hiring, equipment, and expansion.",
       "Who it's for": "Practices considering expansion, equipment, or hiring."
     },
-    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+    actions: []
   },
   'tap-to-pay': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
     title: 'Tap to Pay',
@@ -1752,7 +1859,7 @@ const features = {
       'Why it matters': "Real beta customers catch the real issues. The Q2 launch is informed by what design partners actually encountered.",
       "Who it's for": "Beta customers."
     },
-    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+    actions: []
   },
   'app-store-mvp': { theme: 1, quarter: 'Q1 2026', track: 'Marketplace', status: 'shipped',
     title: 'Marketplace App Store MVP',
@@ -1782,7 +1889,7 @@ const features = {
       'Why it matters': "Without clean billing, marketplace partnerships hit friction quickly. This is the plumbing that lets the marketplace scale.",
       "Who it's for": "Marketplace partners and practice admins."
     },
-    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+    actions: []
   },
 
   // ───── Q2 2026 — In progress ─────
@@ -1795,7 +1902,7 @@ const features = {
       'Why it matters': "Practice owners run the business on a handful of recurring questions: who's churning and why, what's growing, where revenue comes from, which providers carry which patients. Those answers used to live in spreadsheet exports or a CSM's head. Analyze makes them part of the product.",
       "Who it's for": "Practice owners, operators, and admins who need to understand practice performance without becoming a SQL analyst."
     },
-    actions: [{ label: 'Read the release', primary: true, href: '#' }]
+    actions: []
   },
   'chat-threading': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'beta',
     title: 'Chat threading and private team chat',
@@ -2057,8 +2164,14 @@ const EVENTS = [
   }
 
   /* ─── Theme expansion drawer (lives below the hero themes card) ─── */
+  // Quarters that the theme timeline shows, in order. Each feature's
+  // `quarter` lands on one of these — H2 2026 covers Q3/Q4 themes that
+  // haven't been split yet.
+  const THEME_TIMELINE_QUARTERS = ['Q1 2026', 'Q2 2026', 'H2 2026'];
+  const THEME_QUARTER_LABEL = { 'Q1 2026': 'Q1 2026', 'Q2 2026': 'Q2 2026', 'H2 2026': 'H2 2026' };
+
   const themeExpand = document.getElementById('theme-expand');
-  const themeGrid = document.getElementById('theme-grid');
+  const themeBody = document.getElementById('theme-body');
   const themeTitle = document.getElementById('theme-expand-title');
   const themeSummary = document.getElementById('theme-expand-summary');
   const themeNum = document.getElementById('theme-expand-num');
@@ -2072,23 +2185,72 @@ const EVENTS = [
     });
   }
 
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  function renderThemeBody(num) {
+    // Group features in this theme by quarter.
+    const byQuarter = {};
+    Object.keys(features).forEach(slug => {
+      const f = features[slug];
+      if (f.theme !== num) return;
+      (byQuarter[f.quarter] = byQuarter[f.quarter] || []).push([slug, f]);
+    });
+
+    const timeline = THEME_TIMELINE_QUARTERS.map(q => {
+      const has = !!(byQuarter[q] && byQuarter[q].length);
+      return '<li class="theme-timeline-node' + (has ? ' has-features' : '') + '">'
+           +   '<span class="theme-timeline-dot" aria-hidden="true"></span>'
+           +   '<span class="theme-timeline-label">' + THEME_QUARTER_LABEL[q] + '</span>'
+           + '</li>';
+    }).join('');
+
+    const quarters = THEME_TIMELINE_QUARTERS
+      .filter(q => byQuarter[q] && byQuarter[q].length)
+      .map(q => {
+        const rows = byQuarter[q].map(([slug, f]) => {
+          const status = statusLabels[f.status] || statusLabels.planned;
+          return '<li><button class="theme-feature-row" type="button" data-feature="' + slug + '">'
+               +   '<span class="pill ' + status.class + '">' + status.label + '</span>'
+               +   '<span class="theme-feature-row-text">'
+               +     '<span class="theme-feature-row-title">' + escapeHtml(f.title) + '</span>'
+               +     (f.tagline ? '<span class="theme-feature-row-tagline">' + escapeHtml(f.tagline) + '</span>' : '')
+               +   '</span>'
+               +   '<svg class="theme-feature-row-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>'
+               + '</button></li>';
+        }).join('');
+        return '<div class="theme-quarter">'
+             +   '<div class="theme-quarter-head">' + THEME_QUARTER_LABEL[q] + '</div>'
+             +   '<ul class="theme-feature-list">' + rows + '</ul>'
+             + '</div>';
+      }).join('');
+
+    themeBody.innerHTML =
+      '<ol class="theme-timeline" style="--theme-timeline-cols:' + THEME_TIMELINE_QUARTERS.length + '">' + timeline + '</ol>'
+      + quarters;
+
+    themeBody.querySelectorAll('.theme-feature-row').forEach(row => {
+      row.addEventListener('click', () => openFeature(row.dataset.feature));
+    });
+  }
+
   function openThemeDrawer(num) {
-    if (!themeExpand || !themeGrid) return;
+    if (!themeExpand || !themeBody) return;
     activeThemeNum = num;
     themeExpand.hidden = false;
     themeNum.textContent = num;
     themeNumText.textContent = String(num).padStart(2, '0');
     themeTitle.textContent = THEME_TITLES[num] || '';
     themeSummary.textContent = THEME_SUMMARIES[num] || '';
-    themeGrid.innerHTML = '';
-    const slugs = Object.keys(features).filter(k => features[k].theme === num);
-    slugs.forEach(slug => themeGrid.appendChild(buildFeatureCard(slug, features[slug])));
+    renderThemeBody(num);
     setHeroThemeSelected(num);
-    // Replay drawer entrance animation each time
+    // Replay drawer entrance animation each time.
     themeExpand.style.animation = 'none';
     void themeExpand.offsetWidth;
     themeExpand.style.animation = '';
-    waterfallCards(themeGrid, 55);
   }
   function closeThemeDrawer() {
     if (!themeExpand) return;
