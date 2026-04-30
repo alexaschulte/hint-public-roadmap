@@ -89,7 +89,7 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 body {
   font-family: 'Wix Madefor Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   font-weight: 400;
@@ -248,8 +248,12 @@ img, svg { display: block; max-width: 100%; }
 .hero p.lead {
   font-size: 16px;
   color: var(--color-text-secondary);
-  max-width: 720px;
+  max-width: none;
   line-height: 1.6;
+  white-space: nowrap;
+}
+@media (max-width: 880px) {
+  .hero p.lead { white-space: normal; max-width: 720px; }
 }
 
 /* ═══ 2026 Themes (gradient card) ═══ */
@@ -506,17 +510,6 @@ img, svg { display: block; max-width: 100%; }
   box-shadow: 0 2px 8px rgba(14, 104, 226, 0.12);
   transform: translateY(-1px);
 }
-.qtab.qtab-link::after {
-  content: '↓';
-  position: absolute;
-  top: 12px; right: 14px;
-  font-size: 14px;
-  color: var(--color-text-tertiary);
-  transition: transform var(--transition);
-  font-weight: 700;
-}
-.qtab.qtab-link:hover::after { color: var(--color-action-primary); transform: translateY(2px); }
-.qtab.qtab-link { position: relative; }
 .qtab-label {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
 }
@@ -676,56 +669,60 @@ img, svg { display: block; max-width: 100%; }
   margin-bottom: 24px;
 }
 
-/* ═══ Quarter stack: both Q2 and Q1 panels always visible ═══ */
-.qstack {
-  display: flex; flex-direction: column;
-  gap: 20px;
-  perspective: 1400px;
-}
-.qview {
+/* ═══ Quarter expansion drawer (mirrors theme-expand) ═══ */
+.qexpand {
+  margin-top: 16px;
   background: #FFFFFF;
   border: 1px solid var(--color-border);
   border-radius: 14px;
-  padding: 32px 36px 36px;
+  padding: 28px 32px 30px;
   box-shadow: var(--shadow-card);
   position: relative;
-  transition: transform var(--transition-slow), box-shadow var(--transition-slow), border-color var(--transition);
-  transform-origin: 50% 30%;
-  will-change: transform, opacity, filter;
   scroll-margin-top: 24px;
+  animation: qexpand-in 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.qview.active {
-  border-color: var(--color-action-primary);
-  box-shadow: 0 4px 16px rgba(14, 104, 226, 0.10), 0 24px 48px rgba(14, 104, 226, 0.10);
+@keyframes qexpand-in {
+  from { opacity: 0; transform: translateY(-12px) scale(0.99); filter: blur(3px); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0); }
 }
-.qview.is-zooming {
-  animation: qview-zoom 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-@keyframes qview-zoom {
-  0%   { transform: perspective(1400px) translateZ(-160px) scale(0.92); opacity: 0;   filter: blur(8px); }
-  35%  { opacity: 1; filter: blur(2px); }
-  70%  { filter: blur(0); }
-  100% { transform: perspective(1400px) translateZ(0)      scale(1);    opacity: 1;   filter: blur(0); }
-}
-/* Ambient state: non-active panel sits slightly back */
-.qview.is-recessed {
-  transform: scale(0.98);
-  opacity: 0.92;
-}
-.qview-head {
-  display: flex; align-items: baseline; justify-content: space-between;
+.qexpand[hidden] { display: none; }
+.qexpand-head {
+  display: flex; justify-content: space-between; align-items: center;
   gap: 16px; flex-wrap: wrap;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
-.qview-title {
-  font-size: 26px; font-weight: 400;
+.qexpand-eyebrow {
+  display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.qexpand-quarter {
+  font-size: 22px; font-weight: 500;
   letter-spacing: -0.01em;
+  color: var(--color-text-primary);
 }
-.qview-meta { font-size: 14px; color: var(--color-text-tertiary); margin-left: 8px; }
-.qview-summary {
+.qexpand-months {
+  font-size: 13px; font-weight: 500;
+  color: var(--color-text-tertiary);
+}
+.qexpand-close {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px 6px 10px;
+  font-family: inherit; font-size: 13px; font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: all var(--transition);
+}
+.qexpand-close:hover {
+  border-color: var(--color-action-primary);
+  color: var(--color-action-primary);
+  background: var(--color-bg-blue);
+}
+.qexpand-summary {
   font-size: 16px; color: var(--color-text-secondary);
-  margin: 12px 0 28px; max-width: 820px;
-  line-height: 1.65;
+  line-height: 1.6; max-width: 820px;
+  margin-bottom: 22px;
 }
 
 /* Quarter highlights row */
@@ -1124,6 +1121,33 @@ footer a:hover { text-decoration: underline; }
 }
 .modal-close:hover { background: #FFFFFF; color: var(--color-text-primary); }
 .modal-body { padding: 22px 32px; overflow-y: auto; flex: 1; }
+.modal-video {
+  margin: -22px -32px 18px;
+  background: #0B1730;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.modal-video video {
+  width: 100%; height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.modal-video-mute {
+  position: absolute; bottom: 12px; right: 12px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(11, 23, 48, 0.62);
+  color: #FFFFFF;
+  border: none;
+  display: grid; place-items: center;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.modal-video-mute:hover { background: rgba(11, 23, 48, 0.82); }
+.modal-video-mute .icon-unmuted { display: none; }
+.modal-video-mute.is-unmuted .icon-muted { display: none; }
+.modal-video-mute.is-unmuted .icon-unmuted { display: block; }
 .modal-body h3 {
   font-size: 12px; font-weight: 500;
   text-transform: uppercase; letter-spacing: 0.08em;
@@ -1226,9 +1250,9 @@ footer a:hover { text-decoration: underline; }
   .themes-card { padding: 28px 24px; }
 }
 @media (max-width: 768px) {
-  .qpanel { padding: 24px 22px; }
   .hero h1 { font-size: 30px; }
-  .qview-head { flex-direction: column; align-items: flex-start; }
+  .qexpand { padding: 22px 20px 24px; }
+  .qexpand-head { flex-direction: column; align-items: flex-start; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1364,7 +1388,6 @@ footer a:hover { text-decoration: underline; }
         <p class="spotlight-desc">Browse, filter, and connect to approved partners directly inside Hint. Practices extend their offering &mdash; labs, supplements, scheduling, communication tools &mdash; without leaving the app.</p>
         <div class="spotlight-cta">
           <a class="btn btn-primary btn-sm" href="https://hint.com/marketplace" target="_blank" rel="noopener">Browse the marketplace<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
-          <button class="btn btn-outline btn-sm" data-feature="app-store-mvp" type="button">Read the release</button>
         </div>
       </div>
       <div class="spotlight-video">
@@ -1388,102 +1411,64 @@ footer a:hover { text-decoration: underline; }
   <div class="wrap">
     <div class="section-header">
       <h2 class="section-title">Quarterly timeline</h2>
-      <p class="section-sub">What we shipped, what's in flight, and what's planned. Pick a quarter to see the detail.</p>
+      <p class="section-sub">What we shipped, what's in flight, and what's planned. Open a quarter to see the detail.</p>
     </div>
 
     <div class="qtabs" role="tablist" aria-label="Quarter selector">
-      <button class="qtab" data-quarter="q1" role="tab" aria-selected="false">
+      <button class="qtab" id="qtab-q1" data-quarter="Q1 2026" data-months="Jan – Mar" data-status="shipped" role="tab" aria-selected="false" aria-controls="qexpand">
         <div class="qtab-label">
           <span class="qtab-name">Q1 2026</span>
           <span class="pill pill-shipped">Shipped</span>
         </div>
         <span class="qtab-months">Jan – Mar</span>
       </button>
-      <button class="qtab" data-quarter="q2" role="tab" aria-selected="false">
+      <button class="qtab" id="qtab-q2" data-quarter="Q2 2026" data-months="Apr – Jun" data-status="inprogress" role="tab" aria-selected="false" aria-controls="qexpand">
         <div class="qtab-label">
           <span class="qtab-name">Q2 2026</span>
           <span class="pill pill-inprogress">In progress</span>
         </div>
         <span class="qtab-months">Apr – Jun</span>
       </button>
-      <button class="qtab qtab-link" data-link="horizon" role="tab" aria-selected="false">
+      <button class="qtab" id="qtab-q3" data-quarter="Q3 2026" data-months="Jul – Sep" data-status="planned" role="tab" aria-selected="false" aria-controls="qexpand">
         <div class="qtab-label">
           <span class="qtab-name">Q3 2026</span>
           <span class="pill pill-planned">Planned</span>
         </div>
-        <span class="qtab-months">Jul – Sep · See "Where we're looking next"</span>
+        <span class="qtab-months">Jul – Sep</span>
       </button>
-      <button class="qtab qtab-link" data-link="horizon" role="tab" aria-selected="false">
+      <button class="qtab" id="qtab-q4" data-quarter="Q4 2026" data-months="Oct – Dec" data-status="planned" role="tab" aria-selected="false" aria-controls="qexpand">
         <div class="qtab-label">
           <span class="qtab-name">Q4 2026</span>
           <span class="pill pill-planned">Planned</span>
         </div>
-        <span class="qtab-months">Oct – Dec · See "Where we're looking next"</span>
+        <span class="qtab-months">Oct – Dec</span>
       </button>
     </div>
 
-    <div class="qstack">
-      <div class="qview" id="view-q2">
-        <div class="qview-head">
-          <h3 class="qview-title">Q2 2026<span class="qview-meta">Apr – Jun · Current quarter</span></h3>
-          <span class="pill pill-inprogress">In progress</span>
+    <div class="qexpand" id="qexpand" role="region" aria-labelledby="qtab-q2" hidden>
+      <div class="qexpand-head">
+        <div class="qexpand-eyebrow">
+          <span class="qexpand-quarter" id="qexpand-quarter">Q2 2026</span>
+          <span class="qexpand-months" id="qexpand-months">Apr – Jun</span>
+          <span class="pill" id="qexpand-status">In progress</span>
         </div>
-        <p class="qview-summary">We're launching the Unified App to all customers, opening Patient Portal self-buy for multiple memberships and providers, and deepening the AI-native chart with threading, summaries, and task management.</p>
-
-        <div class="feature-grid">
-          <button class="feature-card" data-feature="ai-analyze"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">AI Analyze</span></div><p class="feature-desc">Ask questions of your practice in plain English. Get answers drawn from your membership, billing, and clinical data.</p></button>
-          <button class="feature-card" data-feature="unified-app-launch"><div class="feature-card-head"><span class="pill pill-beta">Beta</span><span class="feature-title">Unified App launch</span></div><p class="feature-desc">One app for Core and EMR, with unified navigation, patient chart, and core cards shipping to all customers.</p></button>
-          <button class="feature-card" data-feature="patient-portal-selfbuy"><div class="feature-card-head"><span class="pill pill-beta">Beta</span><span class="feature-title">Patient Portal Self-Buy</span></div><p class="feature-desc">Configurability, marketing images, and confirmation emails for self-service membership purchase.</p></button>
-          <button class="feature-card" data-feature="multi-memberships-providers"><div class="feature-card-head"><span class="pill pill-beta">Beta</span><span class="feature-title">Multiple memberships: multiple providers</span></div><p class="feature-desc">Household and multi-provider membership structures with proper attribution and reporting.</p></button>
-          <button class="feature-card" data-feature="chat-threading"><div class="feature-card-head"><span class="pill pill-beta">Beta</span><span class="feature-title">Chat threading and team chat</span></div><p class="feature-desc">Threaded replies for clinical conversations, plus a dedicated space for internal care-team discussion.</p></button>
-          <button class="feature-card" data-feature="ai-chart-summaries"><div class="feature-card-head"><span class="pill pill-beta">Beta</span><span class="feature-title">AI chart and file summaries</span></div><p class="feature-desc">A summary of any patient chart or uploaded file, with citations back to the source material.</p></button>
-          <button class="feature-card" data-feature="packages-refinement"><div class="feature-card-head"><span class="pill pill-inprogress">In progress</span><span class="feature-title">Packages refinement</span></div><p class="feature-desc">Coverage rules, basic reporting, and beta responsiveness improvements for Packages.</p></button>
-          <button class="feature-card" data-feature="marketplace-engagement-billing"><div class="feature-card-head"><span class="pill pill-inprogress">In progress</span><span class="feature-title">Marketplace engagement and billing</span></div><p class="feature-desc">Tracking of partner usage and revenue so practices can measure the value each partner adds.</p></button>
-        </div>
-
-        <a class="more-roadmap" href="{{COMMUNITY_URL}}" target="_blank" rel="noopener">
-          <div class="more-roadmap-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-          </div>
-          <div class="more-roadmap-body">
-            <div class="more-roadmap-title">+ {{Q2_MORE_COUNT}} more features on our private customer roadmap</div>
-            <div class="more-roadmap-meta">Customers see the full roadmap and join active discussions in Community →</div>
-          </div>
-          <span class="more-roadmap-arrow" aria-hidden="true">→</span>
-        </a>
+        <button class="qexpand-close" id="qexpand-close" type="button" aria-label="Close quarter view">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <span>Close</span>
+        </button>
       </div>
-
-      <!-- Q1 (past quarter, shown beneath Q2) -->
-      <div class="qview" id="view-q1">
-        <div class="qview-head">
-          <h3 class="qview-title">Q1 2026<span class="qview-meta">Jan – Mar</span></h3>
-          <span class="pill pill-shipped">Shipped</span>
+      <p class="qexpand-summary" id="qexpand-summary"></p>
+      <div class="feature-grid feature-grid-theme" id="qexpand-grid"></div>
+      <a class="more-roadmap" id="qexpand-more" href="{{COMMUNITY_URL}}" target="_blank" rel="noopener">
+        <div class="more-roadmap-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
         </div>
-        <p class="qview-summary">A foundational quarter. Packages and deferred revenue shipped. The Unified App moved into customer beta. The Marketplace App Store opened with our first premier partners. EMR shipped a string of AI and Rx improvements.</p>
-
-        <div class="feature-grid">
-          <button class="feature-card" data-feature="packages-deferred-revenue"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Packages + deferred revenue MVP</span></div><p class="feature-desc">Sell pre-paid service bundles, with revenue recognition deferred until services are delivered.</p></button>
-          <button class="feature-card" data-feature="unified-nav-chart"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Unified App nav and patient chart</span></div><p class="feature-desc">The first version of one app for Core and EMR, in design-partner beta.</p></button>
-          <button class="feature-card" data-feature="app-store-mvp"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Marketplace App Store MVP</span></div><p class="feature-desc">Browse, discover, and connect to approved partners from inside Hint.</p></button>
-          <button class="feature-card" data-feature="tap-to-pay"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Tap to Pay</span></div><p class="feature-desc">Accept contactless in-person payment from a supported mobile device.</p></button>
-          <button class="feature-card" data-feature="messaging-instant-delivery"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Messaging: instant delivery and SMS triage</span></div><p class="feature-desc">Faster messaging delivery, with SMS routed through clinical triage alongside in-app chat.</p></button>
-          <button class="feature-card" data-feature="patient-portal-refresh"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Patient portal refresh</span></div><p class="feature-desc">A cleaner patient-facing experience with a refreshed homepage, login, and navigation.</p></button>
-          <button class="feature-card" data-feature="stripe-capital"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Stripe Capital</span></div><p class="feature-desc">Working capital underwritten against your practice's Hint revenue.</p></button>
-          <button class="feature-card" data-feature="partner-onboarding"><div class="feature-card-head"><span class="pill pill-shipped">Shipped</span><span class="feature-title">Automated partner onboarding</span></div><p class="feature-desc">Self-serve onboarding for new partners, including sandbox and endpoint config.</p></button>
+        <div class="more-roadmap-body">
+          <div class="more-roadmap-title" id="qexpand-more-title">More features in this quarter on our private customer roadmap</div>
+          <div class="more-roadmap-meta">Customers see the full roadmap and join active discussions in Community →</div>
         </div>
-
-        <a class="more-roadmap" href="{{COMMUNITY_URL}}" target="_blank" rel="noopener">
-          <div class="more-roadmap-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-          </div>
-          <div class="more-roadmap-body">
-            <div class="more-roadmap-title">+ {{Q1_MORE_COUNT}} more features on our private customer roadmap</div>
-            <div class="more-roadmap-meta">Customers see the full roadmap and join active discussions in Community →</div>
-          </div>
-          <span class="more-roadmap-arrow" aria-hidden="true">→</span>
-        </a>
-      </div>
-
+        <span class="more-roadmap-arrow" aria-hidden="true">→</span>
+      </a>
     </div>
 
     <!-- ═══ Active betas ═══ -->
@@ -1733,12 +1718,13 @@ const features = {
   'unified-nav-chart': { theme: 2, quarter: 'Q1 2026', track: 'Platform', status: 'shipped',
     title: 'Unified App navigation and patient chart',
     tagline: "The first version of one app for Core and EMR.",
+    video: 'videos/Unified_Chart_4k.mp4',
     sections: {
       'What it does': "Unified navigation and a shared patient chart surface across Core and EMR, shipped to design partners in beta.",
       'Why it matters': "The foundation for everything downstream. Unified navigation is the scaffolding that makes context switching, AI features, and cross-surface workflows possible.",
       "Who it's for": "Beta customers in Q1. Rolling to everyone in Q2."
     },
-    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_UNIFIED_NAV_CHART}}' }]
+    actions: []
   },
   'unified-app-infra': { theme: 2, quarter: 'Q1 2026', track: 'Platform', status: 'shipped',
     title: 'Unified App customer beta',
@@ -1785,12 +1771,13 @@ const features = {
   'ai-analyze': { theme: 2, quarter: 'Q2 2026', track: 'EMR · AI', status: 'shipped',
     title: 'AI Analyze',
     tagline: "Ask questions of your practice in plain English. Get answers from your own data.",
+    video: 'videos/Analyze_4k.mp4',
     sections: {
       'What it does': "Analyze is the business intelligence layer of the Hint AI-native chart. Ask a natural-language question about your practice and Analyze pulls from your membership, billing, and clinical data to answer it. The underlying numbers and sources are always one click away.",
       'Why it matters': "Practice owners run the business on a handful of recurring questions: who's churning and why, what's growing, where revenue comes from, which providers carry which patients. Those answers used to live in spreadsheet exports or a CSM's head. Analyze makes them part of the product.",
       "Who it's for": "Practice owners, operators, and admins who need to understand practice performance without becoming a SQL analyst."
     },
-    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_AI_ANALYZE}}' }, { label: 'Read the release', href: '#' }]
+    actions: [{ label: 'Read the release', primary: true, href: '#' }]
   },
   'chat-threading': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'beta',
     title: 'Chat threading and private team chat',
@@ -2012,8 +1999,10 @@ const EVENTS = [
   /* ─── Helpers ─── */
   function scrollToEl(el, offset) {
     if (!el) return;
-    const top = el.getBoundingClientRect().top + window.scrollY - (offset || 16);
-    window.scrollTo(0, top);
+    const jumpbar = document.querySelector('.jumpbar');
+    const jb = jumpbar ? jumpbar.offsetHeight : 0;
+    const top = el.getBoundingClientRect().top + window.scrollY - jb - (offset || 24);
+    window.scrollTo(0, Math.max(0, top));
   }
   function waterfallCards(grid, perCardDelay) {
     const cards = grid.querySelectorAll('.feature-card');
@@ -2105,62 +2094,129 @@ const EVENTS = [
   });
   if (themeClose) themeClose.addEventListener('click', closeThemeDrawer);
 
-  /* ─── Quarter tabs ─── */
-  const qtabs = document.querySelectorAll('.qtab');
-  const qviews = document.querySelectorAll('.qview');
+  /* ─── Quarter expansion drawer ─── */
+  // Per-quarter copy and how each tab maps to the underlying feature data.
+  // Q3 and Q4 both surface the H2 2026 set: we name themes here, but commit
+  // specific work quarter by quarter as we get closer.
+  const QUARTERS = {
+    'Q1 2026': {
+      featureQuarter: 'Q1 2026',
+      moreCountToken: '{{Q1_MORE_COUNT}}',
+      summary: "A foundational quarter. Packages and deferred revenue shipped. The Unified App moved into customer beta. The Marketplace App Store opened with our first premier partners. EMR shipped a string of AI and Rx improvements."
+    },
+    'Q2 2026': {
+      featureQuarter: 'Q2 2026',
+      moreCountToken: '{{Q2_MORE_COUNT}}',
+      summary: "We're launching the Unified App to all customers, opening Patient Portal self-buy for multiple memberships and providers, and deepening the AI-native chart with threading, summaries, and task management."
+    },
+    'Q3 2026': {
+      featureQuarter: 'H2 2026',
+      summary: "Specific Q3 commitments firm up as we get closer. These are the themes we're researching for the second half of 2026."
+    },
+    'Q4 2026': {
+      featureQuarter: 'H2 2026',
+      summary: "Specific Q4 commitments firm up as we get closer. These are the themes we're researching for the second half of 2026."
+    }
+  };
 
-  function setActiveQTab(activeTab) {
+  const qtabs = Array.from(document.querySelectorAll('.qtab'));
+  const qexpand        = document.getElementById('qexpand');
+  const qexpandQuarter = document.getElementById('qexpand-quarter');
+  const qexpandMonths  = document.getElementById('qexpand-months');
+  const qexpandStatus  = document.getElementById('qexpand-status');
+  const qexpandSummary = document.getElementById('qexpand-summary');
+  const qexpandGrid    = document.getElementById('qexpand-grid');
+  const qexpandMoreT   = document.getElementById('qexpand-more-title');
+  const qexpandClose   = document.getElementById('qexpand-close');
+  let activeQuarter = null;
+
+  function setActiveQTab(quarter) {
     qtabs.forEach(t => {
-      const on = (t === activeTab);
+      const on = (t.dataset.quarter === quarter);
       t.classList.toggle('active', on);
       t.setAttribute('aria-selected', on ? 'true' : 'false');
     });
   }
-  function setActivePanel(qid) {
-    qviews.forEach(v => {
-      const on = (v.id === 'view-' + qid);
-      v.classList.toggle('active', on);
-      v.classList.toggle('is-recessed', !on);
-    });
+
+  function moreCountText(token) {
+    return token && !/\{\{[^}]+\}\}/.test(token)
+      ? '+ ' + token + ' more features on our private customer roadmap'
+      : 'More features in this quarter on our private customer roadmap';
   }
 
-  qtabs.forEach(tab => {
+  function openQuarterDrawer(quarter) {
+    if (!qexpand) return;
+    const meta = QUARTERS[quarter];
+    const tab = qtabs.find(t => t.dataset.quarter === quarter);
+    if (!meta || !tab) return;
+    activeQuarter = quarter;
+
+    qexpand.hidden = false;
+    qexpand.setAttribute('aria-labelledby', tab.id);
+    qexpandQuarter.textContent = quarter;
+    qexpandMonths.textContent = tab.dataset.months || '';
+
+    const sInfo = statusLabels[tab.dataset.status] || statusLabels.planned;
+    qexpandStatus.textContent = sInfo.label;
+    qexpandStatus.className = 'pill ' + sInfo.class;
+    qexpandSummary.textContent = meta.summary;
+
+    qexpandGrid.innerHTML = '';
+    Object.keys(features)
+      .filter(k => features[k].quarter === meta.featureQuarter)
+      .forEach(slug => qexpandGrid.appendChild(buildFeatureCard(slug, features[slug])));
+
+    if (qexpandMoreT) qexpandMoreT.textContent = moreCountText(meta.moreCountToken);
+
+    setActiveQTab(quarter);
+    // Replay the entrance animation on each open.
+    qexpand.style.animation = 'none';
+    void qexpand.offsetWidth;
+    qexpand.style.animation = '';
+    waterfallCards(qexpandGrid, 55);
+  }
+
+  function closeQuarterDrawer() {
+    if (!qexpand) return;
+    qexpand.hidden = true;
+    activeQuarter = null;
+    setActiveQTab(null);
+  }
+
+  qtabs.forEach((tab, i) => {
     tab.addEventListener('click', () => {
-      setActiveQTab(tab);
-      if (tab.classList.contains('qtab-link')) {
-        scrollToEl(document.getElementById(tab.dataset.link), 16);
+      const q = tab.dataset.quarter;
+      if (activeQuarter === q) {
+        closeQuarterDrawer();
         return;
       }
-      const qid = tab.dataset.quarter;
-      const view = document.getElementById('view-' + qid);
-      if (!view) return;
-      setActivePanel(qid);
-      scrollToEl(view, 16);
-      const grid = view.querySelector('.feature-grid');
-      if (grid) waterfallCards(grid, 55);
+      openQuarterDrawer(q);
+      requestAnimationFrame(() => scrollToEl(qexpand, 24));
+    });
+    // Roving keyboard navigation across the tablist (WAI-ARIA APG pattern).
+    tab.addEventListener('keydown', e => {
+      let next = -1;
+      if (e.key === 'ArrowRight') next = (i + 1) % qtabs.length;
+      else if (e.key === 'ArrowLeft') next = (i - 1 + qtabs.length) % qtabs.length;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = qtabs.length - 1;
+      if (next === -1) return;
+      e.preventDefault();
+      qtabs[next].focus();
+      qtabs[next].click();
     });
   });
 
-  // Default: Q2 selected; both Q1 and Q2 panels rendered.
-  const defaultQTab = document.querySelector('.qtab[data-quarter="q2"]');
-  if (defaultQTab) {
-    setActiveQTab(defaultQTab);
-    setActivePanel('q2');
-  }
+  if (qexpandClose) qexpandClose.addEventListener('click', closeQuarterDrawer);
 
-  // Each quarter panel waterfalls when it scrolls into view (only once)
-  if ('IntersectionObserver' in window) {
-    const panelIO = new IntersectionObserver((entries, obs) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const grid = e.target.querySelector('.feature-grid');
-          if (grid) waterfallCards(grid, 55);
-          obs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    qviews.forEach(v => panelIO.observe(v));
+  // Default: open the current quarter, falling back to the latest quarter we have data for.
+  function currentQuarterKey() {
+    const d = new Date();
+    const q = ['Q1', 'Q2', 'Q3', 'Q4'][Math.floor(d.getMonth() / 3)];
+    return q + ' ' + d.getFullYear();
   }
+  const initialQuarter = QUARTERS[currentQuarterKey()] ? currentQuarterKey() : 'Q2 2026';
+  openQuarterDrawer(initialQuarter);
 
   /* ─── See everything shipped this year ─── */
   const seeBtn   = document.getElementById('seeall-toggle');
@@ -2308,10 +2364,30 @@ function openFeature(key, opts) {
   modalTagline.textContent = f.tagline || '';
 
   let body = '';
+  if (f.video) {
+    body +=
+      '<div class="modal-video">' +
+        '<video id="modal-video-el" src="' + f.video + '" muted loop playsinline preload="metadata" aria-label="' + f.title + ' demo"></video>' +
+        '<button class="modal-video-mute" id="modal-video-mute" type="button" aria-label="Toggle sound">' +
+          '<svg class="icon-muted"   width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>' +
+          '<svg class="icon-unmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>' +
+        '</button>' +
+      '</div>';
+  }
   for (const [heading, content] of Object.entries(f.sections || {})) {
     body += '<h3>' + heading + '</h3><p>' + content + '</p>';
   }
   modalBody.innerHTML = body;
+  if (f.video) {
+    const v = document.getElementById('modal-video-el');
+    const mute = document.getElementById('modal-video-mute');
+    if (v) v.play().catch(() => {});
+    if (mute) mute.addEventListener('click', () => {
+      if (!v) return;
+      v.muted = !v.muted;
+      mute.classList.toggle('is-unmuted', !v.muted);
+    });
+  }
 
   modalFoot.innerHTML = (f.actions || []).map(a => {
     const cls = a.primary ? 'btn btn-primary' : 'btn btn-outline';
