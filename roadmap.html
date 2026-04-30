@@ -582,71 +582,74 @@ img, svg { display: block; max-width: 100%; }
   border-color: #C9D9EE;
 }
 
-/* ═══ Theme drawer body: timeline + per-quarter feature list ═══ */
-.theme-timeline {
-  list-style: none;
+/* ═══ Theme drawer body: timeline + per-quarter columns ═══ */
+.theme-quarters {
+  --theme-cols: 4;
   display: grid;
-  grid-template-columns: repeat(var(--theme-timeline-cols, 3), 1fr);
-  margin: 4px 0 8px;
-  padding: 0;
+  grid-template-columns: repeat(var(--theme-cols), 1fr);
+  gap: 0 20px;
   position: relative;
+  margin-top: 4px;
 }
-.theme-timeline::before {
+/* Connecting line between the quarter timeline dots. */
+.theme-quarters::before {
   content: '';
   position: absolute;
-  left: calc(100% / var(--theme-timeline-cols, 3) / 2);
-  right: calc(100% / var(--theme-timeline-cols, 3) / 2);
+  left: calc(100% / var(--theme-cols) / 2);
+  right: calc(100% / var(--theme-cols) / 2);
   top: 8px; height: 2px;
   background: var(--color-border-strong);
   border-radius: 1px;
 }
-.theme-timeline-node {
+.theme-quarter {
   position: relative;
-  text-align: center;
+  display: flex; flex-direction: column;
+  gap: 4px;
 }
-.theme-timeline-dot {
-  display: block;
+.theme-quarter-marker {
+  display: grid; place-items: center;
   width: 18px; height: 18px;
   border-radius: 50%;
   background: #FFFFFF;
   border: 2px solid var(--color-border-strong);
   margin: 0 auto 10px;
   position: relative; z-index: 1;
-  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
-.theme-timeline-node.has-features .theme-timeline-dot {
+.theme-quarter.has-features .theme-quarter-marker {
   background: var(--color-action-primary);
   border-color: var(--color-action-primary);
   box-shadow: 0 0 0 4px var(--color-bg-blue);
 }
-.theme-timeline-label {
-  font-size: 12px; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--color-text-tertiary);
-}
-.theme-timeline-node.has-features .theme-timeline-label {
-  color: var(--color-action-primary);
-}
-
-.theme-quarter + .theme-quarter { margin-top: 18px; }
 .theme-quarter-head {
   font-size: 12px; font-weight: 700;
   color: var(--color-action-primary);
   letter-spacing: 0.10em; text-transform: uppercase;
-  padding: 0 0 10px;
-  margin-bottom: 4px;
+  text-align: center;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--color-border);
+  margin-bottom: 6px;
+}
+.theme-quarter:not(.has-features) .theme-quarter-head {
+  color: var(--color-text-tertiary);
+}
+.theme-quarter-empty {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  padding: 12px 8px 4px;
+  text-align: center;
 }
 .theme-feature-list {
   list-style: none;
   padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 2px;
 }
 .theme-feature-row {
   display: flex; align-items: flex-start;
-  gap: 14px;
+  gap: 10px;
   width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
+  padding: 10px 10px;
+  border-radius: 8px;
   border: 1px solid transparent;
   background: transparent;
   cursor: pointer;
@@ -660,33 +663,44 @@ img, svg { display: block; max-width: 100%; }
   border-color: #C9D9EE;
   outline: none;
 }
-.theme-feature-row .pill { flex-shrink: 0; margin-top: 1px; }
-.theme-feature-row-text {
-  display: flex; flex-direction: column; gap: 2px;
-  flex: 1; min-width: 0;
-}
-.theme-feature-row-title {
-  font-size: 15px; font-weight: 500;
-  color: var(--color-text-primary);
-  line-height: 1.35;
-}
-.theme-feature-row-tagline {
-  font-size: 13.5px;
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-}
-.theme-feature-row-arrow {
+.theme-feature-bullet {
   flex-shrink: 0;
-  color: var(--color-text-tertiary);
-  align-self: center;
-  opacity: 0;
-  transition: opacity var(--transition), transform var(--transition), color var(--transition);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+  background: var(--color-text-tertiary);
 }
-.theme-feature-row:hover .theme-feature-row-arrow,
-.theme-feature-row:focus-visible .theme-feature-row-arrow {
-  opacity: 1;
-  transform: translateX(2px);
-  color: var(--color-action-primary);
+.theme-feature-bullet[data-status="shipped"]    { background: var(--color-shipped-text); }
+.theme-feature-bullet[data-status="inprogress"] { background: var(--color-action-primary); }
+.theme-feature-bullet[data-status="beta"]       { background: var(--color-beta-text); }
+.theme-feature-bullet[data-status="planned"]    { background: var(--color-planned-text); }
+.theme-feature-row-title {
+  flex: 1; min-width: 0;
+  font-size: 14px; font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+/* Status legend for the dot colors */
+.theme-legend {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  padding: 14px 4px 0;
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+}
+.theme-legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.theme-legend-dot {
+  width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+}
+
+@media (max-width: 880px) {
+  .theme-quarters { grid-template-columns: repeat(2, 1fr); --theme-cols: 2; gap: 24px 20px; }
+  .theme-quarters::before { display: none; }
+  .theme-quarter-marker { display: none; }
+  .theme-quarter-head { text-align: left; }
+}
+@media (max-width: 520px) {
+  .theme-quarters { grid-template-columns: 1fr; --theme-cols: 1; }
 }
 
 /* ═══ Theme tabs (legacy, kept for fallback only) ═══ */
@@ -2164,11 +2178,12 @@ const EVENTS = [
   }
 
   /* ─── Theme expansion drawer (lives below the hero themes card) ─── */
-  // Quarters that the theme timeline shows, in order. Each feature's
-  // `quarter` lands on one of these — H2 2026 covers Q3/Q4 themes that
-  // haven't been split yet.
-  const THEME_TIMELINE_QUARTERS = ['Q1 2026', 'Q2 2026', 'H2 2026'];
-  const THEME_QUARTER_LABEL = { 'Q1 2026': 'Q1 2026', 'Q2 2026': 'Q2 2026', 'H2 2026': 'H2 2026' };
+  // Quarter columns rendered in order in the theme drawer. H2 2026
+  // features show under Q3 (chronologically the start of H2) until we
+  // split them into specific Q3/Q4 commitments.
+  const THEME_QUARTERS = ['Q1 2026', 'Q2 2026', 'Q3 2026', 'Q4 2026'];
+  const FEATURE_QUARTER_TO_COLUMN = { 'H2 2026': 'Q3 2026' };
+  const featureColumn = (f) => FEATURE_QUARTER_TO_COLUMN[f.quarter] || f.quarter;
 
   const themeExpand = document.getElementById('theme-expand');
   const themeBody = document.getElementById('theme-body');
@@ -2192,45 +2207,41 @@ const EVENTS = [
   }
 
   function renderThemeBody(num) {
-    // Group features in this theme by quarter.
-    const byQuarter = {};
+    // Group this theme's features into the visible quarter columns.
+    const byColumn = Object.fromEntries(THEME_QUARTERS.map(q => [q, []]));
     Object.keys(features).forEach(slug => {
       const f = features[slug];
       if (f.theme !== num) return;
-      (byQuarter[f.quarter] = byQuarter[f.quarter] || []).push([slug, f]);
+      const col = featureColumn(f);
+      if (byColumn[col]) byColumn[col].push([slug, f]);
     });
 
-    const timeline = THEME_TIMELINE_QUARTERS.map(q => {
-      const has = !!(byQuarter[q] && byQuarter[q].length);
-      return '<li class="theme-timeline-node' + (has ? ' has-features' : '') + '">'
-           +   '<span class="theme-timeline-dot" aria-hidden="true"></span>'
-           +   '<span class="theme-timeline-label">' + THEME_QUARTER_LABEL[q] + '</span>'
-           + '</li>';
+    const columns = THEME_QUARTERS.map(q => {
+      const items = byColumn[q];
+      const has = items.length > 0;
+      const rows = items.map(([slug, f]) =>
+        '<li><button class="theme-feature-row" type="button" data-feature="' + slug + '">'
+        +   '<span class="theme-feature-bullet" data-status="' + f.status + '" aria-hidden="true"></span>'
+        +   '<span class="theme-feature-row-title">' + escapeHtml(f.title) + '</span>'
+        + '</button></li>'
+      ).join('');
+      return '<div class="theme-quarter' + (has ? ' has-features' : '') + '">'
+           +   '<span class="theme-quarter-marker" aria-hidden="true"></span>'
+           +   '<div class="theme-quarter-head">' + q + '</div>'
+           +   (has
+                 ? '<ul class="theme-feature-list">' + rows + '</ul>'
+                 : '<div class="theme-quarter-empty">—</div>')
+           + '</div>';
     }).join('');
 
-    const quarters = THEME_TIMELINE_QUARTERS
-      .filter(q => byQuarter[q] && byQuarter[q].length)
-      .map(q => {
-        const rows = byQuarter[q].map(([slug, f]) => {
-          const status = statusLabels[f.status] || statusLabels.planned;
-          return '<li><button class="theme-feature-row" type="button" data-feature="' + slug + '">'
-               +   '<span class="pill ' + status.class + '">' + status.label + '</span>'
-               +   '<span class="theme-feature-row-text">'
-               +     '<span class="theme-feature-row-title">' + escapeHtml(f.title) + '</span>'
-               +     (f.tagline ? '<span class="theme-feature-row-tagline">' + escapeHtml(f.tagline) + '</span>' : '')
-               +   '</span>'
-               +   '<svg class="theme-feature-row-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>'
-               + '</button></li>';
-        }).join('');
-        return '<div class="theme-quarter">'
-             +   '<div class="theme-quarter-head">' + THEME_QUARTER_LABEL[q] + '</div>'
-             +   '<ul class="theme-feature-list">' + rows + '</ul>'
-             + '</div>';
-      }).join('');
-
     themeBody.innerHTML =
-      '<ol class="theme-timeline" style="--theme-timeline-cols:' + THEME_TIMELINE_QUARTERS.length + '">' + timeline + '</ol>'
-      + quarters;
+      '<div class="theme-quarters">' + columns + '</div>'
+      + '<div class="theme-legend" aria-label="Status legend">'
+      +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-shipped-text)"></span>Shipped</span>'
+      +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-action-primary)"></span>In progress</span>'
+      +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-beta-text)"></span>Beta</span>'
+      +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-planned-text)"></span>Planned</span>'
+      + '</div>';
 
     themeBody.querySelectorAll('.theme-feature-row').forEach(row => {
       row.addEventListener('click', () => openFeature(row.dataset.feature));
