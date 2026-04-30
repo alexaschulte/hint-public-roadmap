@@ -224,19 +224,6 @@ img, svg { display: block; max-width: 100%; }
 
 /* ═══ Hero ═══ */
 .hero { padding: 56px 0 24px; }
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 6px 12px; border-radius: var(--radius-pill);
-  background: var(--color-bg-blue);
-  color: var(--color-action-primary);
-  font-size: 12px; font-weight: 500;
-  letter-spacing: 0.04em;
-  margin-bottom: 16px;
-}
-.hero-eyebrow .dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--color-action-primary);
-}
 .hero h1 {
   font-size: clamp(32px, 4.4vw, 44px);
   font-weight: 400;
@@ -1172,25 +1159,44 @@ footer a:hover { text-decoration: underline; }
   animation: card-waterfall 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ═══ See everything shipped this year ═══ */
-.seeall { margin-top: 32px; }
+/* ═══ Everything shipped this year — full-width expander (last section) ═══ */
+.seeall-section {
+  padding: 24px 0 56px;
+}
 .seeall-toggle {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 12px 18px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 22px 28px;
   background: #FFFFFF;
   border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-card);
   color: var(--color-text-primary);
-  font-family: inherit; font-size: 14.5px; font-weight: 600;
+  font-family: inherit; font-size: 18px; font-weight: 500;
+  letter-spacing: -0.01em;
+  text-align: left;
   cursor: pointer;
-  transition: all var(--transition);
+  transition: border-color var(--transition), box-shadow var(--transition), color var(--transition);
   box-shadow: var(--shadow-card);
 }
 .seeall-toggle:hover {
   border-color: var(--color-action-primary);
   color: var(--color-action-primary);
-  transform: translateY(-1px);
   box-shadow: var(--shadow-card-hover);
+}
+.seeall-toggle[aria-expanded="true"] {
+  border-color: var(--color-action-primary);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: var(--color-border);
+}
+.seeall-toggle-text {
+  flex: 1;
+  min-width: 0;
+}
+.seeall-toggle-right {
+  display: inline-flex; align-items: center; gap: 16px;
+  flex-shrink: 0;
 }
 .seeall-toggle-icon {
   display: inline-grid; place-items: center;
@@ -1199,33 +1205,35 @@ footer a:hover { text-decoration: underline; }
 }
 .seeall-toggle[aria-expanded="true"] .seeall-toggle-icon { transform: rotate(180deg); }
 .seeall-toggle-count {
-  font-size: 12px; font-weight: 500;
+  font-size: 13px; font-weight: 500;
   color: var(--color-text-tertiary);
-  padding: 3px 8px;
+  padding: 4px 12px;
   background: var(--color-bg-blue);
   border-radius: var(--radius-pill);
+  white-space: nowrap;
 }
 .seeall-list {
-  margin-top: 18px;
   background: #FFFFFF;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-  padding: 8px;
+  border: 1px solid var(--color-action-primary);
+  border-top: none;
+  border-bottom-left-radius: var(--radius-card);
+  border-bottom-right-radius: var(--radius-card);
+  padding: 8px 16px 16px;
   box-shadow: var(--shadow-card);
 }
 .seeall-list[hidden] { display: none; }
-.seeall-group { padding: 8px 0; }
+.seeall-group { padding: 12px 0; }
 .seeall-group + .seeall-group { border-top: 1px solid var(--color-border); }
 .seeall-group-label {
   font-size: 11px; font-weight: 700;
   color: var(--color-action-primary);
   letter-spacing: 0.10em; text-transform: uppercase;
-  padding: 6px 12px 8px;
+  padding: 6px 12px 10px;
 }
 .seeall-row {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 12px;
-  padding: 10px 12px;
+  gap: 16px;
+  padding: 12px 12px;
   border-radius: 8px;
   cursor: pointer;
   background: transparent;
@@ -1233,15 +1241,21 @@ footer a:hover { text-decoration: underline; }
   width: 100%;
   text-align: left;
   font-family: inherit;
-  transition: all var(--transition);
+  transition: background var(--transition), border-color var(--transition);
 }
+.seeall-row + .seeall-row { margin-top: 2px; }
 .seeall-row:hover { background: var(--color-bg-blue); border-color: var(--color-border); }
-.seeall-row-title { font-size: 14.5px; font-weight: 500; color: var(--color-text-primary); }
-.seeall-row-meta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.seeall-row-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+.seeall-row-meta { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .seeall-row-theme {
   font-size: 11px; font-weight: 600;
   color: var(--color-text-tertiary);
   text-transform: uppercase; letter-spacing: 0.06em;
+}
+@media (max-width: 600px) {
+  .seeall-toggle { padding: 18px 20px; font-size: 16px; }
+  .seeall-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .seeall-row-meta { gap: 8px; }
 }
 
 /* ═══ Responsive ═══ */
@@ -1286,7 +1300,6 @@ footer a:hover { text-decoration: underline; }
 <!-- ═══ Hero ═══ -->
 <section class="hero">
   <div class="wrap">
-    <span class="hero-eyebrow"><span class="dot"></span>Roadmap · 2026</span>
     <h1>What we're working on at Hint.</h1>
     <p class="lead">Transparency in what we've shipped, what's in flight, and where we're headed. Last updated on {{LAST_UPDATED}}.</p>
   </div>
@@ -1298,7 +1311,7 @@ footer a:hover { text-decoration: underline; }
     <span class="jumpbar-label">Jump to</span>
     <div class="jumpbar-links">
       <a class="jumpbar-link" href="#current-quarter">
-        <span class="jumpbar-dot" style="background: #0E68E2"></span>Quarterly timeline
+        <span class="jumpbar-dot" style="background: #0E68E2"></span>Quarterly roadmap
       </a>
       <a class="jumpbar-link" href="#active-betas">
         <span class="jumpbar-dot" style="background: #B583E8"></span>Active betas
@@ -1410,7 +1423,7 @@ footer a:hover { text-decoration: underline; }
 <section id="current-quarter">
   <div class="wrap">
     <div class="section-header">
-      <h2 class="section-title">Quarterly timeline</h2>
+      <h2 class="section-title">Quarterly roadmap</h2>
       <p class="section-sub">What we shipped, what's in flight, and what's planned. Open a quarter to see the detail.</p>
     </div>
 
@@ -1487,17 +1500,6 @@ footer a:hover { text-decoration: underline; }
       </div>
     </section>
 
-    <!-- ═══ See everything shipped this year ═══ -->
-    <div class="seeall" id="seeall">
-      <button class="seeall-toggle" id="seeall-toggle" aria-expanded="false" aria-controls="seeall-list">
-        <span class="seeall-toggle-icon" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </span>
-        <span class="seeall-toggle-text">See everything shipped this year</span>
-        <span class="seeall-toggle-count" id="seeall-toggle-count"></span>
-      </button>
-      <div class="seeall-list" id="seeall-list" hidden></div>
-    </div>
   </div>
 </section>
 
@@ -1577,6 +1579,22 @@ footer a:hover { text-decoration: underline; }
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ═══ Everything shipped this year (full-width expander, last section) ═══ -->
+<section class="seeall-section" id="seeall" aria-labelledby="seeall-title">
+  <div class="wrap">
+    <button class="seeall-toggle" id="seeall-toggle" type="button" aria-expanded="false" aria-controls="seeall-list">
+      <span class="seeall-toggle-text" id="seeall-title">Everything shipped this year</span>
+      <span class="seeall-toggle-right">
+        <span class="seeall-toggle-count" id="seeall-toggle-count"></span>
+        <span class="seeall-toggle-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </span>
+      </span>
+    </button>
+    <div class="seeall-list" id="seeall-list" hidden></div>
   </div>
 </section>
 
@@ -2095,6 +2113,10 @@ const EVENTS = [
   if (themeClose) themeClose.addEventListener('click', closeThemeDrawer);
 
   /* ─── Quarter expansion drawer ─── */
+  // Show at most this many cards in the drawer per quarter — the rest live
+  // on the private customer roadmap and surface via the "more features" CTA.
+  const QUARTER_CARD_LIMIT = 8;
+
   // Per-quarter copy and how each tab maps to the underlying feature data.
   // Q3 and Q4 both surface the H2 2026 set: we name themes here, but commit
   // specific work quarter by quarter as we get closer.
@@ -2164,6 +2186,7 @@ const EVENTS = [
     qexpandGrid.innerHTML = '';
     Object.keys(features)
       .filter(k => features[k].quarter === meta.featureQuarter)
+      .slice(0, QUARTER_CARD_LIMIT)
       .forEach(slug => qexpandGrid.appendChild(buildFeatureCard(slug, features[slug])));
 
     if (qexpandMoreT) qexpandMoreT.textContent = moreCountText(meta.moreCountToken);
