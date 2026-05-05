@@ -1786,6 +1786,16 @@ const features = {
     },
     actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
   },
+  'packages': { theme: 1, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
+    title: 'Packages',
+    tagline: "Prepaid bundles of services and products, for members and non-members alike.",
+    sections: {
+      'What it does': "Sell prepaid bundles — visits, services, products, or programs — to both members and non-members. Package up what your practice already does and offer it as a single purchasable unit.",
+      'Why it matters': "Packages are an accessible on-ramp: prospective patients who aren't ready to commit to a membership can still buy in. For established practices they're a way to diversify revenue without changing the underlying membership model.",
+      "Who it's for": "New practices building their first non-membership offering, and established practices looking to broaden how they monetize."
+    },
+    actions: []
+  },
 
   // ───── Q2 2026 — In progress ─────
   'chat-threading': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'beta',
@@ -1805,6 +1815,16 @@ const features = {
       'What it does': "Concise, structured summaries of a patient's chart and uploaded clinical files, with citations back to the original source material.",
       'Why it matters': "Pre-visit chart review is one of the biggest time sinks in the clinical day. A summary that points back to source lets you prep faster without losing confidence in the detail.",
       "Who it's for": "Clinicians who see patients with complex histories or uploaded outside records."
+    },
+    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
+  },
+  'ios-scribe': { theme: 2, quarter: 'Q2 2026', track: 'EMR · AI', status: 'beta',
+    title: 'Hint iOS app — Scribe',
+    tagline: "Record the visit as it happens. The chart writes itself.",
+    sections: {
+      'What it does': "Scribe inside the new Hint iOS app captures the encounter as it's happening and turns the audio into a structured, editable note. Every Hint AI capability — drafting, structuring, follow-up extraction — runs on top of what Scribe captures.",
+      'Why it matters': "Charting while the encounter is still happening changes the rhythm of care. Clinicians can be present in the room and walk out with the note already drafted.",
+      "Who it's for": "Clinicians who want to chart from anywhere — exam room, hallway, between visits."
     },
     actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
   },
@@ -1867,16 +1887,6 @@ const features = {
       "Who it's for": "Practices with flexible or event-driven pricing, aesthetics add-ons, or à-la-carte services alongside memberships."
     },
     actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
-  },
-  'unified-app-launch': { theme: 2, quarter: 'Q2 2026', track: 'Platform', status: 'beta',
-    title: 'Unified App launch',
-    tagline: "One app for Core and EMR. Launching to everyone in Q2.",
-    sections: {
-      'What it does': "Rolls out the Unified App to all customers, bringing Core (Provider Portal) and EMR (Aero) into a single experience with unified navigation, patient chart, and core cards.",
-      'Why it matters': "Most Hint users live in two apps today. Unifying them ends the context-switching tax and sets the foundation for every AI and workflow improvement going forward.",
-      "Who it's for": "Every Hint customer."
-    },
-    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
   },
   'unified-chart-experience-q2': { theme: 2, quarter: 'Q2 2026', track: 'Platform', status: 'beta',
     title: 'Unified chart experience',
