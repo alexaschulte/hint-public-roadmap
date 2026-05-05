@@ -185,7 +185,7 @@ img, svg { display: block; max-width: 100%; }
 }
 .jumpbar-wrap {
   display: flex; align-items: center; gap: 12px;
-  padding-top: 10px; padding-bottom: 10px;
+  padding-top: 8px; padding-bottom: 8px;
 }
 .jumpbar-label {
   font-size: 11px; font-weight: 700;
@@ -195,6 +195,9 @@ img, svg { display: block; max-width: 100%; }
 }
 .jumpbar-links {
   display: flex; align-items: center; gap: 6px;
+  /* Vertical padding gives the hover lift (translateY -1px) room inside
+     the overflow-x clipping box; otherwise the chip's top edge clips. */
+  padding: 2px 0;
   overflow-x: auto;
   scrollbar-width: thin;
   -webkit-overflow-scrolling: touch;
@@ -1636,8 +1639,8 @@ footer a:hover { text-decoration: underline; }
         <p>First-class workflows for à-la-carte visits, procedures, and services for patients who aren't on a membership.</p>
       </button>
       <button class="horizon-card" data-feature="mobile-app-ga">
-        <div class="horizon-card-head"><h4>Hint Mobile App GA</h4><span class="pill pill-planned">Planned</span></div>
-        <p>Moving the clinician and admin mobile experience out of early access and into general availability.</p>
+        <div class="horizon-card-head"><h4>Hint iOS app GA</h4><span class="pill pill-planned">Planned</span></div>
+        <p>Moving the clinician and admin iOS experience out of early access and into general availability.</p>
       </button>
     </div>
     <div class="horizon-note">
@@ -1943,11 +1946,11 @@ const features = {
     ]
   },
   'mobile-app-ga': { theme: 2, quarter: 'H2 2026', track: 'Planned', status: 'planned',
-    title: 'Hint Mobile App — GA',
-    tagline: "The clinician and admin mobile experience moves out of early access.",
+    title: 'Hint iOS app — GA',
+    tagline: "The clinician and admin iOS experience moves out of early access.",
     sections: {
-      'What it does': "Brings the mobile app to general availability, with the workflows clinicians and admins rely on between desk sessions.",
-      'Why it matters': "Charting and admin work doesn't only happen at a laptop. We want the mobile experience to be a first-class part of the practice day, not an escape hatch.",
+      'What it does': "Brings the Hint iOS app to general availability, with the workflows clinicians and admins rely on between desk sessions.",
+      'Why it matters': "Charting and admin work doesn't only happen at a laptop. We want the iOS experience to be a first-class part of the practice day, not an escape hatch.",
       "Who it's for": "Clinicians and admins who work across rooms, locations, or off-hours."
     },
     actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
@@ -2186,6 +2189,10 @@ function hasStatus(f, status) {
         closeThemeDrawer();
       } else {
         openThemeDrawer(t);
+        // Anchor the gradient themes card near the top so both it and the
+        // drawer stay visible after the scroll.
+        const anchor = document.querySelector('.themes-card');
+        if (anchor) setTimeout(() => scrollToEl(anchor, 16), 30);
       }
     });
   });
@@ -2296,6 +2303,10 @@ function hasStatus(f, status) {
         return;
       }
       openQuarterDrawer(q);
+      // Anchor the quarter timeline near the top so both the tabs and the
+      // drawer stay visible after the scroll.
+      const anchor = document.querySelector('.qtabs');
+      if (anchor) requestAnimationFrame(() => scrollToEl(anchor, 16));
     });
     // Roving keyboard navigation across the tablist (WAI-ARIA APG pattern).
     tab.addEventListener('keydown', e => {
