@@ -1458,7 +1458,6 @@ footer a:hover { text-decoration: underline; }
       <div class="themes-grid">
         <button class="theme-card" data-theme="1" type="button">
           <div class="theme-card-head">
-            <div class="theme-number">1</div>
             <div class="theme-card-title">Expand and evolve your care offerings</div>
           </div>
           <div class="theme-card-body">New revenue models, new services, new programs &mdash; without adding friction or overhead to your operations.</div>
@@ -1466,15 +1465,13 @@ footer a:hover { text-decoration: underline; }
         </button>
         <button class="theme-card" data-theme="2" type="button">
           <div class="theme-card-head">
-            <div class="theme-number">2</div>
-            <div class="theme-card-title">Protect time for what matters most</div>
+            <div class="theme-card-title">Protect your time for what matters most</div>
           </div>
           <div class="theme-card-body">Deeper, more seamless experiences across Hint so clinical time stays focused on delivering best-in-class care.</div>
           <span class="theme-card-cta">See features in this theme <span aria-hidden="true">→</span></span>
         </button>
         <button class="theme-card" data-theme="3" type="button">
           <div class="theme-card-head">
-            <div class="theme-number">3</div>
             <div class="theme-card-title">Support flexible styles of practice</div>
           </div>
           <div class="theme-card-body">Whether you run pure DPC, hybrid, longevity, or multi-location, Hint should let you operate the way you want.</div>
@@ -1487,8 +1484,7 @@ footer a:hover { text-decoration: underline; }
     <div class="theme-expand" id="theme-expand" hidden>
       <div class="theme-expand-head">
         <div class="theme-expand-eyebrow">
-          <span class="theme-expand-num" id="theme-expand-num">1</span>
-          <span class="theme-expand-label">Theme <span id="theme-expand-num-text">01</span> · features mapped to this commitment</span>
+          <span class="theme-expand-label">Theme · features mapped to this commitment</span>
         </div>
         <button class="theme-expand-close" id="theme-expand-close" type="button" aria-label="Close theme view">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -1615,9 +1611,9 @@ footer a:hover { text-decoration: underline; }
       <div class="betas-list">
         <button class="betas-item" data-feature="patient-portal-selfbuy"><div class="betas-item-body"><div class="betas-item-area">Flexible practice</div><div>Patient Portal Self-Buy</div></div><span class="pill pill-beta">Beta</span></button>
         <button class="betas-item" data-feature="multi-memberships-providers"><div class="betas-item-body"><div class="betas-item-area">Flexible practice</div><div>Multiple memberships &amp; providers</div></div><span class="pill pill-beta">Beta</span></button>
-        <button class="betas-item" data-feature="unified-app-launch"><div class="betas-item-body"><div class="betas-item-area">Protect time</div><div>Unified App</div></div><span class="pill pill-beta">Beta</span></button>
-        <button class="betas-item" data-feature="chat-threading"><div class="betas-item-body"><div class="betas-item-area">Protect time</div><div>Chat threading &amp; team chat</div></div><span class="pill pill-beta">Beta</span></button>
-        <button class="betas-item" data-feature="ai-chart-summaries"><div class="betas-item-body"><div class="betas-item-area">Protect time</div><div>AI chart and file summaries</div></div><span class="pill pill-beta">Beta</span></button>
+        <button class="betas-item" data-feature="unified-app-launch"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>Unified App</div></div><span class="pill pill-beta">Beta</span></button>
+        <button class="betas-item" data-feature="chat-threading"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>Chat threading &amp; team chat</div></div><span class="pill pill-beta">Beta</span></button>
+        <button class="betas-item" data-feature="ai-chart-summaries"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>AI chart and file summaries</div></div><span class="pill pill-beta">Beta</span></button>
       </div>
     </section>
 
@@ -1806,6 +1802,16 @@ const features = {
     },
     actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
   },
+  'hint-marketplace': { theme: 1, quarter: 'Q1 2026', track: 'Marketplace', status: 'shipped',
+    title: 'Hint Marketplace',
+    tagline: "Discover and connect to approved partners from inside Hint.",
+    sections: {
+      'What it does': "Browse, filter, and connect to a directory of approved Hint partners — labs, pharmacies, supplements, scheduling, communication tools, and more — without leaving the app.",
+      'Why it matters': "Partner setup used to mean emails, contracts, and weeks of configuration. Marketplace turns that into a few clicks, so practices can extend their offering as quickly as they can choose what to add.",
+      "Who it's for": "Practices expanding their service offering or trying out a new partner without a heavy procurement cycle."
+    },
+    actions: [{ label: 'Browse the marketplace', primary: true, href: 'https://www.hint.com/marketplace', external: true }]
+  },
 
   // ───── Q2 2026 — In progress ─────
   'chat-threading': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'beta',
@@ -1830,9 +1836,9 @@ const features = {
   },
   'ai-chart-summaries': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'beta',
     title: 'AI chart and file summaries',
-    tagline: "Get to the point of any chart or uploaded file.",
+    tagline: "Prepare for your visit and get to the point of any uploaded file.",
     sections: {
-      'What it does': "Concise, structured summaries of a patient's chart and uploaded clinical files, with citations back to the original source material.",
+      'What it does': "Concise, structured summaries of a patient's chart and uploaded clinical files.",
       'Why it matters': "Pre-visit chart review is one of the biggest time sinks in the clinical day. A summary that points back to source lets you prep faster without losing confidence in the detail.",
       "Who it's for": "Clinicians who see patients with complex histories or uploaded outside records."
     },
@@ -2028,12 +2034,12 @@ const EVENTS = [
 
   const THEME_LABELS = {
     1: 'Expand offerings',
-    2: 'Protect time',
+    2: 'Protect your time',
     3: 'Flexible practice'
   };
   const THEME_TITLES = {
     1: 'Expand and evolve your care offerings',
-    2: 'Protect time for what matters most',
+    2: 'Protect your time for what matters most',
     3: 'Support flexible styles of practice'
   };
   const THEME_SUMMARIES = {
@@ -2096,8 +2102,6 @@ const EVENTS = [
   const themeBody = document.getElementById('theme-body');
   const themeTitle = document.getElementById('theme-expand-title');
   const themeSummary = document.getElementById('theme-expand-summary');
-  const themeNum = document.getElementById('theme-expand-num');
-  const themeNumText = document.getElementById('theme-expand-num-text');
   const themeClose = document.getElementById('theme-expand-close');
   let activeThemeNum = null;
 
@@ -2159,8 +2163,6 @@ const EVENTS = [
     if (!themeExpand || !themeBody) return;
     activeThemeNum = num;
     themeExpand.hidden = false;
-    themeNum.textContent = num;
-    themeNumText.textContent = String(num).padStart(2, '0');
     themeTitle.textContent = THEME_TITLES[num] || '';
     themeSummary.textContent = THEME_SUMMARIES[num] || '';
     renderThemeBody(num);
@@ -2457,7 +2459,7 @@ function openFeature(key, opts) {
   modalHero.dataset.status = f.status;
   modalQuarter.textContent = f.quarter;
   // Show track + customer theme in modal meta
-  const themeNames = { 1: 'Theme 01 — Expand offerings', 2: 'Theme 02 — Protect time', 3: 'Theme 03 — Flexible practice' };
+  const themeNames = { 1: 'Theme — Expand offerings', 2: 'Theme — Protect your time', 3: 'Theme — Flexible practice' };
   const themeLabel = themeNames[f.theme] || '';
   const trackLabel = f.track || '';
   modalTheme.textContent = [themeLabel, trackLabel].filter(Boolean).join(' · ');
