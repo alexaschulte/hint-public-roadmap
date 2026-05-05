@@ -1754,170 +1754,29 @@ const CANNY_URL     = '{{CANNY_URL}}';
 /* ═══ Feature data ═══ */
 const features = {
   // ───── Q1 2026 — Shipped ─────
-  'patient-portal-refresh': { theme: 2, quarter: 'Q1 2026', track: 'EMR', status: 'shipped',
-    title: 'Patient portal refresh and navigation',
-    tagline: "A cleaner, faster patient-facing experience.",
+  'price-change-at-renewal': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
+    title: 'Price change at renewal',
+    tagline: "Automate annual rate increases on a per-membership basis.",
     sections: {
-      'What it does': "Navigation enhancements, a homepage refresh, and login page polish for the patient portal.",
-      'Why it matters': "Patients now land in a clearer surface. Sets the visual direction we're extending in the Q2 Patient Portal restyle.",
-      "Who it's for": "Practices whose patients use the portal."
-    },
-    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_PATIENT_PORTAL_REFRESH}}' }]
-  },
-  'messaging-instant-delivery': { theme: 2, quarter: 'Q1 2026', track: 'EMR', status: 'shipped',
-    title: 'Messaging: instant delivery and SMS triage',
-    tagline: "Messages show up faster. SMS flows through clinical triage.",
-    sections: {
-      'What it does': "Instant message delivery for clinical chat, plus routing of SMS messages through chat triage so they follow the same workflow as in-app messages.",
-      'Why it matters': "Patients don't care which channel they messaged on. Your team shouldn't have to either.",
-      "Who it's for": "Practices that communicate with patients over both SMS and in-app chat."
-    },
-    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_MESSAGING}}' }]
-  },
-  'rx-refills-dedup': { theme: 2, quarter: 'Q1 2026', track: 'EMR', status: 'shipped',
-    title: 'Rx refills and deduplication',
-    tagline: "Cleaner medication lists and faster refills.",
-    sections: {
-      'What it does': "Streamlined Rx refill workflow and automatic deduplication of medication records that were duplicates or variations of the same drug.",
-      'Why it matters': "Medication list hygiene is clinical safety. Cleaner lists mean better prescribing decisions and less time spent reconciling.",
-      "Who it's for": "Prescribers and clinical staff."
+      'What it does': "Schedule price changes that apply automatically at each membership's next renewal — no new membership tier required, no manual migration. Annual rate adjustments can run on autopilot, one membership at a time.",
+      'Why it matters': "Practices that raise rates each year used to do it the hard way: spin up a new tier, move members onto it by hand, and eat the operational cost. Now the increase lands cleanly at the renewal date that matches what was communicated, without changing the underlying membership.",
+      "Who it's for": "Practices that adjust pricing annually or per-cohort, especially DPC and longevity practices with long-tenured members."
     },
     actions: []
   },
-  'structured-supplements': { theme: 2, quarter: 'Q1 2026', track: 'EMR', status: 'shipped',
-    title: 'Structured supplements via Fullscripts',
-    tagline: "Supplement recommendations as structured chart data.",
+  'ai-analyze': { theme: 2, quarter: 'Q1 2026', track: 'EMR · AI', status: 'shipped',
+    title: 'AI Analyze',
+    tagline: "Structured data and follow-ups, pulled automatically from clinical notes.",
+    video: 'videos/Analyze_4k.mp4',
     sections: {
-      'What it does': "Integration with Fullscripts that captures supplement recommendations as structured, trendable data inside the chart.",
-      'Why it matters': "Supplement recommendations used to live as free text. Structuring them unlocks tracking, trending, and better downstream analysis.",
-      "Who it's for": "Functional, longevity, and integrative practices."
-    },
-    actions: []
-  },
-  'packages-deferred-revenue': { theme: 1, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
-    title: 'Packages + deferred revenue MVP',
-    tagline: "Sell and account for pre-paid service packages the right way.",
-    sections: {
-      'What it does': "Practices can sell bundles of visits, procedures, or services as pre-paid packages, with revenue recognition deferred until services are delivered.",
-      'Why it matters': "Packages are a growing part of how DPC, weight-loss, and longevity practices monetize. Deferred revenue support means your books match the accounting reality of pre-paid services.",
-      "Who it's for": "Practices selling visit bundles, program packages, or pre-paid specialty services."
-    },
-    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_PACKAGES}}' }]
-  },
-  'scheduled-price-change': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
-    title: 'Scheduled price change at renewal',
-    tagline: "Announce a price change now, apply it at the right time, for the right members.",
-    sections: {
-      'What it does': "Configure price changes that apply on each member's next renewal date, rather than in a single cutover.",
-      'Why it matters': "A long-time request. You can raise prices cleanly without a manual workaround, and members see the change at the moment that matches what you communicated.",
-      "Who it's for": "Practices that raise prices on an annual cadence."
-    },
-    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_SCHEDULED_PRICE_CHANGE}}' }]
-  },
-  'default-payment-per-membership': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
-    title: 'Default payment per membership',
-    tagline: "One member, many memberships, the right card on each.",
-    sections: {
-      'What it does': "Members with multiple memberships can set a different default payment method per membership.",
-      'Why it matters': "Previously a source of billing errors and manual cleanup. Families and corporate-sponsored memberships now work the way members expect.",
-      "Who it's for": "Practices with family plans, sponsored memberships, or multi-membership households."
-    },
-    actions: []
-  },
-  'embedded-stripe-onboarding': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
-    title: 'Embedded Stripe onboarding',
-    tagline: "Set up payments without leaving Hint.",
-    sections: {
-      'What it does': "New practices complete Stripe onboarding inside Hint rather than being redirected to Stripe's own flow.",
-      'Why it matters': "Cuts onboarding friction and the drop-off that comes with a redirect, especially for self-serve signup.",
-      "Who it's for": "New practices starting with Hint."
-    },
-    actions: []
-  },
-  'stripe-capital': { theme: 1, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
-    title: 'Stripe Capital',
-    tagline: "Working capital based on your practice's Hint revenue.",
-    sections: {
-      'What it does': "Eligible practices can access working capital offers from Stripe Capital, underwritten based on their payment history in Hint.",
-      'Why it matters': "Growth investments often get stuck on cash flow. A partner-backed path to capital unblocks hiring, equipment, and expansion.",
-      "Who it's for": "Practices considering expansion, equipment, or hiring."
-    },
-    actions: []
-  },
-  'tap-to-pay': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
-    title: 'Tap to Pay',
-    tagline: "Accept in-person payment with a phone.",
-    sections: {
-      'What it does': "Contactless Tap to Pay for in-person charges from a supported mobile device.",
-      'Why it matters': "No card reader, no extra hardware. Front desk staff can take payment anywhere in the practice.",
-      "Who it's for": "Practices with in-person visits, especially those with aesthetics or retail add-ons."
-    },
-    actions: [{ label: 'Watch demo', primary: true, href: '{{DEMO_TAP_TO_PAY}}' }]
-  },
-  'unified-nav-chart': { theme: 2, quarter: 'Q1 2026', track: 'Platform', status: 'shipped',
-    title: 'Unified App navigation and patient chart',
-    tagline: "The first version of one app for Core and EMR.",
-    video: 'videos/Unified_Chart_4k.mp4',
-    sections: {
-      'What it does': "Unified navigation and a shared patient chart surface across Core and EMR, shipped to design partners in beta.",
-      'Why it matters': "The foundation for everything downstream. Unified navigation is the scaffolding that makes context switching, AI features, and cross-surface workflows possible.",
-      "Who it's for": "Beta customers in Q1. Rolling to everyone in Q2."
-    },
-    actions: []
-  },
-  'unified-app-infra': { theme: 2, quarter: 'Q1 2026', track: 'Platform', status: 'shipped',
-    title: 'Unified App customer beta',
-    tagline: "Design partner customers live on the Unified App.",
-    sections: {
-      'What it does': "Production infrastructure for running the Unified App with real customers, plus the beta program that informs the Q2 launch.",
-      'Why it matters': "Real beta customers catch the real issues. The Q2 launch is informed by what design partners actually encountered.",
-      "Who it's for": "Beta customers."
-    },
-    actions: []
-  },
-  'app-store-mvp': { theme: 1, quarter: 'Q1 2026', track: 'Marketplace', status: 'shipped',
-    title: 'Marketplace App Store MVP',
-    tagline: "Discover and connect to approved partners from inside Hint.",
-    sections: {
-      'What it does': "The first version of the Marketplace App Store: a directory of approved partners (labs, pharmacies, specialty services, tools) that practices can browse and connect to from inside Hint.",
-      'Why it matters': "Partner setup used to mean emails, contracts, and configuration work. The App Store turns that into a few clicks.",
-      "Who it's for": "Practices expanding their service offering."
-    },
-    actions: [{ label: 'Browse the marketplace', primary: true, href: 'https://www.hint.com/marketplace' }, { label: 'Watch demo', href: '{{DEMO_APP_STORE}}' }]
-  },
-  'partner-onboarding': { theme: 1, quarter: 'Q1 2026', track: 'Marketplace', status: 'shipped',
-    title: 'Automated partner onboarding',
-    tagline: "Partners can onboard themselves into the marketplace.",
-    sections: {
-      'What it does': "Self-serve onboarding for new marketplace partners, including the partner portal, sandbox access, and clinical and billing endpoint configuration.",
-      'Why it matters': "Reduces the manual work to bring a new partner live from weeks of white-glove setup to a guided flow.",
-      "Who it's for": "New and prospective marketplace partners."
-    },
-    actions: [{ label: 'Become a partner', primary: true, href: '#' }]
-  },
-  'partner-billing': { theme: 1, quarter: 'Q1 2026', track: 'Marketplace', status: 'shipped',
-    title: 'Partner billing and payments',
-    tagline: "Partners get paid for the work they do through Hint.",
-    sections: {
-      'What it does': "Billing and payment flows between Hint, practices, and marketplace partners, plus reporting that shows each partner what they're owed.",
-      'Why it matters': "Without clean billing, marketplace partnerships hit friction quickly. This is the plumbing that lets the marketplace scale.",
-      "Who it's for": "Marketplace partners and practice admins."
+      'What it does': "Analyze reads each clinical note and automatically extracts the structured data and follow-up tasks the encounter implies — labs to order, referrals to make, medications to update, things to revisit at the next visit.",
+      'Why it matters': "Clinicians already wrote down what needs to happen. They shouldn't have to re-enter it as discrete orders, tasks, and structured fields. Analyze closes the gap between the narrative and the rest of the chart.",
+      "Who it's for": "Any clinician charting in Hint."
     },
     actions: []
   },
 
   // ───── Q2 2026 — In progress ─────
-  'ai-analyze': { theme: 2, quarter: 'Q2 2026', track: 'EMR · AI', status: 'shipped',
-    title: 'AI Analyze',
-    tagline: "Ask questions of your practice in plain English. Get answers from your own data.",
-    video: 'videos/Analyze_4k.mp4',
-    sections: {
-      'What it does': "Analyze is the business intelligence layer of the Hint AI-native chart. Ask a natural-language question about your practice and Analyze pulls from your membership, billing, and clinical data to answer it. The underlying numbers and sources are always one click away.",
-      'Why it matters': "Practice owners run the business on a handful of recurring questions: who's churning and why, what's growing, where revenue comes from, which providers carry which patients. Those answers used to live in spreadsheet exports or a CSM's head. Analyze makes them part of the product.",
-      "Who it's for": "Practice owners, operators, and admins who need to understand practice performance without becoming a SQL analyst."
-    },
-    actions: []
-  },
   'chat-threading': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'beta',
     title: 'Chat threading and private team chat',
     tagline: "Keep clinical conversations organized without losing context.",
