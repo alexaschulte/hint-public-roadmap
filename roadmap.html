@@ -1609,11 +1609,13 @@ footer a:hover { text-decoration: underline; }
       </div>
       <p class="betas-sub">Features running with customers in live beta right now. Want in? Join the conversation in <a href="{{COMMUNITY_URL}}" target="_blank" rel="noopener">Community</a>.</p>
       <div class="betas-list">
-        <button class="betas-item" data-feature="patient-portal-selfbuy"><div class="betas-item-body"><div class="betas-item-area">Flexible practice</div><div>Patient Portal Self-Buy</div></div><span class="pill pill-beta">Beta</span></button>
+        <button class="betas-item" data-feature="patient-portal-selfbuy"><div class="betas-item-body"><div class="betas-item-area">Flexible practice</div><div>Shopping in the patient portal</div></div><span class="pill pill-beta">Beta</span></button>
         <button class="betas-item" data-feature="multi-memberships-providers"><div class="betas-item-body"><div class="betas-item-area">Flexible practice</div><div>Multiple memberships &amp; providers</div></div><span class="pill pill-beta">Beta</span></button>
-        <button class="betas-item" data-feature="unified-app-launch"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>Unified App</div></div><span class="pill pill-beta">Beta</span></button>
-        <button class="betas-item" data-feature="chat-threading"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>Chat threading &amp; team chat</div></div><span class="pill pill-beta">Beta</span></button>
+        <button class="betas-item" data-feature="unified-chart-experience-q2"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>Unified chart experience</div></div><span class="pill pill-beta">Beta</span></button>
+        <button class="betas-item" data-feature="patient-portal-secure-messaging"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>Secure messaging in the patient portal</div></div><span class="pill pill-beta">Beta</span></button>
+        <button class="betas-item" data-feature="advanced-messaging-team-chat"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>Advanced messaging &amp; team chat</div></div><span class="pill pill-beta">Beta</span></button>
         <button class="betas-item" data-feature="ai-chart-summaries"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>AI chart and file summaries</div></div><span class="pill pill-beta">Beta</span></button>
+        <button class="betas-item" data-feature="ios-scribe"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>Hint iOS app — Scribe</div></div><span class="pill pill-beta">Beta</span></button>
       </div>
     </section>
 
@@ -1814,16 +1816,6 @@ const features = {
   },
 
   // ───── Q2 2026 — In progress ─────
-  'chat-threading': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'beta',
-    title: 'Chat threading and private team chat',
-    tagline: "Keep clinical conversations organized without losing context.",
-    sections: {
-      'What it does': "Threaded replies in Chat so follow-up discussion stays attached to the original message, plus a private Team Chat surface for internal care-team conversations that shouldn't live in the patient thread.",
-      'Why it matters': "EMR chat becomes noisy fast. Threading means a quick question doesn't bury an active conversation, and private team chat gives clinicians a place to huddle without cluttering the patient-facing thread.",
-      "Who it's for": "Multi-provider practices where several clinicians and staff coordinate on the same patients."
-    },
-    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
-  },
   'advanced-messaging-team-chat': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'beta',
     title: 'Advanced messaging and internal team chat',
     tagline: "Coordinate inside the care team. Communicate the way patients expect.",
@@ -1866,18 +1858,18 @@ const features = {
     actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
   },
   'patient-portal-restyle': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'inprogress',
-    title: 'Patient Portal restyle',
-    tagline: "A refreshed patient-facing experience aligned to the unified brand.",
+    title: 'Refreshed patient portal',
+    tagline: "A modern, mobile-first patient experience.",
     sections: {
-      'What it does': "Visual and interaction refresh for the patient portal, aligning it to the unified Hint experience clinicians now use.",
+      'What it does': "A modern, mobile-first redesign of the patient portal that brings together all of our latest patient-facing features — including secure messaging and shopping for memberships and packages — into one cohesive experience.",
       'Why it matters': "Patients judge your practice by the portal. A cleaner, more modern surface makes signup, self-service, and messaging feel like the high-touch experience DPC is known for.",
       "Who it's for": "Practices whose patients use the portal for booking, messaging, or membership management."
     },
     actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
   },
   'patient-portal-selfbuy': { theme: 3, quarter: 'Q2 2026', track: 'Billing', status: 'beta',
-    title: 'Patient Portal Self-Buy',
-    tagline: "Let new members sign up and pay without staff coordination.",
+    title: 'Shopping in the patient portal',
+    tagline: "Let members sign up for additional memberships and packages without staff coordination.",
     sections: {
       'What it does': "Configurability, marketing images, and confirmation emails for self-service membership purchase through the Patient Portal. Prospective members can see your plans, pick one, and complete payment on their own.",
       'Why it matters': "Most practices lose prospective members in the gap between interest and signup. Self-Buy closes that gap and removes a real tax on your front desk.",
