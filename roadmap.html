@@ -1245,6 +1245,20 @@ footer a:hover { text-decoration: underline; }
   display: block;
   object-fit: cover;
 }
+/* Portrait videos (e.g. mobile screen recordings) — let the full frame
+   show with letterboxing instead of cropping top/bottom to 16:9. */
+.modal-video.is-portrait {
+  aspect-ratio: auto;
+  display: flex;
+  justify-content: center;
+}
+.modal-video.is-portrait video {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
 .modal-video-mute {
   position: absolute; bottom: 12px; right: 12px;
   width: 32px; height: 32px;
@@ -1426,7 +1440,7 @@ footer a:hover { text-decoration: underline; }
 <section class="hero">
   <div class="wrap">
     <h1>What we're working on at Hint.</h1>
-    <p class="lead">Transparency in what we've shipped, what's in flight, and where we're headed. Last updated on April 30, 2026.</p>
+    <p class="lead">Transparency in what we've shipped, what's in flight, and where we're headed. Last updated on May 5, 2026.</p>
   </div>
 </section>
 
@@ -1442,7 +1456,7 @@ footer a:hover { text-decoration: underline; }
         <span class="jumpbar-dot" style="background: #B583E8"></span>Active betas
       </a>
       <a class="jumpbar-link" href="#seeall" id="jump-shipped">
-        <span class="jumpbar-dot" style="background: #5ED4B0"></span>Everything shipped
+        <span class="jumpbar-dot" style="background: #5ED4B0"></span>Everything launched
       </a>
       <a class="jumpbar-link" href="#horizon">
         <span class="jumpbar-dot" style="background: #FFD478"></span>What's next
@@ -1545,14 +1559,14 @@ footer a:hover { text-decoration: underline; }
   <div class="wrap">
     <div class="section-header">
       <h2 class="section-title">Quarterly roadmap</h2>
-      <p class="section-sub">What we shipped, what's in flight, and what's planned. Open a quarter to see the detail.</p>
+      <p class="section-sub">What we launched, what's in flight, and what's planned. Open a quarter to see the detail.</p>
     </div>
 
     <div class="qtabs" role="tablist" aria-label="Quarter selector">
       <button class="qtab" id="qtab-q1" data-quarter="Q1 2026" data-months="Jan – Mar" data-status="shipped" role="tab" aria-selected="false" aria-controls="qexpand">
         <div class="qtab-label">
           <span class="qtab-name">Q1 2026</span>
-          <span class="pill pill-shipped">Shipped</span>
+          <span class="pill pill-shipped">Launched</span>
         </div>
         <span class="qtab-months">Jan – Mar</span>
       </button>
@@ -1639,8 +1653,8 @@ footer a:hover { text-decoration: underline; }
         <p>First-class workflows for à-la-carte visits, procedures, and services for patients who aren't on a membership.</p>
       </button>
       <button class="horizon-card" data-feature="mobile-app-ga">
-        <div class="horizon-card-head"><h4>Hint iOS app GA</h4><span class="pill pill-planned">Planned</span></div>
-        <p>Moving the clinician and admin iOS experience out of early access and into general availability.</p>
+        <div class="horizon-card-head"><h4>Hint iOS app for everyone</h4><span class="pill pill-planned">Planned</span></div>
+        <p>Moving the clinician and admin iOS experience out of early access and into the hands of every customer.</p>
       </button>
     </div>
     <div class="horizon-note">
@@ -1701,7 +1715,7 @@ footer a:hover { text-decoration: underline; }
 <section class="seeall-section" id="seeall" aria-labelledby="seeall-title">
   <div class="wrap">
     <button class="seeall-toggle" id="seeall-toggle" type="button" aria-expanded="false" aria-controls="seeall-list">
-      <span class="seeall-toggle-text" id="seeall-title">Everything shipped this year</span>
+      <span class="seeall-toggle-text" id="seeall-title">Everything launched this year</span>
       <span class="seeall-toggle-right">
         <span class="seeall-toggle-count" id="seeall-toggle-count"></span>
         <span class="seeall-toggle-icon" aria-hidden="true">
@@ -1742,12 +1756,13 @@ footer a:hover { text-decoration: underline; }
 </div>
 
 <script>
-const COMMUNITY_URL = 'https://community.hint.com';
-const CANNY_URL     = 'https://hint.canny.io';
+const COMMUNITY_URL     = 'https://community.hint.com';
+const CANNY_URL         = 'https://hint.canny.io';
+const SUMMIT_BETAS_URL  = 'https://community.hint.com/c/hint-updates/hint-summit-2026-announcements';
 
 /* ═══ Feature data ═══ */
 const features = {
-  // ───── Q1 2026 — Shipped ─────
+  // ───── Q1 2026 — Launched ─────
   'price-change-at-renewal': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
     title: 'Price change at renewal',
     tagline: "Automate annual rate increases on a per-membership basis.",
@@ -1756,7 +1771,7 @@ const features = {
       'Why it matters': "Practices that raise rates each year used to do it the hard way: spin up a new tier, move members onto it by hand, and eat the operational cost. Now the increase lands cleanly at the renewal date that matches what was communicated, without changing the underlying membership.",
       "Who it's for": "Practices that adjust pricing annually or per-cohort, especially DPC and longevity practices with long-tenured members."
     },
-    actions: []
+    actions: [{ label: 'Read the launch post', primary: true, href: 'https://community.hint.com/c/hint-updates/packages-patient-portal-shopping-and-price-change-at-renewal', external: true }]
   },
   'ai-analyze': { theme: 2, quarter: 'Q1 2026', track: 'EMR · AI', status: 'shipped',
     title: 'AI Analyze',
@@ -1767,7 +1782,7 @@ const features = {
       'Why it matters': "Clinicians already wrote down what needs to happen. They shouldn't have to re-enter it as discrete orders, tasks, and structured fields. Analyze closes the gap between the narrative and the rest of the chart.",
       "Who it's for": "Any clinician charting in Hint."
     },
-    actions: []
+    actions: [{ label: 'Learn more', primary: true, href: 'https://support.hint.com/en/articles/14436674', external: true }]
   },
   'unified-chart-experience': { theme: 2, track: 'Platform',
     title: 'Unified chart experience',
@@ -1778,7 +1793,7 @@ const features = {
       'Why it matters': "Practices used to bounce between Core, EMR, and billing tools to answer a single question about a patient. Pulling that data together — and letting each user shape the navigation around their own work — is the foundation of the Unified App.",
       "Who it's for": "Beta customers — clinical, billing, and admin staff who jump between Core and EMR throughout the day."
     },
-    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }],
+    actions: [{ label: 'Join the beta', primary: true, href: SUMMIT_BETAS_URL, external: true }],
     appearances: [
       { quarter: 'Q1 2026', status: 'rolled' },
       { quarter: 'Q2 2026', status: 'beta' }
@@ -1792,7 +1807,7 @@ const features = {
       'Why it matters': "Practices want to expand how a patient engages — primary care plus longevity, a household membership plus an aesthetics package — without forcing patients into a workaround. Multiple memberships makes that a first-class capability so patients can get more from what their doctor offers.",
       "Who it's for": "Practices offering layered services, household memberships, or any pattern where a patient gets the most out of more than one offering."
     },
-    actions: []
+    actions: [{ label: 'Learn more', primary: true, href: 'https://support.hint.com/en/articles/13119002', external: true }]
   },
   'patient-appointment-management': { theme: 2, quarter: 'Q1 2026', track: 'EMR', status: 'shipped',
     title: 'Self-serve appointment management',
@@ -1802,7 +1817,7 @@ const features = {
       'Why it matters': "Cancellations and reschedules are a steady tax on the front desk. Letting patients handle them themselves frees staff for the work only they can do, and gives patients the agency they expect from a modern portal.",
       "Who it's for": "Practices whose patients schedule and reschedule frequently — chronic care, family practices, anything appointment-driven."
     },
-    actions: []
+    actions: [{ label: 'Learn more', primary: true, href: 'https://support.hint.com/en/articles/13178649', external: true }]
   },
   'custom-ai-workflows': { theme: 2, quarter: 'Q1 2026', track: 'EMR · AI', status: 'shipped',
     title: 'Custom AI workflows and templates',
@@ -1812,7 +1827,7 @@ const features = {
       'Why it matters': "A direct response to early beta feedback. AI output that doesn't match how a clinician actually charts gets edited every time — letting each user shape format and detail means the AI works the way the practice already works, not the other way around.",
       "Who it's for": "Clinicians using any of Hint's AI capabilities — Scribe, Chat, Analyze, or diagnosis summaries — and the practice managers configuring them."
     },
-    actions: []
+    actions: [{ label: 'Learn more', primary: true, href: 'https://support.hint.com/en/articles/9016069', external: true }]
   },
   'patient-portal-secure-messaging': { theme: 2, quarter: 'Q1 2026', track: 'EMR', status: 'beta',
     title: 'Secure messaging in the patient portal',
@@ -1822,17 +1837,21 @@ const features = {
       'Why it matters': "Compliant messaging used to mean asking patients to use a separate tool. Bringing it into the portal patients already know makes it the easy default, without taking away SMS for the moments when convenience wins.",
       "Who it's for": "Practices that need a compliant message of record and want one place for ongoing patient conversation."
     },
-    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
+    actions: [{ label: 'Join the beta', primary: true, href: SUMMIT_BETAS_URL, external: true }]
   },
   'hint-marketplace': { theme: 1, quarter: 'Q1 2026', track: 'Marketplace', status: 'shipped',
     title: 'Hint Marketplace',
     tagline: "Discover and connect to approved partners from inside Hint.",
+    video: 'videos/install_spend.mp4',
     sections: {
       'What it does': "Browse, filter, and connect to a directory of approved Hint partners — labs, pharmacies, supplements, scheduling, communication tools, and more — without leaving the app.",
       'Why it matters': "Partner setup used to mean emails, contracts, and weeks of configuration. Marketplace turns that into a few clicks, so practices can extend their offering as quickly as they can choose what to add.",
       "Who it's for": "Practices expanding their service offering or trying out a new partner without a heavy procurement cycle."
     },
-    actions: [{ label: 'Browse the marketplace', primary: true, href: 'https://www.hint.com/marketplace', external: true }]
+    actions: [
+      { label: 'Browse the marketplace', primary: true, href: 'https://www.hint.com/marketplace', external: true },
+      { label: 'Learn more', href: 'https://support.hint.com/en/articles/14424681', external: true }
+    ]
   },
 
   // ───── Q2 2026 — In progress ─────
@@ -1844,7 +1863,7 @@ const features = {
       'Why it matters': "Patients arrive with expectations shaped by every messaging app they use; care teams need a back-channel that doesn't clutter the patient conversation. This brings both into Hint — the conversational polish patients expect, and the coordination space the care team needs.",
       "Who it's for": "Multi-provider practices and care teams coordinating across several staff on the same patients."
     },
-    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
+    actions: [{ label: 'Join the beta', primary: true, href: SUMMIT_BETAS_URL, external: true }]
   },
   'ai-chart-summaries': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'planned',
     title: 'AI chart and file summaries',
@@ -1860,12 +1879,13 @@ const features = {
     title: 'Hint iOS app — Scribe',
     tagline: "Record the visit as it happens. The chart writes itself.",
     video: 'videos/Mobile_Scribe_w_Template.mp4',
+    videoAspect: 'portrait',
     sections: {
       'What it does': "Scribe inside the new Hint iOS app captures the encounter as it's happening and turns the audio into a structured, editable note. Every Hint AI capability — drafting, structuring, follow-up extraction — runs on top of what Scribe captures.",
       'Why it matters': "Charting while the encounter is still happening changes the rhythm of care. Clinicians can be present in the room and walk out with the note already drafted.",
       "Who it's for": "Clinicians who want to chart from anywhere — exam room, hallway, between visits."
     },
-    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
+    actions: [{ label: 'Join the beta', primary: true, href: SUMMIT_BETAS_URL, external: true }]
   },
   'patient-portal-restyle': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'inprogress',
     title: 'Refreshed patient portal',
@@ -1885,7 +1905,7 @@ const features = {
       'Why it matters': "Most practices lose prospective members in the gap between interest and signup. Self-Buy closes that gap and removes a real tax on your front desk.",
       "Who it's for": "Practices running marketing or referral programs where the volume of inbound interest is too high to hand-hold every signup."
     },
-    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
+    actions: [{ label: 'Read the launch post', primary: true, href: 'https://community.hint.com/c/hint-updates/packages-patient-portal-shopping-and-price-change-at-renewal', external: true }]
   },
   'packages': { theme: 1, quarter: 'Q2 2026', track: 'Billing', status: 'shipped',
     title: 'Packages',
@@ -1895,7 +1915,7 @@ const features = {
       'Why it matters': "Packages are an accessible on-ramp: prospective patients who aren't ready to commit to a membership can still buy in. For established practices they're a way to diversify revenue without changing the underlying membership model.",
       "Who it's for": "New practices building their first non-membership offering, and established practices looking to broaden how they monetize."
     },
-    actions: []
+    actions: [{ label: 'Learn more', primary: true, href: 'https://support.hint.com/en/articles/14462906', external: true }]
   },
   'billing-at-engagement': { theme: 3, quarter: 'Q2 2026', track: 'Billing', status: 'inprogress',
     title: 'Billing at engagement',
@@ -1946,10 +1966,10 @@ const features = {
     ]
   },
   'mobile-app-ga': { theme: 2, quarter: 'H2 2026', track: 'Planned', status: 'planned',
-    title: 'Hint iOS app — GA',
+    title: 'Hint iOS app — for everyone',
     tagline: "The clinician and admin iOS experience moves out of early access.",
     sections: {
-      'What it does': "Brings the Hint iOS app to general availability, with the workflows clinicians and admins rely on between desk sessions.",
+      'What it does': "Brings the Hint iOS app to every customer, with the workflows clinicians and admins rely on between desk sessions.",
       'Why it matters': "Charting and admin work doesn't only happen at a laptop. We want the iOS experience to be a first-class part of the practice day, not an escape hatch.",
       "Who it's for": "Clinicians and admins who work across rooms, locations, or off-hours."
     },
@@ -1958,7 +1978,7 @@ const features = {
 };
 
 const statusLabels = {
-  shipped:       { label: 'Shipped',                class: 'pill-shipped' },
+  shipped:       { label: 'Launched',               class: 'pill-shipped' },
   inprogress:    { label: 'In progress',            class: 'pill-inprogress' },
   beta:          { label: 'Beta',                   class: 'pill-beta' },
   planned:       { label: 'Planned',                class: 'pill-planned' },
@@ -2150,7 +2170,7 @@ function hasStatus(f, status) {
     themeBody.innerHTML =
       '<div class="theme-quarters">' + columns + '</div>'
       + '<div class="theme-legend" aria-label="Status legend">'
-      +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-shipped-text)"></span>Shipped</span>'
+      +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-shipped-text)"></span>Launched</span>'
       +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-action-primary)"></span>In progress</span>'
       +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-beta-text)"></span>Beta</span>'
       +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-planned-text)"></span>Planned</span>'
@@ -2210,7 +2230,7 @@ function hasStatus(f, status) {
     'Q1 2026': {
       featureQuarter: 'Q1 2026',
       moreCountToken: '{{Q1_MORE_COUNT}}',
-      summary: "A foundational quarter. Packages and deferred revenue shipped. The Unified App moved into customer beta. The Marketplace App Store opened with our first premier partners. EMR shipped a string of AI and Rx improvements."
+      summary: "A foundational quarter. Packages and deferred revenue launched. The Unified App moved into customer beta. The Marketplace App Store opened with our first premier partners. EMR launched a string of AI and Rx improvements."
     },
     'Q2 2026': {
       featureQuarter: 'Q2 2026',
@@ -2360,7 +2380,7 @@ function hasStatus(f, status) {
             '<span class="seeall-row-title">' + f.title + '</span>' +
             '<span class="seeall-row-meta">' +
               '<span class="seeall-row-theme">' + (THEME_LABELS[f.theme] || '') + '</span>' +
-              '<span class="pill pill-shipped">Shipped</span>' +
+              '<span class="pill pill-shipped">Launched</span>' +
             '</span>' +
           '</button>'
         ).join('');
@@ -2369,7 +2389,7 @@ function hasStatus(f, status) {
                  items +
                '</div>';
       }).join('');
-    if (seeCount) seeCount.textContent = totalRows + ' shipped';
+    if (seeCount) seeCount.textContent = totalRows + ' launched';
     seeList.querySelectorAll('.seeall-row').forEach(r => {
       r.addEventListener('click', () => openFeature(r.dataset.feature, { quarter: r.dataset.quarter }));
     });
@@ -2508,8 +2528,9 @@ function openFeature(key, opts) {
 
   let body = '';
   if (f.video) {
+    const videoCls = 'modal-video' + (f.videoAspect === 'portrait' ? ' is-portrait' : '');
     body +=
-      '<div class="modal-video">' +
+      '<div class="' + videoCls + '">' +
         '<video id="modal-video-el" src="' + f.video + '" muted loop playsinline preload="metadata" aria-label="' + f.title + ' demo"></video>' +
         '<button class="modal-video-mute" id="modal-video-mute" type="button" aria-label="Toggle sound">' +
           '<svg class="icon-muted"   width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>' +
