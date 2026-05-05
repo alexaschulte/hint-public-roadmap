@@ -1623,6 +1623,10 @@ footer a:hover { text-decoration: underline; }
       <p class="section-sub">Themes for the second half of 2026. These shape our research and planning, but commitments come quarter by quarter.</p>
     </div>
     <div class="horizon-grid">
+      <button class="horizon-card" data-feature="health-maintenance">
+        <div class="horizon-card-head"><h4>Health maintenance</h4><span class="pill pill-planned">Planned</span></div>
+        <p>Manage your panel's routine health tasks through an automated, recurring task system &mdash; so the work that keeps patients well happens on its own.</p>
+      </button>
       <button class="horizon-card" data-feature="multi-location-emr">
         <div class="horizon-card-head"><h4>Multiple locations in the EMR</h4><span class="pill pill-planned">Planned</span></div>
         <p>Location-aware scheduling, charting, reporting, and staff permissions for practices that operate across more than one site.</p>
@@ -1864,16 +1868,6 @@ const features = {
     },
     actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
   },
-  'task-management': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'planned',
-    title: 'Task management: templates and automations',
-    tagline: "Standardize how your team gets work done.",
-    sections: {
-      'What it does': "Task templates, repeating schedules, health maintenance support, and rule-based automations on top of the task management surface embedded in the chart and chat.",
-      'Why it matters': "Every practice has the same routine follow-ups: annual wellness, chronic condition check-ins, lab result follow-through. Templating those means new staff ramp faster and nothing falls through.",
-      "Who it's for": "Practice managers and care teams that want to systematize follow-up work."
-    },
-    actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
-  },
   'patient-portal-restyle': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'inprogress',
     title: 'Refreshed patient portal',
     tagline: "A modern, mobile-first patient experience.",
@@ -1926,6 +1920,16 @@ const features = {
   },
 
   // ───── Horizon ─────
+  'health-maintenance': { theme: 2, quarter: 'H2 2026', track: 'EMR', status: 'planned',
+    title: 'Health maintenance',
+    tagline: "Keep your panel's routine care on track with automated, recurring tasks.",
+    sections: {
+      'What it does': "An automated recurring task system for managing health maintenance across your patient panel — annual wellness, chronic condition check-ins, lab schedules, screening cadences — handled by repeating tasks instead of memory.",
+      'Why it matters': "Health maintenance is the backbone of longitudinal care and the easiest place for things to slip. Recurring task automation makes sure the routine work happens on time without anyone needing to remember it.",
+      "Who it's for": "Primary care, chronic care, and any practice managing longitudinal patient relationships."
+    },
+    actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
+  },
   'multi-location-emr': { theme: 3, quarter: 'H2 2026', track: 'Planned', status: 'planned',
     title: 'Multiple locations in the EMR',
     tagline: "First-class support for practices operating across multiple locations.",
