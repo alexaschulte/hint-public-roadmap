@@ -1245,6 +1245,20 @@ footer a:hover { text-decoration: underline; }
   display: block;
   object-fit: cover;
 }
+/* Portrait videos (e.g. mobile screen recordings) — let the full frame
+   show with letterboxing instead of cropping top/bottom to 16:9. */
+.modal-video.is-portrait {
+  aspect-ratio: auto;
+  display: flex;
+  justify-content: center;
+}
+.modal-video.is-portrait video {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
 .modal-video-mute {
   position: absolute; bottom: 12px; right: 12px;
   width: 32px; height: 32px;
@@ -1827,6 +1841,7 @@ const features = {
   'hint-marketplace': { theme: 1, quarter: 'Q1 2026', track: 'Marketplace', status: 'shipped',
     title: 'Hint Marketplace',
     tagline: "Discover and connect to approved partners from inside Hint.",
+    video: 'videos/install_spend.mp4',
     sections: {
       'What it does': "Browse, filter, and connect to a directory of approved Hint partners — labs, pharmacies, supplements, scheduling, communication tools, and more — without leaving the app.",
       'Why it matters': "Partner setup used to mean emails, contracts, and weeks of configuration. Marketplace turns that into a few clicks, so practices can extend their offering as quickly as they can choose what to add.",
@@ -1860,6 +1875,7 @@ const features = {
     title: 'Hint iOS app — Scribe',
     tagline: "Record the visit as it happens. The chart writes itself.",
     video: 'videos/Mobile_Scribe_w_Template.mp4',
+    videoAspect: 'portrait',
     sections: {
       'What it does': "Scribe inside the new Hint iOS app captures the encounter as it's happening and turns the audio into a structured, editable note. Every Hint AI capability — drafting, structuring, follow-up extraction — runs on top of what Scribe captures.",
       'Why it matters': "Charting while the encounter is still happening changes the rhythm of care. Clinicians can be present in the room and walk out with the note already drafted.",
@@ -2508,8 +2524,9 @@ function openFeature(key, opts) {
 
   let body = '';
   if (f.video) {
+    const videoCls = 'modal-video' + (f.videoAspect === 'portrait' ? ' is-portrait' : '');
     body +=
-      '<div class="modal-video">' +
+      '<div class="' + videoCls + '">' +
         '<video id="modal-video-el" src="' + f.video + '" muted loop playsinline preload="metadata" aria-label="' + f.title + ' demo"></video>' +
         '<button class="modal-video-mute" id="modal-video-mute" type="button" aria-label="Toggle sound">' +
           '<svg class="icon-muted"   width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>' +
