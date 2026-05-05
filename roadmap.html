@@ -2089,20 +2089,14 @@ const statusLabels = {
 /* ═══ Events — EDIT ME ═══ */
 // Each entry: { name, month, day, location, url }
 const EVENTS = [
-  // { name: 'Product office hours',       month: 'May', day: '14', location: 'Virtual · 30 min',   url: '#' },
-  // { name: 'Unified App roundtable',     month: 'Jun', day: '03', location: 'Virtual',            url: '#' },
-  // { name: 'Hint Summit Fall 2026',      month: 'Sep', day: '18', location: 'Denver, CO',         url: '#' }
+  { name: 'Product webinar (recording)', month: 'Apr', day: '30', location: 'Watch on demand · 45 min', url: '#' }
 ];
 
 /* ═══ Render events ═══ */
 (function renderEvents() {
   const list = document.getElementById('events-list');
   if (!list) return;
-  if (!EVENTS.length) {
-    list.innerHTML = '<div class="event-empty">More events coming soon.</div>';
-    return;
-  }
-  list.innerHTML = EVENTS.map(e => `
+  const items = EVENTS.map(e => `
     <a class="event-item" href="${e.url}" target="_blank" rel="noopener">
       <div class="event-date">
         <div class="event-date-mo">${e.month}</div>
@@ -2114,6 +2108,7 @@ const EVENTS = [
       </div>
     </a>
   `).join('');
+  list.innerHTML = items + '<div class="event-empty">More events coming soon.</div>';
 })();
 
 /* ═══ Roadmap controller: theme drawer + quarter tabs + waterfall ═══ */
