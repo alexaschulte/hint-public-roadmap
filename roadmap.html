@@ -1608,15 +1608,7 @@ footer a:hover { text-decoration: underline; }
         <h2 class="betas-title">Active betas</h2>
       </div>
       <p class="betas-sub">Features running with customers in live beta right now. Want in? Join the conversation in <a href="{{COMMUNITY_URL}}" target="_blank" rel="noopener">Community</a>.</p>
-      <div class="betas-list">
-        <button class="betas-item" data-feature="patient-portal-selfbuy"><div class="betas-item-body"><div class="betas-item-area">Flexible practice</div><div>Shopping in the patient portal</div></div><span class="pill pill-beta">Beta</span></button>
-        <button class="betas-item" data-feature="multi-memberships-providers"><div class="betas-item-body"><div class="betas-item-area">Flexible practice</div><div>Multiple memberships &amp; providers</div></div><span class="pill pill-beta">Beta</span></button>
-        <button class="betas-item" data-feature="unified-chart-experience-q2"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>Unified chart experience</div></div><span class="pill pill-beta">Beta</span></button>
-        <button class="betas-item" data-feature="patient-portal-secure-messaging"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>Secure messaging in the patient portal</div></div><span class="pill pill-beta">Beta</span></button>
-        <button class="betas-item" data-feature="advanced-messaging-team-chat"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>Advanced messaging &amp; team chat</div></div><span class="pill pill-beta">Beta</span></button>
-        <button class="betas-item" data-feature="ai-chart-summaries"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>AI chart and file summaries</div></div><span class="pill pill-beta">Beta</span></button>
-        <button class="betas-item" data-feature="ios-scribe"><div class="betas-item-body"><div class="betas-item-area">Protect your time</div><div>Hint iOS app — Scribe</div></div><span class="pill pill-beta">Beta</span></button>
-      </div>
+      <div class="betas-list" id="betas-list"></div>
     </section>
 
   </div>
@@ -1773,7 +1765,7 @@ const features = {
     },
     actions: []
   },
-  'unified-chart-experience-q1': { theme: 2, quarter: 'Q1 2026', track: 'Platform', status: 'beta',
+  'unified-chart-experience': { theme: 2, track: 'Platform',
     title: 'Unified chart experience',
     tagline: "Clinical, membership, and billing for a patient — together on one screen, with navigation you can shape.",
     video: 'videos/Unified_Chart_4k.mp4',
@@ -1782,7 +1774,11 @@ const features = {
       'Why it matters': "Practices used to bounce between Core, EMR, and billing tools to answer a single question about a patient. Pulling that data together — and letting each user shape the navigation around their own work — is the foundation of the Unified App.",
       "Who it's for": "Beta customers — clinical, billing, and admin staff who jump between Core and EMR throughout the day."
     },
-    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
+    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }],
+    appearances: [
+      { quarter: 'Q1 2026', status: 'beta' },
+      { quarter: 'Q2 2026', status: 'beta' }
+    ]
   },
   'packages': { theme: 1, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
     title: 'Packages',
@@ -1907,17 +1903,6 @@ const features = {
     },
     actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
   },
-  'unified-chart-experience-q2': { theme: 2, quarter: 'Q2 2026', track: 'Platform', status: 'beta',
-    title: 'Unified chart experience',
-    tagline: "The one-stop chart and customizable navigation, expanding to more beta customers.",
-    video: 'videos/Unified_Chart_4k.mp4',
-    sections: {
-      'What it does': "Same one-stop view of clinical, membership, and billing data for a patient, plus customizable navigation with bookmarks for the pages you use most. In Q2 the beta widens to more practice configurations as we refine workflows ahead of GA.",
-      'Why it matters': "Every practice runs the chart slightly differently. Q2 is where the bookmarks model and the unified surface get tested across the long tail of how customers actually work.",
-      "Who it's for": "Beta customers across more practice types and configurations."
-    },
-    actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
-  },
   'sales-orders-self-onboarding': { theme: 3, quarter: 'Q2 2026', track: 'Platform', status: 'inprogress',
     title: 'Sales orders in self onboarding',
     tagline: "Sales starts the order. The customer finishes on their own.",
@@ -2021,6 +2006,33 @@ const EVENTS = [
   list.innerHTML = items + '<div class="event-empty">More events coming soon.</div>';
 })();
 
+/* ═══ Feature appearances: how a single feature shows up across quarters ═══
+   A feature can either set legacy `quarter` + `status` (single-quarter), or
+   `appearances: [{ quarter, status }, ...]` for multi-quarter features whose
+   status differs (or doesn't) per quarter. Helpers below normalize both. */
+const QUARTER_ORDER = ['Q1 2026','Q2 2026','Q3 2026','Q4 2026','H2 2026'];
+function appearancesOf(f) {
+  if (Array.isArray(f.appearances)) return f.appearances;
+  if (f.quarter) return [{ quarter: f.quarter, status: f.status }];
+  return [];
+}
+function statusInQuarter(f, quarter) {
+  const a = appearancesOf(f).find(x => x.quarter === quarter);
+  return a ? a.status : null;
+}
+function primaryAppearance(f) {
+  // Used in contexts without a quarter (modal opened from active betas, etc.).
+  // Picks the latest appearance in QUARTER_ORDER.
+  let best = null;
+  appearancesOf(f).forEach(a => {
+    if (!best || QUARTER_ORDER.indexOf(a.quarter) > QUARTER_ORDER.indexOf(best.quarter)) best = a;
+  });
+  return best;
+}
+function hasStatus(f, status) {
+  return appearancesOf(f).some(a => a.status === status);
+}
+
 /* ═══ Roadmap controller: theme drawer + quarter tabs + waterfall ═══ */
 (function roadmapController() {
 
@@ -2065,9 +2077,14 @@ const EVENTS = [
     const m = String(q).match(/^(Q[1-4]|H[12])\s*\d{4}/i);
     return m ? m[1].toUpperCase() : q.split(/\s+·/)[0].trim();
   }
-  function buildFeatureCard(slug, f) {
-    const status = statusLabels[f.status] || { label: f.status, class: 'pill-planned' };
-    const qLabel = shortQuarter(f.quarter);
+  function buildFeatureCard(slug, f, quarter) {
+    const app = quarter
+      ? appearancesOf(f).find(a => a.quarter === quarter) || primaryAppearance(f)
+      : primaryAppearance(f);
+    const appStatus = app ? app.status : null;
+    const appQuarter = app ? app.quarter : '';
+    const status = statusLabels[appStatus] || { label: appStatus || 'Planned', class: 'pill-planned' };
+    const qLabel = shortQuarter(appQuarter);
     const btn = document.createElement('button');
     btn.className = 'feature-card';
     btn.dataset.feature = slug;
@@ -2078,7 +2095,7 @@ const EVENTS = [
       '</div>' +
       '<p class="feature-desc">' + (f.tagline || '') + '</p>' +
       (qLabel ? '<span class="feature-card-q">' + qLabel + '</span>' : '');
-    btn.addEventListener('click', () => openFeature(slug));
+    btn.addEventListener('click', () => openFeature(slug, { quarter: appQuarter }));
     return btn;
   }
 
@@ -2088,7 +2105,7 @@ const EVENTS = [
   // split them into specific Q3/Q4 commitments.
   const THEME_QUARTERS = ['Q1 2026', 'Q2 2026', 'Q3 2026', 'Q4 2026'];
   const FEATURE_QUARTER_TO_COLUMN = { 'H2 2026': 'Q3 2026' };
-  const featureColumn = (f) => FEATURE_QUARTER_TO_COLUMN[f.quarter] || f.quarter;
+  const columnForQuarter = (q) => FEATURE_QUARTER_TO_COLUMN[q] || q;
 
   const themeExpand = document.getElementById('theme-expand');
   const themeBody = document.getElementById('theme-body');
@@ -2110,21 +2127,25 @@ const EVENTS = [
   }
 
   function renderThemeBody(num) {
-    // Group this theme's features into the visible quarter columns.
+    // Group this theme's features into the visible quarter columns. A feature
+    // can appear in multiple quarters via its `appearances`, with per-quarter
+    // status — push one row per appearance.
     const byColumn = Object.fromEntries(THEME_QUARTERS.map(q => [q, []]));
     Object.keys(features).forEach(slug => {
       const f = features[slug];
       if (f.theme !== num) return;
-      const col = featureColumn(f);
-      if (byColumn[col]) byColumn[col].push([slug, f]);
+      appearancesOf(f).forEach(app => {
+        const col = columnForQuarter(app.quarter);
+        if (byColumn[col]) byColumn[col].push([slug, f, app.status, app.quarter]);
+      });
     });
 
     const columns = THEME_QUARTERS.map(q => {
       const items = byColumn[q];
       const has = items.length > 0;
-      const rows = items.map(([slug, f]) =>
-        '<li><button class="theme-feature-row" type="button" data-feature="' + slug + '">'
-        +   '<span class="theme-feature-bullet" data-status="' + f.status + '" aria-hidden="true"></span>'
+      const rows = items.map(([slug, f, st, qtr]) =>
+        '<li><button class="theme-feature-row" type="button" data-feature="' + slug + '" data-quarter="' + qtr + '">'
+        +   '<span class="theme-feature-bullet" data-status="' + st + '" aria-hidden="true"></span>'
         +   '<span class="theme-feature-row-title">' + escapeHtml(f.title) + '</span>'
         + '</button></li>'
       ).join('');
@@ -2147,7 +2168,7 @@ const EVENTS = [
       + '</div>';
 
     themeBody.querySelectorAll('.theme-feature-row').forEach(row => {
-      row.addEventListener('click', () => openFeature(row.dataset.feature));
+      row.addEventListener('click', () => openFeature(row.dataset.feature, { quarter: row.dataset.quarter }));
     });
   }
 
@@ -2257,9 +2278,9 @@ const EVENTS = [
 
     qexpandGrid.innerHTML = '';
     Object.keys(features)
-      .filter(k => features[k].quarter === meta.featureQuarter)
+      .filter(k => statusInQuarter(features[k], meta.featureQuarter) !== null)
       .slice(0, QUARTER_CARD_LIMIT)
-      .forEach(slug => qexpandGrid.appendChild(buildFeatureCard(slug, features[slug])));
+      .forEach(slug => qexpandGrid.appendChild(buildFeatureCard(slug, features[slug], meta.featureQuarter)));
 
     if (qexpandMoreT) qexpandMoreT.textContent = moreCountText(meta.moreCountToken);
 
@@ -2319,18 +2340,23 @@ const EVENTS = [
 
   function renderShippedTimeline() {
     if (!seeList) return;
-    const shipped = Object.entries(features).filter(([, f]) => f.status === 'shipped');
+    // Each shipped appearance becomes a row, grouped by the quarter shipped.
     const groups = {};
-    shipped.forEach(([slug, f]) => {
-      const q = (f.quarter || '').replace(/\s+·.*$/, '').trim();
-      (groups[q] = groups[q] || []).push([slug, f]);
+    let totalRows = 0;
+    Object.entries(features).forEach(([slug, f]) => {
+      appearancesOf(f).forEach(app => {
+        if (app.status !== 'shipped') return;
+        const q = (app.quarter || '').replace(/\s+·.*$/, '').trim();
+        (groups[q] = groups[q] || []).push([slug, f, q]);
+        totalRows++;
+      });
     });
     const order = ['Q2 2026', 'Q1 2026'];
     seeList.innerHTML = order
       .filter(q => groups[q] && groups[q].length)
       .map(q => {
-        const items = groups[q].map(([slug, f]) =>
-          '<button class="seeall-row" data-feature="' + slug + '">' +
+        const items = groups[q].map(([slug, f, qtr]) =>
+          '<button class="seeall-row" data-feature="' + slug + '" data-quarter="' + qtr + '">' +
             '<span class="seeall-row-title">' + f.title + '</span>' +
             '<span class="seeall-row-meta">' +
               '<span class="seeall-row-theme">' + (THEME_LABELS[f.theme] || '') + '</span>' +
@@ -2343,12 +2369,32 @@ const EVENTS = [
                  items +
                '</div>';
       }).join('');
-    if (seeCount) seeCount.textContent = shipped.length + ' shipped';
+    if (seeCount) seeCount.textContent = totalRows + ' shipped';
     seeList.querySelectorAll('.seeall-row').forEach(r => {
-      r.addEventListener('click', () => openFeature(r.dataset.feature));
+      r.addEventListener('click', () => openFeature(r.dataset.feature, { quarter: r.dataset.quarter }));
     });
   }
   renderShippedTimeline();
+
+  /* ─── Active betas: derived from features whose status is 'beta' in any quarter ─── */
+  function renderActiveBetas() {
+    const root = document.getElementById('betas-list');
+    if (!root) return;
+    const items = Object.entries(features).filter(([, f]) => hasStatus(f, 'beta'));
+    root.innerHTML = items.map(([slug, f]) =>
+      '<button class="betas-item" data-feature="' + slug + '">' +
+        '<div class="betas-item-body">' +
+          '<div class="betas-item-area">' + escapeHtml(THEME_LABELS[f.theme] || '') + '</div>' +
+          '<div>' + escapeHtml(f.title) + '</div>' +
+        '</div>' +
+        '<span class="pill pill-beta">Beta</span>' +
+      '</button>'
+    ).join('');
+    root.querySelectorAll('.betas-item').forEach(b => {
+      b.addEventListener('click', () => openFeature(b.dataset.feature));
+    });
+  }
+  renderActiveBetas();
 
   if (seeBtn && seeList) {
     seeBtn.addEventListener('click', () => {
@@ -2444,9 +2490,14 @@ function openFeature(key, opts) {
   if (!f) return;
   lastFocused = document.activeElement;
 
-  const s = statusLabels[f.status];
-  modalHero.dataset.status = f.status;
-  modalQuarter.textContent = f.quarter;
+  const app = (opts && opts.quarter)
+    ? appearancesOf(f).find(a => a.quarter === opts.quarter) || primaryAppearance(f)
+    : primaryAppearance(f);
+  const appStatus = app ? app.status : null;
+  const appQuarter = app ? app.quarter : '';
+  const s = statusLabels[appStatus] || { label: appStatus || 'Planned', class: 'pill-planned' };
+  modalHero.dataset.status = appStatus || '';
+  modalQuarter.textContent = appQuarter;
   // Show track + customer theme in modal meta
   const themeNames = { 1: 'Theme — Expand offerings', 2: 'Theme — Protect your time', 3: 'Theme — Flexible practice' };
   const themeLabel = themeNames[f.theme] || '';
