@@ -2017,6 +2017,10 @@ const EVENTS = [
    `appearances: [{ quarter, status }, ...]` for multi-quarter features whose
    status differs (or doesn't) per quarter. Helpers below normalize both. */
 const QUARTER_ORDER = ['Q1 2026','Q2 2026','Q3 2026','Q4 2026','H2 2026'];
+// Order cards within a quarter: shipped first, then beta, in progress,
+// planned, rolled, anything else, deprioritized last.
+const STATUS_ORDER = { shipped: 0, beta: 1, inprogress: 2, planned: 3, rolled: 4, deprioritized: 6 };
+function statusRank(s) { return STATUS_ORDER[s] != null ? STATUS_ORDER[s] : 5; }
 function appearancesOf(f) {
   if (Array.isArray(f.appearances)) return f.appearances;
   if (f.quarter) return [{ quarter: f.quarter, status: f.status }];
@@ -2147,7 +2151,7 @@ function hasStatus(f, status) {
     });
 
     const columns = THEME_QUARTERS.map(q => {
-      const items = byColumn[q];
+      const items = byColumn[q].slice().sort((a, b) => statusRank(a[2]) - statusRank(b[2]));
       const has = items.length > 0;
       const rows = items.map(([slug, f, st, qtr]) =>
         '<li><button class="theme-feature-row" type="button" data-feature="' + slug + '" data-quarter="' + qtr + '">'
@@ -2285,6 +2289,9 @@ function hasStatus(f, status) {
     qexpandGrid.innerHTML = '';
     Object.keys(features)
       .filter(k => statusInQuarter(features[k], meta.featureQuarter) !== null)
+      .sort((a, b) =>
+        statusRank(statusInQuarter(features[a], meta.featureQuarter)) -
+        statusRank(statusInQuarter(features[b], meta.featureQuarter)))
       .slice(0, QUARTER_CARD_LIMIT)
       .forEach(slug => qexpandGrid.appendChild(buildFeatureCard(slug, features[slug], meta.featureQuarter)));
 
@@ -2504,11 +2511,9 @@ function openFeature(key, opts) {
   const s = statusLabels[appStatus] || { label: appStatus || 'Planned', class: 'pill-planned' };
   modalHero.dataset.status = appStatus || '';
   modalQuarter.textContent = appQuarter;
-  // Show track + customer theme in modal meta
+  // Show customer theme in modal meta
   const themeNames = { 1: 'Theme — Expand offerings', 2: 'Theme — Protect your time', 3: 'Theme — Flexible practice' };
-  const themeLabel = themeNames[f.theme] || '';
-  const trackLabel = f.track || '';
-  modalTheme.textContent = [themeLabel, trackLabel].filter(Boolean).join(' · ');
+  modalTheme.textContent = themeNames[f.theme] || '';
   modalStatus.textContent = s.label;
   modalStatus.className = 'pill ' + s.class;
   modalTitle.textContent = f.title;
