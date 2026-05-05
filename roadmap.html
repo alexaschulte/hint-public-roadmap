@@ -2179,8 +2179,6 @@ const EVENTS = [
         closeThemeDrawer();
       } else {
         openThemeDrawer(t);
-        // Smooth-scroll the drawer into view (CSS scroll-behavior handles easing)
-        setTimeout(() => scrollToEl(themeExpand, 24), 30);
       }
     });
   });
@@ -2288,7 +2286,6 @@ const EVENTS = [
         return;
       }
       openQuarterDrawer(q);
-      requestAnimationFrame(() => scrollToEl(qexpand, 24));
     });
     // Roving keyboard navigation across the tablist (WAI-ARIA APG pattern).
     tab.addEventListener('keydown', e => {
