@@ -1426,7 +1426,7 @@ footer a:hover { text-decoration: underline; }
 <section class="hero">
   <div class="wrap">
     <h1>What we're working on at Hint.</h1>
-    <p class="lead">Transparency in what we've shipped, what's in flight, and where we're headed. Last updated on April 30, 2026.</p>
+    <p class="lead">Transparency in what we've launched, what's in flight, and where we're headed. Last updated on April 30, 2026.</p>
   </div>
 </section>
 
@@ -1442,7 +1442,7 @@ footer a:hover { text-decoration: underline; }
         <span class="jumpbar-dot" style="background: #B583E8"></span>Active betas
       </a>
       <a class="jumpbar-link" href="#seeall" id="jump-shipped">
-        <span class="jumpbar-dot" style="background: #5ED4B0"></span>Everything shipped
+        <span class="jumpbar-dot" style="background: #5ED4B0"></span>Everything launched
       </a>
       <a class="jumpbar-link" href="#horizon">
         <span class="jumpbar-dot" style="background: #FFD478"></span>What's next
@@ -1545,14 +1545,14 @@ footer a:hover { text-decoration: underline; }
   <div class="wrap">
     <div class="section-header">
       <h2 class="section-title">Quarterly roadmap</h2>
-      <p class="section-sub">What we shipped, what's in flight, and what's planned. Open a quarter to see the detail.</p>
+      <p class="section-sub">What we launched, what's in flight, and what's planned. Open a quarter to see the detail.</p>
     </div>
 
     <div class="qtabs" role="tablist" aria-label="Quarter selector">
       <button class="qtab" id="qtab-q1" data-quarter="Q1 2026" data-months="Jan – Mar" data-status="shipped" role="tab" aria-selected="false" aria-controls="qexpand">
         <div class="qtab-label">
           <span class="qtab-name">Q1 2026</span>
-          <span class="pill pill-shipped">Shipped</span>
+          <span class="pill pill-shipped">Launched</span>
         </div>
         <span class="qtab-months">Jan – Mar</span>
       </button>
@@ -1701,7 +1701,7 @@ footer a:hover { text-decoration: underline; }
 <section class="seeall-section" id="seeall" aria-labelledby="seeall-title">
   <div class="wrap">
     <button class="seeall-toggle" id="seeall-toggle" type="button" aria-expanded="false" aria-controls="seeall-list">
-      <span class="seeall-toggle-text" id="seeall-title">Everything shipped this year</span>
+      <span class="seeall-toggle-text" id="seeall-title">Everything launched this year</span>
       <span class="seeall-toggle-right">
         <span class="seeall-toggle-count" id="seeall-toggle-count"></span>
         <span class="seeall-toggle-icon" aria-hidden="true">
@@ -1748,7 +1748,7 @@ const SUMMIT_BETAS_URL  = 'https://community.hint.com/c/hint-updates/hint-summit
 
 /* ═══ Feature data ═══ */
 const features = {
-  // ───── Q1 2026 — Shipped ─────
+  // ───── Q1 2026 — Launched ─────
   'price-change-at-renewal': { theme: 3, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
     title: 'Price change at renewal',
     tagline: "Automate annual rate increases on a per-membership basis.",
@@ -1959,7 +1959,7 @@ const features = {
 };
 
 const statusLabels = {
-  shipped:       { label: 'Shipped',                class: 'pill-shipped' },
+  shipped:       { label: 'Launched',               class: 'pill-shipped' },
   inprogress:    { label: 'In progress',            class: 'pill-inprogress' },
   beta:          { label: 'Beta',                   class: 'pill-beta' },
   planned:       { label: 'Planned',                class: 'pill-planned' },
@@ -2151,7 +2151,7 @@ function hasStatus(f, status) {
     themeBody.innerHTML =
       '<div class="theme-quarters">' + columns + '</div>'
       + '<div class="theme-legend" aria-label="Status legend">'
-      +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-shipped-text)"></span>Shipped</span>'
+      +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-shipped-text)"></span>Launched</span>'
       +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-action-primary)"></span>In progress</span>'
       +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-beta-text)"></span>Beta</span>'
       +   '<span class="theme-legend-item"><span class="theme-legend-dot" style="background: var(--color-planned-text)"></span>Planned</span>'
@@ -2211,7 +2211,7 @@ function hasStatus(f, status) {
     'Q1 2026': {
       featureQuarter: 'Q1 2026',
       moreCountToken: '{{Q1_MORE_COUNT}}',
-      summary: "A foundational quarter. Packages and deferred revenue shipped. The Unified App moved into customer beta. The Marketplace App Store opened with our first premier partners. EMR shipped a string of AI and Rx improvements."
+      summary: "A foundational quarter. Packages and deferred revenue launched. The Unified App moved into customer beta. The Marketplace App Store opened with our first premier partners. EMR launched a string of AI and Rx improvements."
     },
     'Q2 2026': {
       featureQuarter: 'Q2 2026',
@@ -2361,7 +2361,7 @@ function hasStatus(f, status) {
             '<span class="seeall-row-title">' + f.title + '</span>' +
             '<span class="seeall-row-meta">' +
               '<span class="seeall-row-theme">' + (THEME_LABELS[f.theme] || '') + '</span>' +
-              '<span class="pill pill-shipped">Shipped</span>' +
+              '<span class="pill pill-shipped">Launched</span>' +
             '</span>' +
           '</button>'
         ).join('');
@@ -2370,7 +2370,7 @@ function hasStatus(f, status) {
                  items +
                '</div>';
       }).join('');
-    if (seeCount) seeCount.textContent = totalRows + ' shipped';
+    if (seeCount) seeCount.textContent = totalRows + ' launched';
     seeList.querySelectorAll('.seeall-row').forEach(r => {
       r.addEventListener('click', () => openFeature(r.dataset.feature, { quarter: r.dataset.quarter }));
     });
