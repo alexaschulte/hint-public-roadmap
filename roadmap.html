@@ -1456,7 +1456,7 @@ footer a:hover { text-decoration: underline; }
         <span class="jumpbar-dot" style="background: #B583E8"></span>Active betas
       </a>
       <a class="jumpbar-link" href="#seeall" id="jump-shipped">
-        <span class="jumpbar-dot" style="background: #5ED4B0"></span>Everything launched
+        <span class="jumpbar-dot" style="background: #5ED4B0"></span>Highlights YTD
       </a>
       <a class="jumpbar-link" href="#horizon">
         <span class="jumpbar-dot" style="background: #FFD478"></span>What's next
@@ -1531,7 +1531,7 @@ footer a:hover { text-decoration: underline; }
   <div class="wrap">
     <div class="spotlight-card">
       <div class="spotlight-text">
-        <span class="spotlight-eyebrow"><span class="spotlight-dot"></span>Recently launched · See it in action</span>
+        <span class="spotlight-eyebrow"><span class="spotlight-dot"></span>Highlights YTD · See it in action</span>
         <h3 class="spotlight-title">Hint Marketplace</h3>
         <p class="spotlight-desc">Browse, filter, and connect to approved partners directly inside Hint. Practices extend their offering &mdash; labs, supplements, scheduling, communication tools &mdash; without leaving the app.</p>
         <div class="spotlight-cta">
@@ -1559,7 +1559,7 @@ footer a:hover { text-decoration: underline; }
   <div class="wrap">
     <div class="section-header">
       <h2 class="section-title">Quarterly roadmap</h2>
-      <p class="section-sub">What we launched, what's in flight, and what's planned. Open a quarter to see the detail.</p>
+      <p class="section-sub">Highlights YTD, what's in flight, and what's planned. Open a quarter to see the detail.</p>
     </div>
 
     <div class="qtabs" role="tablist" aria-label="Quarter selector">
@@ -1653,7 +1653,7 @@ footer a:hover { text-decoration: underline; }
         <p>First-class workflows for à-la-carte visits, procedures, and services for patients who aren't on a membership.</p>
       </button>
       <button class="horizon-card" data-feature="mobile-app-ga">
-        <div class="horizon-card-head"><h4>Hint iOS app for everyone</h4><span class="pill pill-planned">Planned</span></div>
+        <div class="horizon-card-head"><h4>Hint iOS app for all clinicians</h4><span class="pill pill-planned">Planned</span></div>
         <p>Moving the clinician and admin iOS experience out of early access and into the hands of every customer.</p>
       </button>
     </div>
@@ -1679,7 +1679,7 @@ footer a:hover { text-decoration: underline; }
         <h3>Request a feature</h3>
         <p>Submit ideas and upvote what other customers have asked for. The product team reviews this regularly &mdash; popular requests show up here as planned work.</p>
         <div class="shape-card-actions">
-          <a href="https://hint.canny.io" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Open Canny<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+          <a href="http://feedback.hint.com" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Make a request<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
           <a href="https://community.hint.com" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Visit Community<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
         </div>
       </div>
@@ -1703,7 +1703,7 @@ footer a:hover { text-decoration: underline; }
         <h3>New to Hint?</h3>
         <p>Curious how Hint can power your practice? Talk with our team about how the roadmap maps to the workflows you're trying to support.</p>
         <div class="shape-card-actions">
-          <a href="{{SALES_URL}}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Talk to sales<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
+          <a href="https://www.hint.com/get-started" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Talk to sales<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></a>
         </div>
       </div>
 
@@ -1715,7 +1715,7 @@ footer a:hover { text-decoration: underline; }
 <section class="seeall-section" id="seeall" aria-labelledby="seeall-title">
   <div class="wrap">
     <button class="seeall-toggle" id="seeall-toggle" type="button" aria-expanded="false" aria-controls="seeall-list">
-      <span class="seeall-toggle-text" id="seeall-title">Everything launched this year</span>
+      <span class="seeall-toggle-text" id="seeall-title">Highlights YTD</span>
       <span class="seeall-toggle-right">
         <span class="seeall-toggle-count" id="seeall-toggle-count"></span>
         <span class="seeall-toggle-icon" aria-hidden="true">
@@ -1757,7 +1757,7 @@ footer a:hover { text-decoration: underline; }
 
 <script>
 const COMMUNITY_URL     = 'https://community.hint.com';
-const CANNY_URL         = 'https://hint.canny.io';
+const CANNY_URL         = 'http://feedback.hint.com';
 const SUMMIT_BETAS_URL  = 'https://community.hint.com/c/hint-updates/hint-summit-2026-announcements';
 
 /* ═══ Feature data ═══ */
@@ -1937,7 +1937,10 @@ const features = {
       'Why it matters': "Health maintenance is the backbone of longitudinal care and the easiest place for things to slip. Recurring task automation makes sure the routine work happens on time without anyone needing to remember it.",
       "Who it's for": "Primary care, chronic care, and any practice managing longitudinal patient relationships."
     },
-    actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
+    actions: [
+      { label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true },
+      { label: 'Upvote this feature', href: 'https://hint.canny.io/feature-requests/p/add-health-maintenance-section-to-patient-info', external: true }
+    ]
   },
   'multi-location-emr': { theme: 3, quarter: 'H2 2026', track: 'Planned', status: 'planned',
     title: 'Multiple locations in the EMR',
@@ -1949,7 +1952,7 @@ const features = {
     },
     actions: [
       { label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true },
-      { label: 'Upvote on Canny', href: CANNY_URL, external: true }
+      { label: 'Upvote this feature', href: 'https://hint.canny.io/feature-requests/p/ability-to-have-multiple-locations-in-hint-clinical', external: true }
     ]
   },
   'cash-pay-outside-membership': { theme: 1, quarter: 'H2 2026', track: 'Planned', status: 'planned',
@@ -1962,18 +1965,21 @@ const features = {
     },
     actions: [
       { label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true },
-      { label: 'Upvote on Canny', href: CANNY_URL, external: true }
+      { label: 'Upvote this feature', href: 'https://hint.canny.io/feature-requests/p/charge-patient-without-requiring-demographic-information-on-a-checkout-page', external: true }
     ]
   },
   'mobile-app-ga': { theme: 2, quarter: 'H2 2026', track: 'Planned', status: 'planned',
-    title: 'Hint iOS app — for everyone',
+    title: 'Hint iOS app — for all clinicians',
     tagline: "The clinician and admin iOS experience moves out of early access.",
     sections: {
       'What it does': "Brings the Hint iOS app to every customer, with the workflows clinicians and admins rely on between desk sessions.",
       'Why it matters': "Charting and admin work doesn't only happen at a laptop. We want the iOS experience to be a first-class part of the practice day, not an escape hatch.",
       "Who it's for": "Clinicians and admins who work across rooms, locations, or off-hours."
     },
-    actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
+    actions: [
+      { label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true },
+      { label: 'Upvote this feature', href: 'https://hint.canny.io/feature-requests/p/ios-mobile-app-for-practices', external: true }
+    ]
   }
 };
 
@@ -2389,7 +2395,7 @@ function hasStatus(f, status) {
                  items +
                '</div>';
       }).join('');
-    if (seeCount) seeCount.textContent = totalRows + ' launched';
+    if (seeCount) seeCount.textContent = totalRows + ' highlights YTD';
     seeList.querySelectorAll('.seeall-row').forEach(r => {
       r.addEventListener('click', () => openFeature(r.dataset.feature, { quarter: r.dataset.quarter }));
     });
