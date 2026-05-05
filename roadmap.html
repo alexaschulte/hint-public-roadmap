@@ -1014,6 +1014,7 @@ img, svg { display: block; max-width: 100%; }
 .pill-planned       { background: var(--color-planned-bg);       color: var(--color-planned-text); }
 .pill-exploring     { background: var(--color-exploring-bg);     color: var(--color-exploring-text); border: 1px dashed var(--color-border-strong); padding: 0 9px; }
 .pill-deprioritized { background: var(--color-deprioritized-bg); color: var(--color-deprioritized-text); }
+.pill-rolled        { background: var(--color-deprioritized-bg); color: var(--color-deprioritized-text); }
 
 /* ═══ Active betas section ═══ */
 .betas {
@@ -1776,17 +1777,37 @@ const features = {
     },
     actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }],
     appearances: [
-      { quarter: 'Q1 2026', status: 'beta' },
+      { quarter: 'Q1 2026', status: 'rolled' },
       { quarter: 'Q2 2026', status: 'beta' }
     ]
   },
-  'packages': { theme: 1, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
-    title: 'Packages',
-    tagline: "Prepaid bundles of services and products, for members and non-members alike.",
+  'multi-memberships': { theme: 1, quarter: 'Q1 2026', track: 'Billing', status: 'shipped',
+    title: 'Multiple memberships',
+    tagline: "Let one patient hold more than one membership at a practice.",
     sections: {
-      'What it does': "Sell prepaid bundles — visits, services, products, or programs — to both members and non-members. Package up what your practice already does and offer it as a single purchasable unit.",
-      'Why it matters': "Packages are an accessible on-ramp: prospective patients who aren't ready to commit to a membership can still buy in. For established practices they're a way to diversify revenue without changing the underlying membership model.",
-      "Who it's for": "New practices building their first non-membership offering, and established practices looking to broaden how they monetize."
+      'What it does': "A single patient can carry multiple memberships at the same practice — different programs, household memberships, employer plans, or specialty add-ons — managed cleanly under one patient record.",
+      'Why it matters': "Practices want to expand how a patient engages — primary care plus longevity, a household membership plus an aesthetics package — without forcing patients into a workaround. Multiple memberships makes that a first-class capability so patients can get more from what their doctor offers.",
+      "Who it's for": "Practices offering layered services, household memberships, or any pattern where a patient gets the most out of more than one offering."
+    },
+    actions: []
+  },
+  'patient-appointment-management': { theme: 2, quarter: 'Q1 2026', track: 'EMR', status: 'shipped',
+    title: 'Self-serve appointment management',
+    tagline: "Patients can cancel and rebook their own appointments from the portal.",
+    sections: {
+      'What it does': "Patients now manage their own appointment cancellations and rebookings directly in the patient portal — no front-desk call required.",
+      'Why it matters': "Cancellations and reschedules are a steady tax on the front desk. Letting patients handle them themselves frees staff for the work only they can do, and gives patients the agency they expect from a modern portal.",
+      "Who it's for": "Practices whose patients schedule and reschedule frequently — chronic care, family practices, anything appointment-driven."
+    },
+    actions: []
+  },
+  'custom-ai-workflows': { theme: 2, quarter: 'Q1 2026', track: 'EMR · AI', status: 'shipped',
+    title: 'Custom AI workflows and templates',
+    tagline: "Tailor how Hint's AI formats every output.",
+    sections: {
+      'What it does': "Custom AI settings for workflows and templates that let users control the level of detail and format of AI-generated content. Clinicians can now tailor how our AI formats Scribe notes, Chat replies, Analyze results, and diagnosis summaries.",
+      'Why it matters': "A direct response to early beta feedback. AI output that doesn't match how a clinician actually charts gets edited every time — letting each user shape format and detail means the AI works the way the practice already works, not the other way around.",
+      "Who it's for": "Clinicians using any of Hint's AI capabilities — Scribe, Chat, Analyze, or diagnosis summaries — and the practice managers configuring them."
     },
     actions: []
   },
@@ -1883,6 +1904,16 @@ const features = {
     },
     actions: [{ label: 'Join the beta', primary: true, href: COMMUNITY_URL, external: true }]
   },
+  'packages': { theme: 1, quarter: 'Q2 2026', track: 'Billing', status: 'shipped',
+    title: 'Packages',
+    tagline: "Prepaid bundles of services and products, for members and non-members alike.",
+    sections: {
+      'What it does': "Sell prepaid bundles — visits, services, products, or programs — to both members and non-members. Package up what your practice already does and offer it as a single purchasable unit.",
+      'Why it matters': "Packages are an accessible on-ramp: prospective patients who aren't ready to commit to a membership can still buy in. For established practices they're a way to diversify revenue without changing the underlying membership model.",
+      "Who it's for": "New practices building their first non-membership offering, and established practices looking to broaden how they monetize."
+    },
+    actions: []
+  },
   'packages-refinement': { theme: 1, quarter: 'Q2 2026', track: 'Billing', status: 'inprogress',
     title: 'Packages refinement',
     tagline: "Taking Packages from MVP to ready for every practice.",
@@ -1895,11 +1926,11 @@ const features = {
   },
   'billing-at-engagement': { theme: 3, quarter: 'Q2 2026', track: 'Billing', status: 'inprogress',
     title: 'Billing at engagement',
-    tagline: "Charge when the work happens, not when the calendar says to.",
+    tagline: "Automate the move from placeholder pricing to full billing — without manual flips.",
     sections: {
-      'What it does': "Charge at the moment of engagement (visit, procedure, service) rather than exclusively on a calendar billing cycle.",
-      'Why it matters': "Many practices today work around Hint's billing cadence. This lets Hint match the pricing model the practice already runs.",
-      "Who it's for": "Practices with flexible or event-driven pricing, aesthetics add-ons, or à-la-carte services alongside memberships."
+      'What it does': "Automates the transition from a $0 or nominal placeholder charge to full billing once an employee or family member begins engaging with the practice. The whole flow runs on its own — no manual flipping required, particularly for employer plans.",
+      'Why it matters': "Today, moving a member from 'signed up but not engaging' to 'actively billed' is recurring manual work. For employer-sponsored memberships especially, that operational tax adds up. Automating it removes a real ongoing burden.",
+      "Who it's for": "Practices serving employer groups, or any model that defers full billing until engagement begins."
     },
     actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
   },
@@ -1974,11 +2005,12 @@ const features = {
 };
 
 const statusLabels = {
-  shipped:       { label: 'Shipped',       class: 'pill-shipped' },
-  inprogress:    { label: 'In progress',   class: 'pill-inprogress' },
-  beta:          { label: 'Beta',          class: 'pill-beta' },
-  planned:       { label: 'Planned',       class: 'pill-planned' },
-  deprioritized: { label: 'Deprioritized', class: 'pill-deprioritized' }
+  shipped:       { label: 'Shipped',                class: 'pill-shipped' },
+  inprogress:    { label: 'In progress',            class: 'pill-inprogress' },
+  beta:          { label: 'Beta',                   class: 'pill-beta' },
+  planned:       { label: 'Planned',                class: 'pill-planned' },
+  rolled:        { label: 'Rolled to next quarter', class: 'pill-rolled' },
+  deprioritized: { label: 'Deprioritized',          class: 'pill-deprioritized' }
 };
 
 /* ═══ Events — EDIT ME ═══ */
@@ -2206,9 +2238,9 @@ function hasStatus(f, status) {
   if (themeClose) themeClose.addEventListener('click', closeThemeDrawer);
 
   /* ─── Quarter expansion drawer ─── */
-  // Show at most this many cards in the drawer per quarter — the rest live
-  // on the private customer roadmap and surface via the "more features" CTA.
-  const QUARTER_CARD_LIMIT = 8;
+  // Soft cap on cards shown per quarter — the rest live on the private
+  // customer roadmap and surface via the "more features" CTA.
+  const QUARTER_CARD_LIMIT = 16;
 
   // Per-quarter copy and how each tab maps to the underlying feature data.
   // Q3 and Q4 both surface the H2 2026 set: we name themes here, but commit
