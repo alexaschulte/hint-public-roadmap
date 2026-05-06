@@ -1640,10 +1640,6 @@ footer a:hover { text-decoration: underline; }
       <p class="section-sub">Themes for the second half of 2026. These shape our research and planning, but commitments come quarter by quarter.</p>
     </div>
     <div class="horizon-grid">
-      <button class="horizon-card" data-feature="health-maintenance">
-        <div class="horizon-card-head"><h4>Health maintenance</h4><span class="pill pill-planned">Planned</span></div>
-        <p>Manage your panel's routine health tasks through an automated, recurring task system &mdash; so the work that keeps patients well happens on its own.</p>
-      </button>
       <button class="horizon-card" data-feature="multi-location-emr">
         <div class="horizon-card-head"><h4>Multiple locations in the EMR</h4><span class="pill pill-planned">Planned</span></div>
         <p>Location-aware scheduling, charting, reporting, and staff permissions for practices that operate across more than one site.</p>
@@ -1887,16 +1883,6 @@ const features = {
     },
     actions: [{ label: 'Join the beta', primary: true, href: SUMMIT_BETAS_URL, external: true }]
   },
-  'patient-portal-restyle': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'inprogress',
-    title: 'Refreshed patient portal',
-    tagline: "A modern, mobile-first patient experience.",
-    sections: {
-      'What it does': "A modern, mobile-first redesign of the patient portal that brings together all of our latest patient-facing features — including secure messaging and shopping for memberships and packages — into one cohesive experience.",
-      'Why it matters': "Patients judge your practice by the portal. A cleaner, more modern surface makes signup, self-service, and messaging feel like the high-touch experience DPC is known for.",
-      "Who it's for": "Practices whose patients use the portal for booking, messaging, or membership management."
-    },
-    actions: [{ label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true }]
-  },
   'patient-portal-selfbuy': { theme: 3, quarter: 'Q2 2026', track: 'Billing', status: 'beta',
     title: 'Shopping in the patient portal',
     tagline: "Let members sign up for additional memberships and packages without staff coordination.",
@@ -1917,6 +1903,19 @@ const features = {
     },
     actions: [{ label: 'Learn more', primary: true, href: 'https://support.hint.com/en/articles/14462906', external: true }]
   },
+  'health-maintenance': { theme: 2, quarter: 'Q2 2026', track: 'EMR', status: 'beta',
+    title: 'Health maintenance',
+    tagline: "Keep your panel's routine care on track with automated, recurring tasks.",
+    sections: {
+      'What it does': "An automated recurring task system for managing health maintenance across your patient panel — annual wellness, chronic condition check-ins, lab schedules, screening cadences — handled by repeating tasks instead of memory.",
+      'Why it matters': "Health maintenance is the backbone of longitudinal care and the easiest place for things to slip. Recurring task automation makes sure the routine work happens on time without anyone needing to remember it.",
+      "Who it's for": "Primary care, chronic care, and any practice managing longitudinal patient relationships."
+    },
+    actions: [
+      { label: 'Join the beta', primary: true, href: SUMMIT_BETAS_URL, external: true },
+      { label: 'Upvote this feature', href: 'https://hint.canny.io/feature-requests/p/add-health-maintenance-section-to-patient-info', external: true }
+    ]
+  },
   'billing-at-engagement': { theme: 3, quarter: 'Q2 2026', track: 'Billing', status: 'inprogress',
     title: 'Billing at engagement',
     tagline: "Automate the move from placeholder pricing to full billing — without manual flips.",
@@ -1929,19 +1928,6 @@ const features = {
   },
 
   // ───── Horizon ─────
-  'health-maintenance': { theme: 2, quarter: 'H2 2026', track: 'EMR', status: 'planned',
-    title: 'Health maintenance',
-    tagline: "Keep your panel's routine care on track with automated, recurring tasks.",
-    sections: {
-      'What it does': "An automated recurring task system for managing health maintenance across your patient panel — annual wellness, chronic condition check-ins, lab schedules, screening cadences — handled by repeating tasks instead of memory.",
-      'Why it matters': "Health maintenance is the backbone of longitudinal care and the easiest place for things to slip. Recurring task automation makes sure the routine work happens on time without anyone needing to remember it.",
-      "Who it's for": "Primary care, chronic care, and any practice managing longitudinal patient relationships."
-    },
-    actions: [
-      { label: 'Discuss in Community', primary: true, href: COMMUNITY_URL, external: true },
-      { label: 'Upvote this feature', href: 'https://hint.canny.io/feature-requests/p/add-health-maintenance-section-to-patient-info', external: true }
-    ]
-  },
   'multi-location-emr': { theme: 3, quarter: 'H2 2026', track: 'Planned', status: 'planned',
     title: 'Multiple locations in the EMR',
     tagline: "First-class support for practices operating across multiple locations.",
